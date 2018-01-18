@@ -1,0 +1,4 @@
+- Configure your GIT so that the username is equal to your student number.
+- All files, including project plan, are delivered in Repolainen. Project plan delivery shall have tag "TIE-21106_GXX_project_plan" where XX is your group number. After that updated study diary will be included in every delivery.
+- The end-of-sprint delivery shall have a tag "TIE-21106_GXX_end-of-sprint_YY" where XX is your group number and YY is the number of sprint.
+- The code repository shall have at least two folders "doc" for document and "code" for the source code of the game.
