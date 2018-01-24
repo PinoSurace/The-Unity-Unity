@@ -20,6 +20,48 @@ public class DataContainer_Character : MonoBehaviour {
         return PlayerName;
     }
 
+    public void SetPoints(int value)
+    {
+        points = value;
+    }
+
+    public int GetPoints()
+    {
+        return points;
+    }
+
+    public void SetNumOfLives(int value)
+    {
+        num_of_lives = value;
+    }
+
+    public void LooseLive()
+    {
+        num_of_lives--;
+    }
+
+    public void GainLive()
+    {
+        num_of_lives++;
+    }
+
+    public int GetNumOfLives()
+    {
+        return num_of_lives;
+    }
+
+    public bool IsDied()
+    {
+        if (num_of_lives == 0)
+            return true;
+        else
+            return false;
+    }
+
+
+
     // Store data.
     string PlayerName = "";
+    int points;
+    int num_of_lives; 
 }
