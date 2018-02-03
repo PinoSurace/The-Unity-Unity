@@ -568,8 +568,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8068df792e87e2489827145ff9b316e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 0
-  jumpHeight: {x: 0, y: 0}
+  YAxis: 8
+  XAxis: -3
   rb: {fileID: 0}
 --- !u!50 &860362515
 Rigidbody2D:
