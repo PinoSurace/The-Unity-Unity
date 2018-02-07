@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Back
+    uniqueID: 3053340011
+    locked: 0
+  - name: Med
+    uniqueID: 1155015413
+    locked: 0
+  - name: Front
+    uniqueID: 2515809853
+    locked: 0
+  - name: New Layer
+    uniqueID: 2681181315
+    locked: 0
