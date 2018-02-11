@@ -1,0 +1,1257 @@
+fileFormatVersion: 2
+guid: ac21b8227e3003544a489f8dc7a2431f
+timeCreated: 1518368113
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Cannibals_0
+    21300002: Cannibals_1
+    21300004: Cannibals_2
+    21300006: Cannibals_3
+    21300008: Cannibals_4
+    21300010: Cannibals_5
+    21300012: Cannibals_6
+    21300014: Cannibals_7
+    21300016: Cannibals_8
+    21300018: Cannibals_9
+    21300020: Cannibals_10
+    21300022: Cannibals_11
+    21300024: Cannibals_12
+    21300026: Cannibals_13
+    21300028: Cannibals_14
+    21300030: Cannibals_15
+    21300032: Cannibals_16
+    21300034: Cannibals_17
+    21300036: Cannibals_18
+    21300038: Cannibals_19
+    21300040: Cannibals_20
+    21300042: Cannibals_21
+    21300044: Cannibals_22
+    21300046: Cannibals_23
+    21300048: Cannibals_24
+    21300050: Cannibals_25
+    21300052: Cannibals_26
+    21300054: Cannibals_27
+    21300056: Cannibals_28
+    21300058: Cannibals_29
+    21300060: Cannibals_30
+    21300062: Cannibals_31
+    21300064: Cannibals_32
+    21300066: Cannibals_33
+    21300068: Cannibals_34
+    21300070: Cannibals_35
+    21300072: Cannibals_36
+    21300074: Cannibals_37
+    21300076: Cannibals_38
+    21300078: Cannibals_39
+    21300080: Cannibals_40
+    21300082: Cannibals_41
+    21300084: Cannibals_42
+    21300086: Cannibals_43
+    21300088: Cannibals_44
+    21300090: Cannibals_45
+    21300092: Cannibals_46
+    21300094: Cannibals_47
+    21300096: Cannibals_48
+    21300098: Cannibals_49
+    21300100: Cannibals_50
+    21300102: Cannibals_51
+    21300104: Cannibals_52
+    21300106: Cannibals_53
+    21300108: Cannibals_54
+    21300110: Cannibals_55
+    21300112: Cannibals_56
+    21300114: Cannibals_57
+    21300116: Cannibals_58
+    21300118: Cannibals_59
+    21300120: Cannibals_60
+    21300122: Cannibals_61
+    21300124: Cannibals_62
+    21300126: Cannibals_63
+    21300128: Cannibals_64
+    21300130: Cannibals_65
+    21300132: Cannibals_66
+    21300134: Cannibals_67
+    21300136: Cannibals_68
+    21300138: Cannibals_69
+    21300140: Cannibals_70
+    21300142: Cannibals_71
+    21300144: Cannibals_72
+    21300146: Cannibals_73
+    21300148: Cannibals_74
+    21300150: Cannibals_75
+    21300152: Cannibals_76
+    21300154: Cannibals_77
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Cannibals_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1807
+        width: 157
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_1
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1811
+        width: 136
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_2
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 1819
+        width: 145
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_3
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 1811
+        width: 74
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_4
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 1971
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_5
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 1811
+        width: 121
+        height: 235
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_6
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 1815
+        width: 121
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_7
+      rect:
+        serializedVersion: 2
+        x: 940
+        y: 1879
+        width: 77
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_8
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1563
+        width: 148
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_9
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 1567
+        width: 125
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_10
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 1575
+        width: 117
+        height: 233
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_11
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 1579
+        width: 121
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_12
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 1579
+        width: 110
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_13
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 1671
+        width: 164
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_14
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 1667
+        width: 149
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_15
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 1579
+        width: 121
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_16
+      rect:
+        serializedVersion: 2
+        x: 819
+        y: 1637
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_17
+      rect:
+        serializedVersion: 2
+        x: 931
+        y: 1591
+        width: 70
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_18
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 1643
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_19
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1327
+        width: 149
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_20
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 1323
+        width: 125
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_21
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 1339
+        width: 117
+        height: 233
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_22
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 1339
+        width: 113
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_23
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 1339
+        width: 93
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_24
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 1439
+        width: 149
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_25
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 1447
+        width: 133
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_26
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 1429
+        width: 105
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1253
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_28
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 1087
+        width: 121
+        height: 233
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_29
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 1103
+        width: 121
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_30
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 1258
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_31
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 1167
+        width: 77
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_32
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 1271
+        width: 125
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_33
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 1270
+        width: 104
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_34
+      rect:
+        serializedVersion: 2
+        x: 857
+        y: 1270
+        width: 104
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_35
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 1095
+        width: 109
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_36
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 1095
+        width: 104
+        height: 165
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_37
+      rect:
+        serializedVersion: 2
+        x: 857
+        y: 1095
+        width: 104
+        height: 165
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_38
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1031
+        width: 97
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_39
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 1055
+        width: 52
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_40
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 1031
+        width: 105
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_41
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 1039
+        width: 113
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_42
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 1066
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_43
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 1027
+        width: 93
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_44
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 1031
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_45
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 861
+        width: 105
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_46
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 895
+        width: 133
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_47
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 895
+        width: 133
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_48
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 899
+        width: 133
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_49
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 903
+        width: 112
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_50
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 899
+        width: 100
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_51
+      rect:
+        serializedVersion: 2
+        x: 741
+        y: 903
+        width: 84
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_52
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 903
+        width: 88
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_53
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 1009
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_54
+      rect:
+        serializedVersion: 2
+        x: 921
+        y: 1003
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_55
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 711
+        width: 103
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_56
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 723
+        width: 77
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_57
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 755
+        width: 97
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_58
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 755
+        width: 93
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_59
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 759
+        width: 93
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_60
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 831
+        width: 121
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_61
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 831
+        width: 108
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_62
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 815
+        width: 72
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_63
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 823
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_64
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 823
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_65
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 567
+        width: 105
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_66
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 544
+        width: 77
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_67
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 595
+        width: 77
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_68
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 423
+        width: 105
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_69
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 372
+        width: 77
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_70
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 435
+        width: 77
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_71
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 287
+        width: 104
+        height: 133
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_72
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 207
+        width: 77
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_73
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 275
+        width: 77
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_74
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 4
+        width: 657
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_75
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 155
+        width: 105
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_76
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 47
+        width: 77
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Cannibals_77
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 23
+        width: 105
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
