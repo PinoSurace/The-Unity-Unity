@@ -184,7 +184,7 @@ Transform:
   m_GameObject: {fileID: 598098848}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -343,15 +343,15 @@ HingeJoint2D:
   m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
+  m_ConnectedRigidBody: {fileID: 1404193031}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -1.43, y: -2.41}
+  m_ConnectedAnchor: {x: 0, y: 0}
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: 10
+    m_MotorSpeed: 100
     m_MaximumMotorForce: 10000
   m_UseLimits: 0
   m_AngleLimits:
@@ -364,9 +364,9 @@ ConstantForce2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1404193028}
   m_Enabled: 1
-  m_Force: {x: 3, y: 0}
-  m_RelativeForce: {x: 3, y: 0}
-  m_Torque: 0
+  m_Force: {x: 0, y: 0}
+  m_RelativeForce: {x: 0.001, y: 0}
+  m_Torque: -60
 --- !u!50 &1404193031
 Rigidbody2D:
   serializedVersion: 4
@@ -380,13 +380,13 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 0.001
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 0
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 2
 --- !u!212 &1404193032
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -438,8 +438,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1404193028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.43, y: -2.41, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1.43, y: -2.662, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
