@@ -6,6 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/**
+ * Speed adjuster class for maintaining the oscillation amplitude
+ * of the swinging ropes. The adjuster works by applying gravity
+ * boost to the rope elements in specific positions and directions
+ * of rope movement.
+ */
 public class SpeedAdjuster : MonoBehaviour {
 
     /**
@@ -24,8 +30,8 @@ public class SpeedAdjuster : MonoBehaviour {
      */
     private enum Side
     {
-        LEFT = 0,
-        RIGHT = 1
+        LEFT,
+        RIGHT
     }
     
     private float originalGravityScale = 0.0f;
