@@ -1,5 +1,5 @@
 ﻿// Uncomment this line to enable debug prints for the class
-//#define DEBUG_SPEED_ADJUSTER
+//#define DEBUG_OSCILLATION_MAINTAINER
 
 using System.Collections;
 using System.Collections.Generic;
@@ -7,12 +7,12 @@ using System.Linq;
 using UnityEngine;
 
 /**
- * Speed adjuster class for maintaining the oscillation amplitude
- * of the swinging ropes. The adjuster works by applying gravity
- * boost to the rope elements in specific positions and directions
- * of rope movement.
+ * Oscillation maintainer class for maintaining the oscillation
+ * amplitude of the swinging ropes. The maintainer works by
+ * applying gravity boost to the rope elements in specific
+ * positions and directions of rope movement.
  */
-public class SpeedAdjuster : MonoBehaviour {
+public class OscillationMaintainer : MonoBehaviour {
 
     /**
      * Gravity boost region limit as degrees from center
@@ -52,14 +52,14 @@ public class SpeedAdjuster : MonoBehaviour {
             if (side == Side.RIGHT)
             {
                 GetComponent<Rigidbody2D>().gravityScale = boostedGravityScale;
-#if (DEBUG_SPEED_ADJUSTER)
+#if (DEBUG_OSCILLATION_MAINTAINER)
                 print(Time.time.ToString() + " Gravity boost direction: DOWN");
 #endif
             }
             else if (side == Side.LEFT)
             {
                 GetComponent<Rigidbody2D>().gravityScale = -boostedGravityScale;
-#if (DEBUG_SPEED_ADJUSTER)
+#if (DEBUG_OSCILLATION_MAINTAINER)
                 print(Time.time.ToString() + " Gravity boost direction: UP");
 #endif
             }
@@ -69,14 +69,14 @@ public class SpeedAdjuster : MonoBehaviour {
             if (side == Side.RIGHT)
             {
                 GetComponent<Rigidbody2D>().gravityScale = -boostedGravityScale;
-#if (DEBUG_SPEED_ADJUSTER)
+#if (DEBUG_OSCILLATION_MAINTAINER)
                 print(Time.time.ToString() + " Gravity boost direction: UP");
 #endif
             }
             else if (side == Side.LEFT)
             {
                 GetComponent<Rigidbody2D>().gravityScale = boostedGravityScale;
-#if (DEBUG_SPEED_ADJUSTER)
+#if (DEBUG_OSCILLATION_MAINTAINER)
                 print(Time.time.ToString() + " Gravity boost direction: DOWN");
 #endif
             }
