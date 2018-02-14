@@ -222,6 +222,7 @@ GameObject:
   - component: {fileID: 90422046}
   - component: {fileID: 90422045}
   - component: {fileID: 90422048}
+  - component: {fileID: 90422049}
   m_Layer: 0
   m_Name: rope_6
   m_TagString: Untagged
@@ -354,6 +355,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.36, y: 25.6}
   m_EdgeRadius: 0
+--- !u!114 &90422049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 90422043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302b065894659e2449047c5de4773e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &119042616
 GameObject:
   m_ObjectHideFlags: 0
@@ -823,6 +835,7 @@ GameObject:
   - component: {fileID: 789422370}
   - component: {fileID: 789422369}
   - component: {fileID: 789422368}
+  - component: {fileID: 789422372}
   m_Layer: 0
   m_Name: rope_4
   m_TagString: Untagged
@@ -955,6 +968,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!114 &789422372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 789422366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302b065894659e2449047c5de4773e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &860362510 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4585029698170536, guid: 46efc53914a90f44cbfd64a9759571ac,
@@ -1076,6 +1100,7 @@ GameObject:
   - component: {fileID: 1075313702}
   - component: {fileID: 1075313701}
   - component: {fileID: 1075313704}
+  - component: {fileID: 1075313705}
   m_Layer: 0
   m_Name: rope_7
   m_TagString: Untagged
@@ -1208,6 +1233,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.36, y: 25.6}
   m_EdgeRadius: 0
+--- !u!114 &1075313705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1075313699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302b065894659e2449047c5de4773e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1131526298
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,6 +1257,7 @@ GameObject:
   - component: {fileID: 1131526301}
   - component: {fileID: 1131526303}
   - component: {fileID: 1131526304}
+  - component: {fileID: 1131526305}
   m_Layer: 0
   m_Name: rope_1
   m_TagString: Untagged
@@ -1364,6 +1401,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8732d104bf3884e438e318160670326b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1131526305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1131526298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302b065894659e2449047c5de4773e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1313467750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,6 +1528,7 @@ GameObject:
   - component: {fileID: 1335664028}
   - component: {fileID: 1335664030}
   - component: {fileID: 1335664029}
+  - component: {fileID: 1335664033}
   m_Layer: 0
   m_Name: rope_3
   m_TagString: Untagged
@@ -1612,6 +1661,17 @@ Transform:
   m_Father: {fileID: 1548932348}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!114 &1335664033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1335664027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302b065894659e2449047c5de4773e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1351360220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1728,6 +1788,7 @@ GameObject:
   - component: {fileID: 1378997101}
   - component: {fileID: 1378997100}
   - component: {fileID: 1378997099}
+  - component: {fileID: 1378997103}
   m_Layer: 0
   m_Name: rope_5
   m_TagString: Untagged
@@ -1860,6 +1921,17 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!114 &1378997103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1378997097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302b065894659e2449047c5de4773e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1439784591
 GameObject:
   m_ObjectHideFlags: 0
@@ -1872,6 +1944,7 @@ GameObject:
   - component: {fileID: 1439784594}
   - component: {fileID: 1439784593}
   - component: {fileID: 1439784592}
+  - component: {fileID: 1439784597}
   m_Layer: 0
   m_Name: rope_2
   m_TagString: Untagged
@@ -2004,6 +2077,17 @@ Transform:
   m_Father: {fileID: 1548932348}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
+--- !u!114 &1439784597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1439784591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302b065894659e2449047c5de4773e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1548932347
 GameObject:
   m_ObjectHideFlags: 0
