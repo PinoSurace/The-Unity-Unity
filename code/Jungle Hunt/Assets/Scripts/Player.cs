@@ -43,16 +43,40 @@ public class Player : MonoBehaviour
 					//The jump animation is triggered
 					animator.SetTrigger ("PlayerJump");
 				}
-				break;				
+					
+			else if (input == "s")
+			{
+				CurrentState = State.State_Swimming;
+				animator.SetTrigger ("PlayerSwim");
+			}
+			break;
 			case State.State_Jumping:
 			//This is purely for state change testing, because swimming while jumping is strange
-				if (input == " ") {
-					CurrentState = State.State_Swimming;
-					animator.SetTrigger ("PlayerSwim");
-				}
-				break;
+
 			case State.State_Dead:				
 				
+				break;
+			case State.State_Swimming:
+				
+				if (input == "w") 
+				{
+					rb.AddForce (new Vector2 (0, 10));
+				}
+
+				else if (input == "s") 
+				{
+					rb.AddForce (new Vector2 (0, -10));
+				}
+
+				else if (input == "a") 
+				{
+					rb.AddForce (new Vector2 (-10, 0));
+				}
+
+				else if (input == "d") 
+				{
+					rb.AddForce (new Vector2 (10,0));
+				}
 				break;
 		}
 
@@ -83,6 +107,11 @@ public class Player : MonoBehaviour
     {
 		//Check pressed buttons
 		ChangeState (Input.inputString);
+
+		Vector2 pos = transform.position;
+		pos.x = Mathf.Clamp(pos.x, -7, 8);
+		pos.y = Mathf.Clamp(pos.y, -7, 1);
+		transform.position = pos;
         
     }
 }
