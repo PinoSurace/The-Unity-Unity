@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     private Animator animator;
 
 	//Different States of the Player
-	enum State
+	public enum State
 	{
 		State_Idle,
 		State_Jumping,
@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
 	}
 
 
-	private State CurrentState;
+	public State CurrentState;
 
 	//Function for Changing States. Every switch statement is a different state.
 	private void ChangeState(string input)
@@ -44,12 +44,12 @@ public class Player : MonoBehaviour
 					animator.SetTrigger ("PlayerJump");
 				}
 					
-			else if (input == "s")
-			{
-				CurrentState = State.State_Swimming;
-				animator.SetTrigger ("PlayerSwim");
-			}
-			break;
+				else if (input == "s")
+				{
+					CurrentState = State.State_Swimming;
+					animator.SetTrigger ("PlayerSwim");
+				}
+				break;
 			case State.State_Jumping:
 			//This is purely for state change testing, because swimming while jumping is strange
 
@@ -78,6 +78,22 @@ public class Player : MonoBehaviour
 					rb.AddForce (new Vector2 (10,0));
 				}
 				break;
+
+			case State.State_Swinging:
+			
+				if (input == " ") {
+					CurrentState = State.State_Jumping;
+					Destroy (gameObject.GetComponent (typeof(DistanceJoint2D)));
+					//An impulse is used to move the player
+					
+					transform.position = new Vector2 (transform.position.x - 0.5f, transform.position.y);
+					rb.AddForce (new Vector2 (XAxis, YAxis), ForceMode2D.Impulse);
+					//The jump animation is triggered
+					animator.SetTrigger ("PlayerJump");
+					
+				}
+				break;
+				
 		}
 
 	}
@@ -93,6 +109,17 @@ public class Player : MonoBehaviour
 		}
 	}
 
+//	float dist = 0.2f;
+//	void OnTriggerEnter2D (Collider2D other){
+//		if (other.transform.name == "Rope") 
+//		{
+//			Debug.Log ("Jes");
+//			var joint = gameObject.AddComponent <DistanceJoint2D>();
+//			joint.connectedBody = other.GetComponent<Rigidbody2D>();
+//			joint.distance = dist;
+//
+//		}
+//}
 
     //We create shortcuts for animator and rigidbody
     private void Start()
