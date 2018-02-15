@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
 					Destroy (gameObject.GetComponent (typeof(DistanceJoint2D)));
 					//An impulse is used to move the player
 					
-					transform.position = new Vector2 (transform.position.x - 0.5f, transform.position.y);
+					transform.position = new Vector2 (transform.position.x - 0.65f, transform.position.y);
 					rb.AddForce (new Vector2 (XAxis, YAxis), ForceMode2D.Impulse);
 					//The jump animation is triggered
 					animator.SetTrigger ("PlayerJump");
