@@ -108,10 +108,11 @@ public class Player : MonoBehaviour
 		//Check pressed buttons
 		ChangeState (Input.inputString);
 
-		Vector2 pos = transform.position;
-		pos.x = Mathf.Clamp(pos.x, -7, 8);
-		pos.y = Mathf.Clamp(pos.y, -7, 1);
-		transform.position = pos;
+		//Make the player unable to move of the gamescene. Current values are for level 2
+		//Vector2 pos = transform.position;
+		//pos.x = Mathf.Clamp(pos.x, -7, 8);
+		//pos.y = Mathf.Clamp(pos.y, -7, 1);
+		//transform.position = pos;
         
     }
 }
