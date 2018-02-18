@@ -9,7 +9,7 @@ public class GrabRope : MonoBehaviour {
 	float dist = 0.2f;
 	void OnTriggerEnter2D (Collider2D other){
 		//Checking if the collider is a rope and that the player is not swinging
-		if (other.gameObject.transform.parent.name == "Rope" && 
+		if (other.gameObject.transform.parent.name.StartsWith("Rope") && 
 			this.gameObject.GetComponent<Player>().CurrentState != Player.State.State_Swinging)
 		{			
 			//We create a new distance joint between the player and the rope
