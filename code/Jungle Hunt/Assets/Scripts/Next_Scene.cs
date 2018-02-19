@@ -8,7 +8,7 @@ public class Next_Scene : MonoBehaviour {
 	//Load the next scene. Ĺevel is the index of the scene in build settings
 
 	public void Change_scene (int level) {
-		SceneManager.LoadScene(level);
-	}
+        GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().ChangeScene(level);
+    }
 
 }

@@ -18,5 +18,15 @@ public class SceneChangeComponent_Image : MonoBehaviour {
     void DropImage()
     {
         GameObject.Find("Transition").GetComponent<Animator>().SetTrigger("Drop");
+        StartCoroutine("WaitForCompletion");
+    }
+
+    IEnumerator WaitForCompletion()
+    {
+        yield return new WaitForSeconds(3);
+
+        GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().FinishedLoad();
+
+        yield return new WaitForSeconds(3);
     }
 }

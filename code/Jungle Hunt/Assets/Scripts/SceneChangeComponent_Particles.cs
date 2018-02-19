@@ -26,7 +26,7 @@ public class SceneChangeComponent_Particles : MonoBehaviour {
     {
         yield return new WaitForSeconds(3);
         
-        GameObject.Find("Canvas").GetComponent<Scene_Manager>().FinishedLoad();
+        GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().FinishedLoad();
         yield return new WaitForSeconds(3);
         gameObject.GetComponent<ParticleSystem>().Clear();
     }
