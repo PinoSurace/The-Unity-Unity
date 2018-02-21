@@ -560,7 +560,22 @@ Prefab:
     - target: {fileID: 50193205437242860, guid: 46efc53914a90f44cbfd64a9759571ac,
         type: 2}
       propertyPath: m_GravityScale
-      value: 0.1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114671126380170560, guid: 46efc53914a90f44cbfd64a9759571ac,
+        type: 2}
+      propertyPath: speed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 50193205437242860, guid: 46efc53914a90f44cbfd64a9759571ac,
+        type: 2}
+      propertyPath: m_LinearDrag
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114671126380170560, guid: 46efc53914a90f44cbfd64a9759571ac,
+        type: 2}
+      propertyPath: CurrentState
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}

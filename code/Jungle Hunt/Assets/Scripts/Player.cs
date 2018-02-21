@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 
     public Rigidbody2D rb;
     private Animator animator;
+	public float speed;
 
 	//Different States of the Player
 	public enum State
@@ -60,22 +61,30 @@ public class Player : MonoBehaviour
 				
 				if (input == "w") 
 				{
-					rb.AddForce (new Vector2 (0, 10));
+					//rb.velocity = Vector2.zero;
+					rb.AddForce (new Vector2 (0, 10 * speed));
+					
 				}
 
 				else if (input == "s") 
 				{
-					rb.AddForce (new Vector2 (0, -10));
+					//rb.velocity = Vector2.zero;
+					rb.AddForce (new Vector2 (0, -10 * speed));
+					
 				}
 
 				else if (input == "a") 
 				{
-					rb.AddForce (new Vector2 (-10, 0));
+					//rb.velocity = Vector2.zero;
+					rb.AddForce (new Vector2 (-10 * speed, 0));
+					
 				}
 
 				else if (input == "d") 
 				{
-					rb.AddForce (new Vector2 (10,0));
+					//rb.velocity = Vector2.zero;
+					rb.AddForce (new Vector2 (10 * speed,0));
+					
 				}
 				break;
 
