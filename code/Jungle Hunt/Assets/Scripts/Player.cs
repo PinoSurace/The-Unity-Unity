@@ -115,6 +115,7 @@ public class Player : MonoBehaviour
 			rb.AddForce (new Vector2 (0, YAxis), ForceMode2D.Impulse);
 			animator.SetTrigger ("PlayerDead");
 			CurrentState = State.State_Dead;
+			rb.gravityScale = 1;
 		}
 	}
 
