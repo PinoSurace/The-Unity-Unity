@@ -630,6 +630,8 @@ MonoBehaviour:
     type: 2}
   leavesPrefab: {fileID: 4361992414782418, guid: 2502c134e1026db478230ec39225fef6,
     type: 2}
+  waterPrefab: {fileID: 4463324475786368, guid: 2c5c2b9f24bedd540943fb6bf07d5968,
+    type: 2}
 --- !u!4 &1140412975
 Transform:
   m_ObjectHideFlags: 0
