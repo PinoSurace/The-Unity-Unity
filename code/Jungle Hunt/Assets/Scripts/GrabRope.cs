@@ -21,8 +21,9 @@ public class GrabRope : MonoBehaviour {
 
 			//Set the rope as grabbed
 			other.gameObject.transform.parent.gameObject.GetComponent<RopeGrabbed> ().grabbed = true;
-			//Change the player state to swinging
-			this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Swinging;
+            other.gameObject.transform.parent.gameObject.GetComponent<RopeGrabbed>().CorrelateCameraToThisObject();
+            //Change the player state to swinging
+            this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Swinging;
 
 		}
 	}
