@@ -10,10 +10,15 @@ public class RopeGenerator : MonoBehaviour {
     public Transform ropePrefab;
 
     // Don't touch these two values. They are hard-coded to fit the existing rope prefab.
-    private const float ropeY = 3.0f;
-    private const float ropeParentOffset = 1.7f;
+    private const float ropeXOffset = 1.7f;
+    private const float ropeJointYOffset = 1.0f;
 
-    // These three values together define the length of level 1
+    /**
+     * Defines the Y coordinate of the ropes
+     */
+    private const float ropeY = 4.0f; // Should this be constant or also vary between some limits?
+
+    // These following three values together define the length of level 1
     /**
      * Defines the minimum distance between ropes
      */
@@ -41,7 +46,7 @@ public class RopeGenerator : MonoBehaviour {
 
     void Start()
     {
-        var previousRopeX = ropeParentOffset;
+        var previousRopeX = ropeXOffset;
         var ropeDistance = 0;
         for (int n = 0; n < numberOfRopes; n++)
         {
@@ -49,8 +54,8 @@ public class RopeGenerator : MonoBehaviour {
 
             // We also need to move the connected anchor of the first element's hinge joint to the correct place
             var firstElement = rope.Find("rope_1");
-            var y = firstElement.gameObject.GetComponent<HingeJoint2D>().connectedAnchor.y;
-            firstElement.gameObject.GetComponent<HingeJoint2D>().connectedAnchor = new Vector2(previousRopeX - ropeDistance - ropeParentOffset, y);
+            firstElement.gameObject.GetComponent<HingeJoint2D>().connectedAnchor
+                = new Vector2(previousRopeX - ropeDistance - ropeXOffset, ropeY + ropeJointYOffset);
 
             // Set a random speed (gravity scale) for each rope
             var ropeSpeed = Random.Range(ropeMinSpeed, ropeMaxSpeed);
