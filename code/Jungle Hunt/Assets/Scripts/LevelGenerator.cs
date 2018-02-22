@@ -143,11 +143,13 @@ public class LevelGenerator : MonoBehaviour {
         GameObject gameObject = new GameObject("DivingAnimationCollider");
         BoxCollider2D collider = gameObject.AddComponent<BoxCollider2D>();
         collider.size = new Vector2(levelEndLength, 10.0f);
+        collider.isTrigger = true;
         collider.transform.position = new Vector3(lastRopeX - levelEndLength / 2.0f - ropeJointXOffset, 0, 0);
 
         gameObject = new GameObject("NextLevelCollider");
         collider = gameObject.AddComponent<BoxCollider2D>();
         collider.size = new Vector2(levelEndLength, 1.0f);
+        collider.isTrigger = true;
         collider.transform.position = new Vector3(lastRopeX - levelEndLength / 2.0f - ropeJointXOffset, -5.5f, 0);
     }
 }
