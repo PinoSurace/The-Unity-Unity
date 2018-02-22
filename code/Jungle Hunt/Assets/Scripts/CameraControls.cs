@@ -9,12 +9,6 @@ public class CameraControls : MonoBehaviour {
     private Vector3 targetposition;
     private float movetime;
     private bool called = false;
-
-    // Use this for initialization
-    void Start ()
-    {
-		
-	}
 	
 	// Debug Controls allow you to offset with numpad.
 	void Update ()
@@ -47,8 +41,9 @@ public class CameraControls : MonoBehaviour {
         targetposition = toPosition;
         movetime = time;
         startposition = this.transform.position;
-        float divider = time * (1/Time.deltaTime);
-        float x_diff = (targetposition.x - startposition.x) / divider;
+        Debug.Log(1 / Time.deltaTime);
+        float divider = time;
+        float x_diff = ((targetposition.x - startposition.x) * Time.deltaTime) / divider;
         // y or z - does not need to change:
         float y_diff = 0;
         float z_diff = 0;
