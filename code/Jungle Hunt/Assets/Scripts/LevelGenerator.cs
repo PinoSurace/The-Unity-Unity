@@ -7,16 +7,22 @@ using UnityEngine;
  * background, leaves and grass.
  */
 public class LevelGenerator : MonoBehaviour {
+
     public Transform ropePrefab;
 
-    /**
-     * Don't touch these two values. They are hard-coded values to define
-     * the length of the level start (tree etc.) and the level end (water etc.)
-     */
-    private const float levelStartLength = 3.0f;
-    private const float levelEndLength = 5.0f;
+    public Transform backgroundPrefab;
+    public Transform grassPrefab;
+    public Transform leavesPrefab;
 
     private float levelTotalLength = 0.0f;
+    
+    // Don't touch this value. It is a hard-coded value to define
+    // the length of the level end (water etc.)
+    private const float levelEndLength = 10.0f;
+
+    // Don't touch these two values. They are hard-coded to fit the existing rope prefab.
+    private const float ropeJointXOffset = 1.7f;
+    private const float ropeJointYOffset = 1.0f;
 
     void Start()
     {
@@ -66,10 +72,6 @@ public class LevelGenerator : MonoBehaviour {
                                int ropeMaxSpeed,
                                float ropeY)
     {
-        // Don't touch these two values. They are hard-coded to fit the existing rope prefab.
-        const float ropeJointXOffset = 1.7f;
-        const float ropeJointYOffset = 1.0f;
-
         var previousRopeX = ropeJointXOffset;
         var ropeDistance = 0;
         for (int n = 0; n < numberOfRopes; n++)
@@ -93,18 +95,42 @@ public class LevelGenerator : MonoBehaviour {
             ropeDistance = Random.Range(ropeMinDistance, ropeMaxDistance);
         }
 
-        // The level length is defined by where the last rope is placed + some offset to cover
-        // the beginning and the end of the level
-        levelTotalLength = -previousRopeX + levelStartLength + levelEndLength;
+        // The level length is defined by where the last rope is placed
+        // + some offset to cover the end of the level
+        levelTotalLength = -previousRopeX + levelEndLength;
     }
 
+    /**
+     * @brief Generates the background for the whole duration of the level 
+     */
     void GenerateBackground()
     {
-        // Generate background
+        float backgroundImageWidth = backgroundPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
+        for (float x = 0; x > -levelTotalLength - backgroundImageWidth; x -= backgroundImageWidth)
+        {
+            Instantiate(backgroundPrefab, new Vector3(x, 0, 100), Quaternion.identity);
+        }
     }
 
+    /**
+     * @brief Generates the grass and leaves for the whole duration of the level 
+     */
     void GenerateFoliage()
     {
-        // Generate top screen leaves and bottom screen grass
+        float leavesImageWidth = leavesPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
+        for (float x = 0; x > -levelTotalLength - leavesImageWidth; x -= leavesImageWidth)
+        {
+            Instantiate(leavesPrefab, new Vector3(x, 4.5f, 94), Quaternion.identity);
+        }
+
+        // Grass must be generated from the end towards the start, because we need to place the
+        // water to start from an exact place at the end of the scene and not be defined by a
+        // multiple of the grass image width
+        float grassImageWidth = grassPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
+        float grassStartX = -levelTotalLength + levelEndLength + grassImageWidth / 2.0f - ropeJointXOffset;
+        for (float x = grassStartX; x < grassImageWidth; x += grassImageWidth)
+        {
+            Instantiate(grassPrefab, new Vector3(x, -3.5f, -2), Quaternion.identity);
+        }
     }
 }
