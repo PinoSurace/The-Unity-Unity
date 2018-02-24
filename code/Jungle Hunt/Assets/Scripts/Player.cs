@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
 					rb.AddForce (new Vector2 (XAxis, YAxis), ForceMode2D.Impulse);
 					//The jump animation is triggered
 					animator.SetTrigger ("PlayerJump");
-					this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2 (0.01f, 0.01f);
+					this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2 (0.03f, 0.03f);
 				}
 					
 				else if (input == "s")
@@ -95,7 +95,7 @@ public class Player : MonoBehaviour
 					//An impulse is used to move the player
 					
 					rb.velocity = Vector2.zero;
-					rb.AddForce (new Vector2 (XAxis-2, YAxis-1), ForceMode2D.Impulse);
+					rb.AddForce (new Vector2 (XAxis-2, YAxis-1.5f), ForceMode2D.Impulse);
 					//The jump animation is triggered
 					animator.SetTrigger ("PlayerJump");
 					

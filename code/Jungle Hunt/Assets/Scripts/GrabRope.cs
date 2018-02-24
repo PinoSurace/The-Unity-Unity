@@ -28,6 +28,7 @@ public class GrabRope : MonoBehaviour {
 				other.gameObject.transform.parent.gameObject.GetComponent<RopeGrabbed> ().CorrelateCameraToThisObject ();
 				//Change the player state to swinging
 				this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Swinging;
+				this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerSwing");
 
 			} 
 		}
@@ -38,6 +39,7 @@ public class GrabRope : MonoBehaviour {
 			
 			Destroy (this.gameObject.GetComponent (typeof(DistanceJoint2D)));
 			this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Dead;
+			this.gameObject.GetComponent<Animator> ().Play ("PlayerFall");
 		}
 		//Trigger for level change
 		else if (other.gameObject.name == "NextLevelCollider") 
