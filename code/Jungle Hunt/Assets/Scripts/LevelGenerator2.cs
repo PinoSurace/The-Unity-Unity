@@ -4,14 +4,16 @@ using UnityEngine;
 
 /**
  * Level generator script for level 2. The script generates bubbles
- * and crocodiles at random time intervals in random positions.
+ * and crocodiles at random time intervals and positions.
  */
 public class LevelGenerator2 : MonoBehaviour {
 
     public Transform bubblePrefab;
     public Transform crocodilePrefab;
 
-    private bool levelEndSpawned = false;
+    public Transform skyBackgroundPrefab;
+    public Transform riverBackgroundPrefab;
+    
     private const float levelDuration = 60.0f; // As a function of difficulty?
     private const float firstSpawnTimeOffset = 3.0f;
     private const float swimmingSpeed = 2.0f;
@@ -22,14 +24,15 @@ public class LevelGenerator2 : MonoBehaviour {
 
     private const float crocodileSpawnIntervalMin = 1.0f; // As a function of difficulty?
     private const float crocodileSpawnIntervalMax = 4.0f; // As a function of difficulty?
-    private float nextCrocodileSpawnTime = 0.0f;
 
     void Start()
     {
         nextBubbleSpawnTime = Time.time + firstSpawnTimeOffset
             + Random.Range(bubbleSpawnIntervalMin, bubbleSpawnIntervalMax);
-        nextCrocodileSpawnTime = Time.time + firstSpawnTimeOffset
-            + Random.Range(crocodileSpawnIntervalMin, crocodileSpawnIntervalMax);
+
+        GenerateBackground();
+        SpawnCrocodiles();
+        SpawnLevelEnd();
     }
     
     void Update()
@@ -37,11 +40,6 @@ public class LevelGenerator2 : MonoBehaviour {
         if (Time.time < levelDuration)
         {
             SpawnBubbles();
-            SpawnCrocodiles();
-        }
-        else if (!levelEndSpawned)
-        {
-            SpawnLevelEnd();
         }
     }
 
@@ -66,22 +64,23 @@ public class LevelGenerator2 : MonoBehaviour {
     }
 
     /**
-     * @brief Spawns crocodiles at random time intervals and in
-     *        random positions at the left side of the screen
+     * @brief Spawns crocodiles at random positions in the level
      */
     private void SpawnCrocodiles()
     {
-        if (Time.time >= nextCrocodileSpawnTime)
+        float levelTotalLength = swimmingSpeed * (levelDuration + firstSpawnTimeOffset);
+
+        for (float crocodileSpawnX = -swimmingSpeed * firstSpawnTimeOffset - Random.Range(crocodileSpawnIntervalMin, crocodileSpawnIntervalMax);
+             crocodileSpawnX > -levelTotalLength;
+             crocodileSpawnX -= swimmingSpeed * Random.Range(crocodileSpawnIntervalMin, crocodileSpawnIntervalMax))
         {
             const float crocodileSpeed = 4.0f; // As a function of difficulty?
             const float crocodileSpawnYMin = -3.0f;
-            const float crocodileSpawnYMax = -1.0f;
+            const float crocodileSpawnYMax = 1.5f;
             float crocodileSpawnY = Random.Range(crocodileSpawnYMin, crocodileSpawnYMax);
 
-            var crocodile = Instantiate(crocodilePrefab, new Vector3(-7.0f, crocodileSpawnY, 0.0f), Quaternion.identity);
+            var crocodile = Instantiate(crocodilePrefab, new Vector3(crocodileSpawnX, crocodileSpawnY, 0.0f), Quaternion.identity);
             crocodile.GetComponent<Rigidbody2D>().velocity = new Vector2(crocodileSpeed, 0.0f);
-
-            nextCrocodileSpawnTime = Time.time + Random.Range(crocodileSpawnIntervalMin, crocodileSpawnIntervalMax);
         }
     }
 
@@ -90,17 +89,45 @@ public class LevelGenerator2 : MonoBehaviour {
      */
     private void SpawnLevelEnd()
     {
-        levelEndSpawned = true;
+        float levelTotalLength = swimmingSpeed * (levelDuration + firstSpawnTimeOffset);
 
         GameObject gameObject = new GameObject("LevelEndCollider");
 
         BoxCollider2D collider = gameObject.AddComponent<BoxCollider2D>();
         collider.size = new Vector2(3.0f, 10.0f);
         collider.isTrigger = true;
-        collider.transform.position = new Vector2(-8.0f, 0.0f);
+        collider.transform.position = new Vector2(-levelTotalLength, 0.0f);
 
         Rigidbody2D rigidbody = gameObject.AddComponent<Rigidbody2D>();
         rigidbody.bodyType = RigidbodyType2D.Kinematic;
         rigidbody.velocity = new Vector2(swimmingSpeed, 0.0f);
+    }
+
+    private void GenerateBackground()
+    {
+        float skyBackgroundImageWidth = skyBackgroundPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
+        float riverBackgroundImageWidth = riverBackgroundPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
+
+        float backgroundTotalLength = swimmingSpeed * (levelDuration + firstSpawnTimeOffset);
+
+        // Add some extra just to be sure there's enough background at the end of the level
+        backgroundTotalLength += (skyBackgroundImageWidth > riverBackgroundImageWidth
+                                  ? 2*skyBackgroundImageWidth
+                                  : 2*riverBackgroundImageWidth);
+
+        for (float skyBackgroundX = 0.0f, riverBackgroundX = 0.0f;
+            (skyBackgroundX > -backgroundTotalLength) && (riverBackgroundX > -backgroundTotalLength);
+            skyBackgroundX -= skyBackgroundImageWidth, riverBackgroundX -= riverBackgroundImageWidth)
+        {
+            var skyBackground = Instantiate(skyBackgroundPrefab,
+                                            new Vector3(skyBackgroundX, 0.0f, 100.0f),
+                                            Quaternion.identity);
+            skyBackground.GetComponent<Rigidbody2D>().velocity = new Vector2(swimmingSpeed, 0.0f);
+
+            var riverBackground = Instantiate(riverBackgroundPrefab,
+                                              new Vector3(riverBackgroundX, -2.0f, 99.0f),
+                                              Quaternion.identity);
+            riverBackground.GetComponent<Rigidbody2D>().velocity = new Vector2(swimmingSpeed, 0.0f);
+        }
     }
 }
