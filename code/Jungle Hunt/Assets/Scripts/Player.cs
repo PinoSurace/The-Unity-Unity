@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
 					rb.AddForce (new Vector2 (XAxis, YAxis), ForceMode2D.Impulse);
 					//The jump animation is triggered
 					animator.SetTrigger ("PlayerJump");
+					this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2 (0.01f, 0.01f);
 				}
 					
 				else if (input == "s")
@@ -51,8 +52,6 @@ public class Player : MonoBehaviour
 					animator.SetTrigger ("PlayerSwim");
 				}
 				break;
-			case State.State_Jumping:
-			//This is purely for state change testing, because swimming while jumping is strange
 
 			case State.State_Dead:				
 				
@@ -96,7 +95,7 @@ public class Player : MonoBehaviour
 					//An impulse is used to move the player
 					
 					rb.velocity = Vector2.zero;
-					rb.AddForce (new Vector2 (XAxis, YAxis), ForceMode2D.Impulse);
+					rb.AddForce (new Vector2 (XAxis-2, YAxis-1), ForceMode2D.Impulse);
 					//The jump animation is triggered
 					animator.SetTrigger ("PlayerJump");
 					
@@ -118,18 +117,7 @@ public class Player : MonoBehaviour
 			rb.gravityScale = 1;
 		}
 	}
-
-//	float dist = 0.2f;
-//	void OnTriggerEnter2D (Collider2D other){
-//		if (other.transform.name == "Rope") 
-//		{
-//			Debug.Log ("Jes");
-//			var joint = gameObject.AddComponent <DistanceJoint2D>();
-//			joint.connectedBody = other.GetComponent<Rigidbody2D>();
-//			joint.distance = dist;
-//
-//		}
-//}
+		
 
     //We create shortcuts for animator and rigidbody
     private void Start()
