@@ -7,16 +7,38 @@ public class CameraControls : MonoBehaviour {
     private Vector3 startposition;
     private Vector3 moveposition;
     private Vector3 targetposition;
+    private Vector3 offset = new Vector3(-5.0f, 0, 0);
     private float movetime;
     private bool called = false;
+    private bool followplayer = false;
 	
 	// Debug Controls allow you to offset with numpad.
-	void Update ()
+	void FixedUpdate ()
     {
         
         if (called)
         {
-            this.transform.position += moveposition;
+            
+            startposition = this.transform.position;
+            Debug.Log("UpdateRate:" + (1 / Time.deltaTime));
+            float divider = movetime;
+            if (followplayer == true)
+            {
+                targetposition = GameObject.Find("Tarzan").transform.position + offset;
+            }
+            float x_diff = ((targetposition.x - startposition.x) * Time.deltaTime) / divider;
+            // y or z - does not need to change:
+            float y_diff = 0;
+            float z_diff = 0;
+            if (x_diff < 0)
+            {
+                moveposition = new Vector3(x_diff, y_diff, z_diff);
+                this.transform.position += moveposition;
+            }
+            if (this.transform.position.x - targetposition.x < 1.0f && followplayer == false)
+            {
+                called = false;
+            }
         }
 		if (Input.GetKey(KeyCode.Keypad4))
         {
@@ -38,24 +60,16 @@ public class CameraControls : MonoBehaviour {
 
     public void GotoTarget(Vector3 toPosition, float time)
     {
-        targetposition = toPosition;
+        targetposition = toPosition + offset;
         movetime = time;
-        startposition = this.transform.position;
-        Debug.Log(1 / Time.deltaTime);
-        float divider = time;
-        float x_diff = ((targetposition.x - startposition.x) * Time.deltaTime) / divider;
-        // y or z - does not need to change:
-        float y_diff = 0;
-        float z_diff = 0;
-        moveposition = new Vector3(x_diff, y_diff, z_diff);
-        StartCoroutine("Seize");
+        called = true;
     }
 
-    IEnumerator Seize()
+    public void FollowPlayer(float time)
     {
+        movetime = time;
         called = true;
-        yield return new WaitForSeconds(movetime);
-        called = false;
+        followplayer = true;
     }
 
     private void GetCommands()

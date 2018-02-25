@@ -44,7 +44,8 @@ public class GrabRope : MonoBehaviour {
 		//Trigger for level change
 		else if (other.gameObject.name == "NextLevelCollider") 
 		{
-			Debug.Log ("End");
+            GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().NextLevel();
+            Debug.Log ("End");
 		}
 	}
 }

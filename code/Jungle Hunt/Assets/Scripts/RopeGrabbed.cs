@@ -6,12 +6,12 @@ public class RopeGrabbed : MonoBehaviour {
 
 	public bool grabbed = false;
 
-    private float animtime = 1.5f;
-    private Vector3 offset = new Vector3(-1.2f, 0, 0);
+    private float animtime = 1.0f;
+    
 
     public void CorrelateCameraToThisObject()
     {
-        Vector3 target = this.transform.position + offset;
-        GameObject.Find("Main Camera").GetComponent<CameraControls>().GotoTarget(target, animtime);
+        Vector3 target = this.transform.position;
+        GameObject.Find("Main Camera").GetComponent<CameraControls>().FollowPlayer(animtime);
     }
 }
