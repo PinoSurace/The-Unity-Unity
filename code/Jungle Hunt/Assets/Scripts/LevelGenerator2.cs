@@ -44,15 +44,14 @@ public class LevelGenerator2 : MonoBehaviour {
     }
 
     /**
-     * @brief Spawns bubbles at random time intervals and in
-     *        random positions at the bottom of the screen
+     * @brief Spawns bubbles at random time intervals and in random positions at the bottom of the screen
      */
     private void SpawnBubbles()
     {
         if (Time.time >= nextBubbleSpawnTime)
         {
-            const float bubbleSpawnXMin = -5.0f;
-            const float bubbleSpawnXMax = 0.0f;
+            const float bubbleSpawnXMin = -10.0f;
+            const float bubbleSpawnXMax = -5.0f;
             float bubbleSpawnX = Random.Range(bubbleSpawnXMin, bubbleSpawnXMax);
 
             var bubble = Instantiate(bubblePrefab, new Vector3(bubbleSpawnX, -5.0f, 0.0f), Quaternion.identity);
@@ -68,13 +67,17 @@ public class LevelGenerator2 : MonoBehaviour {
      */
     private void SpawnCrocodiles()
     {
-        float levelTotalLength = swimmingSpeed * (levelDuration + firstSpawnTimeOffset);
+        const float crocodileSpeed = 4.0f; // As a function of difficulty?
 
-        for (float crocodileSpawnX = -swimmingSpeed * firstSpawnTimeOffset - Random.Range(crocodileSpawnIntervalMin, crocodileSpawnIntervalMax);
+        // This is the level length in terms of where to spawn crocodiles. Some will be spawned
+        // further than the level ending, but that's because they will then reach the player position
+        // at the right time before the level ends.
+        float levelTotalLength = crocodileSpeed  * (levelDuration + firstSpawnTimeOffset);
+
+        for (float crocodileSpawnX = -crocodileSpeed * firstSpawnTimeOffset - Random.Range(crocodileSpawnIntervalMin, crocodileSpawnIntervalMax);
              crocodileSpawnX > -levelTotalLength;
-             crocodileSpawnX -= swimmingSpeed * Random.Range(crocodileSpawnIntervalMin, crocodileSpawnIntervalMax))
+             crocodileSpawnX -= crocodileSpeed * Random.Range(crocodileSpawnIntervalMin, crocodileSpawnIntervalMax))
         {
-            const float crocodileSpeed = 4.0f; // As a function of difficulty?
             const float crocodileSpawnYMin = -3.0f;
             const float crocodileSpawnYMax = 1.5f;
             float crocodileSpawnY = Random.Range(crocodileSpawnYMin, crocodileSpawnYMax);
@@ -103,6 +106,9 @@ public class LevelGenerator2 : MonoBehaviour {
         rigidbody.velocity = new Vector2(swimmingSpeed, 0.0f);
     }
 
+    /**
+     * @brief Generates the background images for the whole duration of the level
+     */
     private void GenerateBackground()
     {
         float skyBackgroundImageWidth = skyBackgroundPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
