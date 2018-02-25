@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4203435487947132}
-  - component: {fileID: 50734111161154128}
   m_Layer: 0
   m_Name: Sprites
   m_TagString: Untagged
@@ -54,8 +53,8 @@ GameObject:
   - component: {fileID: 61233549517250862}
   - component: {fileID: 50193205437242860}
   - component: {fileID: 95917550496753664}
-  - component: {fileID: 114671126380170560}
-  - component: {fileID: 114977524612875294}
+  - component: {fileID: 114623714862058432}
+  - component: {fileID: 114565106087888576}
   m_Layer: 0
   m_Name: Tarzan
   m_TagString: Untagged
@@ -84,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1779562992723412}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.3700533, y: 1.4811405, z: 96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4203435487947132}
@@ -98,7 +97,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1978086897070902}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.06, y: 0.13, z: 0}
+  m_LocalPosition: {x: 0.2, y: -0.1, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 4203435487947132}
@@ -124,26 +123,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!50 &50734111161154128
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1566253164741470}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!61 &61233549517250862
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -186,23 +165,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114671126380170560
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1978086897070902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8068df792e87e2489827145ff9b316e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  YAxis: 7
-  XAxis: -4
-  rb: {fileID: 0}
-  speed: 0
-  CurrentState: 0
---- !u!114 &114977524612875294
+--- !u!114 &114565106087888576
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -213,6 +176,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865e03a72f7cfb54d81a67556224fc0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114623714862058432
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1978086897070902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8068df792e87e2489827145ff9b316e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  YAxis: 6
+  XAxis: -6
+  rb: {fileID: 0}
+  speed: 0
+  CurrentState: 0
 --- !u!212 &212384584670957462
 SpriteRenderer:
   m_ObjectHideFlags: 1
