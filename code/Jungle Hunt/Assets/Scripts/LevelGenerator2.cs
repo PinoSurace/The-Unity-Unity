@@ -67,7 +67,9 @@ public class LevelGenerator2 : MonoBehaviour {
      */
     private void SpawnCrocodiles()
     {
-        const float crocodileSpeed = 4.0f; // As a function of difficulty?
+        // This needs to be swimmingSpeed + something, so that it seems the crocodiles are
+        // also swimming against you and not being stationary or even swimming backwards
+        const float crocodileSpeed = swimmingSpeed + 2.0f; // As a function of difficulty?
 
         // This is the level length in terms of where to spawn crocodiles. Some will be spawned
         // further than the level ending, but that's because they will then reach the player position
