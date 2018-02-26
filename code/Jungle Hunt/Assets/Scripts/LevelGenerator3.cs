@@ -39,7 +39,7 @@ public class LevelGenerator3 : MonoBehaviour {
             Vector2 boulderSpawnPosition = new Vector2(-11.0f, 0.5f);
 
             // Probability that the spawned boulder is small
-            const float probabilitySmall = 0.8f;
+            const float probabilitySmall = 0.5f;
             
             // It must be between 0 and 1
             Assert.IsTrue(probabilitySmall >= 0.0f && probabilitySmall <= 1.0f);
@@ -48,11 +48,11 @@ public class LevelGenerator3 : MonoBehaviour {
 
             if (boulderIsSmall)
             {
-                var boulder = Instantiate(smallBoulderPrefab, boulderSpawnPosition, Quaternion.identity);
+                Instantiate(smallBoulderPrefab, boulderSpawnPosition, Quaternion.identity);
             }
             else
             {
-                var boulder = Instantiate(bigBoulderPrefab, boulderSpawnPosition, Quaternion.identity);
+                Instantiate(bigBoulderPrefab, boulderSpawnPosition, Quaternion.identity);
             }
 
             nextBoulderSpawnTime = Time.time + Random.Range(boulderSpawnIntervalMin, boulderSpawnIntervalMax);
