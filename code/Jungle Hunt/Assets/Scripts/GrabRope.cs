@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GrabRope : MonoBehaviour {
-	//This Script could be added straight to the player script
-
-	//Distance the player keeps from the rope
-	float dist = 0f;
+    //This Script could be added straight to the player script
+    
+    //Distance the player keeps from the rope
+    const float dist = 0f;
 	void OnTriggerEnter2D (Collider2D other)
 	{
 		//Checking if the objecdt has parent object (Parts o rope are children of the rope)
@@ -25,13 +25,11 @@ public class GrabRope : MonoBehaviour {
 				joint.distance = dist;
 
 				//Set the rope as grabbed
-				other.gameObject.transform.parent.gameObject.GetComponent<RopeGrabbed> ().grabbed = true;
-				other.gameObject.transform.parent.gameObject.GetComponent<RopeGrabbed> ().CorrelateCameraToThisObject ();
-				//Change the player state to swinging
-				this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Swinging;
+				other.gameObject.transform.parent.gameObject.GetComponent<RopeGrabbed>().grabbed = true;
+                //Change the player state to swinging
+                this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Swinging;
 				this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerSwing");
-
-			} 
+            } 
 		}
 
 		//If the trigger is the animation collider
