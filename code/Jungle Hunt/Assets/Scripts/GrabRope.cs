@@ -7,7 +7,8 @@ public class GrabRope : MonoBehaviour {
 
 	//Distance the player keeps from the rope
 	float dist = 0f;
-	void OnTriggerEnter2D (Collider2D other){
+	void OnTriggerEnter2D (Collider2D other)
+	{
 		//Checking if the objecdt has parent object (Parts o rope are children of the rope)
 		if (other.gameObject.transform.parent != null)
 		{
@@ -44,8 +45,8 @@ public class GrabRope : MonoBehaviour {
 		//Trigger for level change
 		else if (other.gameObject.name == "NextLevelCollider") 
 		{
-            GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().NextLevel();
-            Debug.Log ("End");
+           GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().NextLevel();
+           Debug.Log ("End");
 		}
 	}
 }

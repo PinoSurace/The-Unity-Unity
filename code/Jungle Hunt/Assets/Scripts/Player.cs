@@ -133,11 +133,12 @@ public class Player : MonoBehaviour
 		//Check pressed buttons
 		ChangeState (Input.inputString);
 
+		if (CurrentState == State.State_Swimming){
 		//Make the player unable to move of the gamescene. Current values are for level 2
-		//Vector2 pos = transform.position;
+		Vector2 pos = transform.position;
 		//pos.x = Mathf.Clamp(pos.x, -7, 8);
-		//pos.y = Mathf.Clamp(pos.y, -7, 1);
+		pos.y = Mathf.Clamp(pos.y, -5, 10);
 		//transform.position = pos;
-        
+		}
     }
 }
