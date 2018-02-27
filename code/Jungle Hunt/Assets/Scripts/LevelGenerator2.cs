@@ -96,7 +96,7 @@ public class LevelGenerator2 : MonoBehaviour {
     {
         float levelTotalLength = swimmingSpeed * (levelDuration + firstSpawnTimeOffset);
 
-        GameObject gameObject = new GameObject("LevelEndCollider");
+        GameObject gameObject = new GameObject("NextLevelCollider");
 
         BoxCollider2D collider = gameObject.AddComponent<BoxCollider2D>();
         collider.size = new Vector2(3.0f, 10.0f);

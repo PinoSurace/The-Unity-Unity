@@ -10,24 +10,16 @@ public class BarScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        slider.value = 10;
+        slider.value = 100;
         StartCoroutine(HandleBar());
         
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
 
     IEnumerator HandleBar()
     {
         while (true)
         {
-            yield return new WaitForSecondsRealtime(1);
+            yield return new WaitForSecondsRealtime(0.1f);
             slider.value -= 1;
             
             //no more air. dead 
