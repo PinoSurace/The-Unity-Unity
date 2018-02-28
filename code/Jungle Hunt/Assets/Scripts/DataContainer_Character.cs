@@ -61,7 +61,7 @@ public class DataContainer_Character : MonoBehaviour {
 
 
     // Store data.
-    string PlayerName = "";
+    public string PlayerName = "";
     int points;
-    int num_of_lives; 
+    int num_of_lives = 5; 
 }
