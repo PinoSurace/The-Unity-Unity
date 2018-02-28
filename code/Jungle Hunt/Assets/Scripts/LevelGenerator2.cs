@@ -18,12 +18,12 @@ public class LevelGenerator2 : MonoBehaviour {
     private const float firstSpawnTimeOffset = 3.0f;
     private const float swimmingSpeed = 2.0f;
 
-    private const float bubbleSpawnIntervalMin = 1.0f; // As a function of difficulty?
+    private const float bubbleSpawnIntervalMin = 1.0f; // As a function of difficulty? 
     private const float bubbleSpawnIntervalMax = 6.0f; // As a function of difficulty?
     private float nextBubbleSpawnTime = 0.0f;
 
-    private const float crocodileSpawnIntervalMin = 1.0f; // As a function of difficulty?
-    private const float crocodileSpawnIntervalMax = 4.0f; // As a function of difficulty?
+    private const float crocodileSpawnIntervalMin = 1.0f; // As a function of difficulty? 
+    private const float crocodileSpawnIntervalMax = 4.0f; // As a function of difficulty? 
 
     void Start()
     {

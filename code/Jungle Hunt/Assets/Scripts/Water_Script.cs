@@ -7,7 +7,7 @@ public class Water_Script : MonoBehaviour {
     public Slider slider;
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("collision name = " + other.gameObject.name);
+        //Debug.Log("collision name = " + other.gameObject.name);
         if (other.gameObject.name == "Tarzan")
         {            
             slider.value = 10;
@@ -16,9 +16,7 @@ public class Water_Script : MonoBehaviour {
 
         if (other.gameObject.name == "bubble(Clone)")
         {
-
             Destroy(other.gameObject);
-
         }
 
     }
