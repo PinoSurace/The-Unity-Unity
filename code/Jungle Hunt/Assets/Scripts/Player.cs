@@ -35,7 +35,8 @@ public class Player : MonoBehaviour
 	{
 		switch (CurrentState) 
 		{
-			case State.State_Idle:
+            
+            case State.State_Idle:
 				if (input == " ")
 				{
 					CurrentState = State.State_Jumping;
@@ -117,7 +118,23 @@ public class Player : MonoBehaviour
 			rb.gravityScale = 1;
 		}
 	}
-		
+
+    //When The player is in the bubble animation changes
+    public void InTheBubble()
+    {
+        CurrentState = State.State_Bubble;
+        animator.SetTrigger("PlayerIdle");
+              
+        
+    }
+
+    //When The player exits from the bubble animation changes
+    public void OutOfBubble()
+    {        
+        CurrentState = State.State_Swimming;
+        animator.SetTrigger("PlayerSwim");
+    }
+
 
     //We create shortcuts for animator and rigidbody
     private void Start()
