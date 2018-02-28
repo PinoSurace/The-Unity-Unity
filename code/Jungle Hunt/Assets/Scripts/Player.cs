@@ -54,9 +54,10 @@ public class Player : MonoBehaviour
 				}
 				break;
 
-			case State.State_Dead:				
-				
-				break;
+			case State.State_Dead:
+                DataContainer_Character data = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>();
+                data.LooseLive();
+                break;
 			case State.State_Swimming:
 				
 				if (input == "w") 
