@@ -58,10 +58,23 @@ public class DataContainer_Character : MonoBehaviour {
             return false;
     }
 
+    public void SetDifficulty(int value)
+    {
+        difficulty = value;
+    }
+
+    public int GetDifficulty()
+    {
+        return difficulty;
+    }
+
+
+
 
 
     // Store data.
     public string PlayerName = "";
     int points;
-    int num_of_lives = 5; 
+    int num_of_lives = 5;
+    int difficulty = 1;
 }

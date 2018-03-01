@@ -8,13 +8,19 @@ using UnityEngine;
  */
 public class LevelGenerator2 : MonoBehaviour {
 
+    
+
     public Transform bubblePrefab;
     public Transform crocodilePrefab;
 
     public Transform skyBackgroundPrefab;
     public Transform riverBackgroundPrefab;
-    
-    private const float levelDuration = 60.0f; // As a function of difficulty?
+
+    /*
+    private int difficulty = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>().GetDifficulty();
+
+    private const float levelDuration = 60.0f; // As a function of difficulty?  
+
     private const float firstSpawnTimeOffset = 3.0f;
     private const float swimmingSpeed = 2.0f;
 
@@ -24,9 +30,45 @@ public class LevelGenerator2 : MonoBehaviour {
 
     private const float crocodileSpawnIntervalMin = 1.0f; // As a function of difficulty? 
     private const float crocodileSpawnIntervalMax = 4.0f; // As a function of difficulty? 
+    */
+
+
+    private int difficulty = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>().GetDifficulty();
+
+    private  float levelDuration ; // As a function of difficulty?  
+
+    private  float firstSpawnTimeOffset ;
+    private  float swimmingSpeed ;
+
+    private  float bubbleSpawnIntervalMin ; // As a function of difficulty? 
+    private  float bubbleSpawnIntervalMax ; // As a function of difficulty?
+    private float nextBubbleSpawnTime ;
+
+    private  float crocodileSpawnIntervalMin ; // As a function of difficulty? 
+    private  float crocodileSpawnIntervalMax ; // As a function of difficulty? 
+
+
 
     void Start()
     {
+        difficulty = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>().GetDifficulty();
+
+        levelDuration = (difficulty/2)*60.0f; // As a function of difficulty?  
+
+        firstSpawnTimeOffset = 3.0f;
+        swimmingSpeed = 2.0f;
+
+        bubbleSpawnIntervalMin = 1.0f; // As a function of difficulty? 
+        bubbleSpawnIntervalMax = 7.0f -difficulty; // As a function of difficulty?
+        nextBubbleSpawnTime = 0.0f;
+
+        crocodileSpawnIntervalMin = 1.0f; // As a function of difficulty? 
+        crocodileSpawnIntervalMax = 5.0f - difficulty; // As a function of difficulty? 
+
+
+
+
+
         nextBubbleSpawnTime = Time.time + firstSpawnTimeOffset
             + Random.Range(bubbleSpawnIntervalMin, bubbleSpawnIntervalMax);
 
@@ -69,7 +111,8 @@ public class LevelGenerator2 : MonoBehaviour {
     {
         // This needs to be swimmingSpeed + something, so that it seems the crocodiles are
         // also swimming against you and not being stationary or even swimming backwards
-        const float crocodileSpeed = swimmingSpeed + 2.0f; // As a function of difficulty?
+        //const float crocodileSpeed = swimmingSpeed + 2.0f; // As a function of difficulty?
+        float crocodileSpeed = swimmingSpeed + 2.0f +difficulty; // As a function of difficulty?
 
         // This is the level length in terms of where to spawn crocodiles. Some will be spawned
         // further than the level ending, but that's because they will then reach the player position
@@ -138,4 +181,6 @@ public class LevelGenerator2 : MonoBehaviour {
             riverBackground.GetComponent<Rigidbody2D>().velocity = new Vector2(swimmingSpeed, 0.0f);
         }
     }
+
+    
 }
