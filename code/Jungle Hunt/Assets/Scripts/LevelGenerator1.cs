@@ -23,26 +23,36 @@ public class LevelGenerator1 : MonoBehaviour {
     private const float ropeJointXOffset = 1.7f;
     private const float ropeJointYOffset = 1.0f;
 
+    private int difficulty;
+
     void Start()
     {
+        difficulty = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>().GetDifficulty();
+
         // Y coordinate of the ropes
         const float ropeY = 4.0f; // Should this be constant or also vary between some limits?
 
         // These following three values together define the length of level 1
         // Minimum distance between ropes
-        const int ropeMinDistance = 7; // As a function of difficulty?
+        //const int ropeMinDistance = 7; // As a function of difficulty?
+        int ropeMinDistance = 3 + difficulty;
 
         // Maximum distance between ropes
-        const int ropeMaxDistance = 9; // As a function of difficulty?
+        //const int ropeMaxDistance = 9; // As a function of difficulty?
+        int ropeMaxDistance = 5+difficulty;
+
 
         // Number of ropes generated
-        const int numberOfRopes = 10; // As a function of difficulty?
+        //const int numberOfRopes = 10; // As a function of difficulty?
+        int numberOfRopes = 5 + 5*difficulty;
 
         // Minimum speed for ropes
-        const int ropeMinSpeed = 1;
+        //const int ropeMinSpeed = 1;
+        int ropeMinSpeed = difficulty;
 
         // Maximum speed for ropes
-        const int ropeMaxSpeed = 5;
+        //const int ropeMaxSpeed = 5;
+        int ropeMaxSpeed = 4+ difficulty;
 
 
         levelEndLength = waterPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
