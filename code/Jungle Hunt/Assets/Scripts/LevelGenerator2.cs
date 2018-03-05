@@ -33,7 +33,7 @@ public class LevelGenerator2 : MonoBehaviour {
     */
 
 
-    private int difficulty = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>().GetDifficulty();
+	private int difficulty;
 
     private  float levelDuration ; // As a function of difficulty?  
 
@@ -53,7 +53,7 @@ public class LevelGenerator2 : MonoBehaviour {
     {
         difficulty = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>().GetDifficulty();
 
-        levelDuration = (difficulty/2)*60.0f; // As a function of difficulty?  
+		levelDuration = (float)(difficulty/2.00f)*60.0f; // As a function of difficulty?  
 
         firstSpawnTimeOffset = 3.0f;
         swimmingSpeed = 2.0f;
