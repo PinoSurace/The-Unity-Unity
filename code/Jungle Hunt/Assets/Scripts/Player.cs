@@ -97,7 +97,7 @@ public class Player : MonoBehaviour
 					//An impulse is used to move the player
 					
 					rb.velocity = Vector2.zero;
-					rb.AddForce (new Vector2 (XAxis-2, YAxis-1.5f), ForceMode2D.Impulse);
+					rb.AddForce (new Vector2 (XAxis * 1.2f, YAxis * 0.8f), ForceMode2D.Impulse);
 					//The jump animation is triggered
 					animator.SetTrigger ("PlayerJump");
 					
