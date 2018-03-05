@@ -31,13 +31,14 @@ public class Player : MonoBehaviour
 	public State CurrentState;
 
 	//Function for Changing States. Every switch statement is a different state.
-	private void ChangeState(string input)
+	private void ChangeState()
 	{
+		
 		switch (CurrentState) 
 		{
             
             case State.State_Idle:
-				if (input == " ")
+			if (Input.GetButtonDown("Jump"))
 				{
 					CurrentState = State.State_Jumping;
 					//An impulse is used to move the player
@@ -47,10 +48,11 @@ public class Player : MonoBehaviour
 					this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2 (0.03f, 0.03f);
 				}
 					
-				else if (input == "s")
+				else if (Input.GetKey("s"))
 				{
 					CurrentState = State.State_Swimming;
 					animator.SetTrigger ("PlayerSwim");
+					
 				}
 				break;
 
@@ -58,40 +60,20 @@ public class Player : MonoBehaviour
                 DataContainer_Character data = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>();
                 data.LooseLive();
                 break;
+
 			case State.State_Swimming:
 				
-				if (input == "w") 
-				{
-					//rb.velocity = Vector2.zero;
-					rb.AddForce (new Vector2 (0, 10 * speed));
-					
-				}
+				float moveHorizontal = Input.GetAxis ("Horizontal");
+				float moveVertical = Input.GetAxis ("Vertical");
+				Vector2 movement = new Vector2 (moveHorizontal, moveVertical);
+				rb.AddForce (movement * speed);
 
-				else if (input == "s") 
-				{
-					//rb.velocity = Vector2.zero;
-					rb.AddForce (new Vector2 (0, -10 * speed));
-					
-				}
-
-				else if (input == "a") 
-				{
-					//rb.velocity = Vector2.zero;
-					rb.AddForce (new Vector2 (-10 * speed, 0));
-					
-				}
-
-				else if (input == "d") 
-				{
-					//rb.velocity = Vector2.zero;
-					rb.AddForce (new Vector2 (10 * speed,0));
-					
-				}
+				
 				break;
-
 			case State.State_Swinging:
 			
-				if (input == " ") {
+				if (Input.GetButtonDown("Jump"))
+				{
 					CurrentState = State.State_Jumping;
 					Destroy (gameObject.GetComponent (typeof(DistanceJoint2D)));
 					//An impulse is used to move the player
@@ -149,7 +131,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
 		//Check pressed buttons
-		ChangeState (Input.inputString);
+		ChangeState ();
 
 		if (CurrentState == State.State_Swimming){
 		//Make the player unable to move of the gamescene. Current values are for level 2
