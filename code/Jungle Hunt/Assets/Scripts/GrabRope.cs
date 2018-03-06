@@ -16,17 +16,21 @@ public class GrabRope : MonoBehaviour {
 			//Checking if the collider is a rope and that the player is not swinging
 			if (other.gameObject.transform.parent.name.StartsWith ("Rope") &&
 			    other.gameObject.transform.parent.gameObject.GetComponent<RopeGrabbed> ().grabbed == false) 
-			{			
-				//We create a new distance joint between the player and the rope
+			{
+                RopeGrabbed grabscript = other.gameObject.transform.parent.gameObject.GetComponent<RopeGrabbed>();
+                //We create a new distance joint between the player and the rope
 
-				var joint = gameObject.AddComponent <DistanceJoint2D> ();
+                var joint = gameObject.AddComponent <DistanceJoint2D> ();
 				joint.connectedBody = other.GetComponent<Rigidbody2D> ();
 				joint.autoConfigureConnectedAnchor = true;
 				joint.distance = dist;
 
+                //Add points based on rope grabbed
+                grabscript.IncreaseScore(other.gameObject.name);
+
 				//Set the rope as grabbed
-				other.gameObject.transform.parent.gameObject.GetComponent<RopeGrabbed> ().grabbed = true;
-				other.gameObject.transform.parent.gameObject.GetComponent<RopeGrabbed> ().CorrelateCameraToThisObject ();
+				grabscript.grabbed = true;
+				grabscript.CorrelateCameraToThisObject ();
 				//Change the player state to swinging
 				this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Swinging;
 				this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerSwing");
@@ -39,7 +43,7 @@ public class GrabRope : MonoBehaviour {
 		{
 			
 			Destroy (this.gameObject.GetComponent (typeof(DistanceJoint2D)));
-			this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Dead;
+			this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_None;
 			this.gameObject.GetComponent<Animator> ().Play ("PlayerFall");
 		}
 		//Trigger for level change

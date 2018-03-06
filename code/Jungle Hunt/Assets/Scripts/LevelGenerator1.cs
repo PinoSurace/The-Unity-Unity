@@ -39,12 +39,12 @@ public class LevelGenerator1 : MonoBehaviour {
 
         // Maximum distance between ropes
         //const int ropeMaxDistance = 9; // As a function of difficulty?
-        int ropeMaxDistance = 5+difficulty;
+        int ropeMaxDistance = 5 + difficulty;
 
 
         // Number of ropes generated
         //const int numberOfRopes = 10; // As a function of difficulty?
-        int numberOfRopes = 5 + 5*difficulty;
+        int numberOfRopes = 5 + 5 * difficulty;
 
         // Minimum speed for ropes
         //const int ropeMinSpeed = 1;
@@ -52,7 +52,7 @@ public class LevelGenerator1 : MonoBehaviour {
 
         // Maximum speed for ropes
         //const int ropeMaxSpeed = 5;
-        int ropeMaxSpeed = 4+ difficulty;
+        int ropeMaxSpeed = 4 + difficulty;
 
 
         levelEndLength = waterPrefab.GetComponent<SpriteRenderer>().bounds.size.x;

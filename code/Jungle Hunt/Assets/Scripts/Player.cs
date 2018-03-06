@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // Delecate to BroadCast character state changing to dead.
+    public delegate void bcCharcterDeath();
+    // The event to declare once player is dead.
+    public static event bcCharcterDeath EVDeath;
+
     //Values for the force used to move the player
     public int YAxis;   //How high the player will jump.
     public int XAxis;   //How far the player will jump. Value should be negative in first level 
@@ -19,6 +24,7 @@ public class Player : MonoBehaviour
 		State_Idle,
 		State_Jumping,
 		State_Dead,
+        State_None,
 		State_Attacking,
 		State_Swinging,
 		State_Swimming,
@@ -58,7 +64,13 @@ public class Player : MonoBehaviour
 
 			case State.State_Dead:
                 DataContainer_Character data = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>();
-                data.LooseLive();
+                data.ChangeLives(-1);
+                // Initiating an event with 0 subscribers is not allowed.
+                if (EVDeath != null)
+                {
+                    EVDeath();
+                    EVDeath = null;
+                }
                 break;
 
 			case State.State_Swimming:
@@ -140,5 +152,10 @@ public class Player : MonoBehaviour
 		pos.y = Mathf.Clamp(pos.y, -5, 10);
 		//transform.position = pos;
 		}
+    }
+
+    private void OnDestroy()
+    {
+        EVDeath = null;
     }
 }

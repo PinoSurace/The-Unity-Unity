@@ -612,6 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8393407709651b144991151cf809ccb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerName: 
 --- !u!4 &443729757
 Transform:
   m_ObjectHideFlags: 0
@@ -1377,6 +1378,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1430436990}
+  - component: {fileID: 1430436991}
   m_Layer: 5
   m_Name: ScoreBoard
   m_TagString: Untagged
@@ -1406,6 +1408,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1430436991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1430436989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 634590346f018a7458083c87a271d449, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1479450961
 GameObject:
   m_ObjectHideFlags: 0

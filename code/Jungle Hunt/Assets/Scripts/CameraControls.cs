@@ -20,7 +20,6 @@ public class CameraControls : MonoBehaviour {
         {
             
             startposition = this.transform.position;
-            Debug.Log("UpdateRate:" + (1 / Time.deltaTime));
             float divider = movetime;
             if (followplayer == true)
             {

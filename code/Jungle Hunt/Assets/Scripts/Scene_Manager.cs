@@ -12,7 +12,9 @@ public class Scene_Manager : MonoBehaviour {
     private int goingTo;
     private bool midLoad = false;
     private bool sceneAnim = true;
+    private int scoreBefore = 0;
 
+    // Carried Data objects, use these for game's global functions.
     private GameObject sm_but;
     private GameObject sm_inp;
     private GameObject overlay;
@@ -22,6 +24,10 @@ public class Scene_Manager : MonoBehaviour {
     private GameObject scores_points;
     private GameObject scores_time;
 
+    // How many scenes to offset until levels start:
+    private static int levels_at = 2;
+
+    // Level generation order.
     private List<int> levelgenerationorder = new List<int> ();
 
 	// Use this for initialization
@@ -42,6 +48,8 @@ public class Scene_Manager : MonoBehaviour {
         scores.SetActive(false);
     }
 
+    // Generate level order.
+    // This can be used at the end of each 4 level loop to generate a new order.
     public void GenerateLevelOrder(bool random)
     {
         levelgenerationorder.Clear();
@@ -61,6 +69,7 @@ public class Scene_Manager : MonoBehaviour {
         }
     }
 
+    // If the manager is replaced, remove onLoad from unity events.
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= LvlLoad;
@@ -98,17 +107,30 @@ public class Scene_Manager : MonoBehaviour {
         }
     }
 
+    private void InitiateUI()
+    {
+        scores.GetComponent<UI_Script>().Activate(scores_player, scores_points, scores_time, chardata);
+        scores.GetComponent<UI_Script>().TimerOn(100);
+    }
+
+    // Next level from order.
+    // Call to advance to the next level.
     public void NextLevel()
     {
+        // if no more levels, generate more...
         if (levelgenerationorder.Count == 0)
         {
             GenerateLevelOrder(true);
         }
-        int to = levelgenerationorder[0];
+        int to = levelgenerationorder[0] - 1;
         levelgenerationorder.RemoveAt(0);
-        ChangeScene(to + 1);
+        // offset of scenes at the start
+        ChangeScene(levels_at + to);
     }
 
+    // Scene change event.
+    // Call to change scenes when you wish to access non-stage scenes.
+    // Also used internally for stage scenes.
     public void ChangeScene(int toScene)
     {
         if (toScene >= (SceneManager.sceneCountInBuildSettings))
@@ -142,6 +164,7 @@ public class Scene_Manager : MonoBehaviour {
         }
     }
 
+    // A public function to call when finished loading, should probably be protected.
     public void FinishedLoad()
     {
         // Change to accomodate any modifications in loadorder.
@@ -165,9 +188,7 @@ public class Scene_Manager : MonoBehaviour {
             {
                 scores.SetActive(true);
             }
-            string charname = chardata.GetComponent<DataContainer_Character>().GetPlayerName();
-            scores_player.GetComponent<Text>().text = charname;
-            scores_time.GetComponent<Text>().text = "5:00";
+            InitiateUI();
             scores_points.GetComponent<Text>().text = "0 pts.";
         }
         else
@@ -176,14 +197,35 @@ public class Scene_Manager : MonoBehaviour {
             {
                 scores.SetActive(false);
             }
+            scores.GetComponent<UI_Script>().TimerOff();
         }
         SceneManager.LoadScene(goingTo);
+
     }
 
+    void RestartLevel()
+    {
+        scores.GetComponent<UI_Script>().TimerOff();
+        scores.GetComponent<UI_Script>().ScoreDrop(scoreBefore);
+        StartCoroutine("DramaticTiming");
+    }
+
+    IEnumerator DramaticTiming()
+    {
+        yield return new WaitForSeconds(1.20f);
+        ChangeScene(CurrentIndex);
+    }
+
+    // A event handler to give for unity, used once a level has loaded.
     void LvlLoad(Scene scene, LoadSceneMode sceneMode)
     {
         GameObject.Find("Transition").GetComponent<Animator>().SetTrigger("Raise");
         CurrentIndex = goingTo;
         midLoad = false;
+        if (goingTo > 1)
+        {
+            Player.EVDeath += RestartLevel;
+        }
+        scoreBefore = chardata.GetComponent<DataContainer_Character>().GetPoints();
     }
 }
