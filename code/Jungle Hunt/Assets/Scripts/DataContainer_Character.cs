@@ -2,10 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class DataContainer_Character : MonoBehaviour {
 
-	// Keep any changes through transitions.
-	void Start ()
+    public delegate void bcCharcterGameOver();
+    public event bcCharcterGameOver EVGameOver;
+
+    // Store data.
+    private string PlayerName = "";
+    private int points;
+    private int num_of_lives = 5;
+    private int difficulty = 1;
+
+    // Keep any changes through transitions.
+    void Start ()
     {
         DontDestroyOnLoad(this);
 	}
@@ -25,37 +35,37 @@ public class DataContainer_Character : MonoBehaviour {
         points = value;
     }
 
+    public void ChangePoints(int change)
+    {
+        points += change;
+    }
+
     public int GetPoints()
     {
         return points;
     }
 
-    public void SetNumOfLives(int value)
+    public void SetLives(int value)
     {
         num_of_lives = value;
     }
 
-    public void LooseLive()
+    public void ChangeLives(int change)
     {
-        num_of_lives--;
-    }
-
-    public void GainLive()
-    {
-        num_of_lives++;
+        num_of_lives += change;
+        if (num_of_lives <= 0)
+        {
+            // Subscribe for game over events.
+            if (EVGameOver != null)
+            {
+                EVGameOver();
+            }
+        }
     }
 
     public int GetNumOfLives()
     {
         return num_of_lives;
-    }
-
-    public bool IsDied()
-    {
-        if (num_of_lives == 0)
-            return true;
-        else
-            return false;
     }
 
     public void SetDifficulty(int value)
@@ -67,14 +77,4 @@ public class DataContainer_Character : MonoBehaviour {
     {
         return difficulty;
     }
-
-
-
-
-
-    // Store data.
-    public string PlayerName = "";
-    int points;
-    int num_of_lives = 5;
-    int difficulty = 1;
 }

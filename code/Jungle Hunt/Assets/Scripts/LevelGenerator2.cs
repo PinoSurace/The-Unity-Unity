@@ -33,6 +33,7 @@ public class LevelGenerator2 : MonoBehaviour {
     */
 
 
+
 	private int difficulty;
 
     private  float levelDuration ; // As a function of difficulty?  
