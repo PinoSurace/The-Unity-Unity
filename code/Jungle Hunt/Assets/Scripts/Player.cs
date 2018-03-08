@@ -52,14 +52,7 @@ public class Player : MonoBehaviour
 					//The jump animation is triggered
 					animator.SetTrigger ("PlayerJump");
 					this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2 (0.03f, 0.03f);
-				}
-					
-				else if (Input.GetKey("s"))
-				{
-					CurrentState = State.State_Swimming;
-					animator.SetTrigger ("PlayerSwim");
-					
-				}
+				}					
 				break;
 
 			case State.State_Dead:

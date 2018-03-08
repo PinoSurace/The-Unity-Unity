@@ -50,6 +50,7 @@ public class LevelGenerator2 : MonoBehaviour {
 
 
 
+
     void Start()
     {
         difficulty = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>().GetDifficulty();
@@ -76,6 +77,9 @@ public class LevelGenerator2 : MonoBehaviour {
         GenerateBackground();
         SpawnCrocodiles();
         SpawnLevelEnd();
+		GameObject.Find ("Tarzan").GetComponent<Player>().OutOfBubble();
+
+
     }
     
     void Update()
