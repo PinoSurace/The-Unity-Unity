@@ -32,6 +32,18 @@ public class Save_Game_Difficulty : MonoBehaviour {
     public void Save()
     {
         DataContainer_Character data = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>();
+        if (slider.value == 1)
+        {
+            data.GetComponent<DataContainer_Character>().SetLives(7);
+        }
+        else if (slider.value == 2)
+        {
+            data.GetComponent<DataContainer_Character>().SetLives(5);
+        }
+        else
+        {
+            data.GetComponent<DataContainer_Character>().SetLives(3);
+        }
         data.SetDifficulty((int)slider.value);
     }
 }

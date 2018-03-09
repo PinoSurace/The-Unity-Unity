@@ -27,7 +27,14 @@ public class LevelGenerator1 : MonoBehaviour {
 
     void Start()
     {
-        difficulty = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>().GetDifficulty();
+        try
+        {
+            difficulty = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>().GetDifficulty();
+        }
+        catch
+        {
+            difficulty = 2;
+        }
 
         // Y coordinate of the ropes
         const float ropeY = 4.0f; // Should this be constant or also vary between some limits?

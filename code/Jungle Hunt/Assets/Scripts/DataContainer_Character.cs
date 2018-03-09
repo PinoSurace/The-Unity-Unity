@@ -6,12 +6,12 @@ using UnityEngine;
 public class DataContainer_Character : MonoBehaviour {
 
     public delegate void bcCharcterGameOver();
-    public event bcCharcterGameOver EVGameOver;
+    public static event bcCharcterGameOver EVGameOver;
 
     // Store data.
     private string PlayerName = "";
     private int points;
-    private int num_of_lives = 5;
+    public int num_of_lives = 5;
     private int difficulty = 1;
 
     // Keep any changes through transitions.

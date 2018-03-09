@@ -56,8 +56,6 @@ public class Player : MonoBehaviour
 				break;
 
 			case State.State_Dead:
-                DataContainer_Character data = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>();
-                data.ChangeLives(-1);
                 // Initiating an event with 0 subscribers is not allowed.
                 if (EVDeath != null)
                 {

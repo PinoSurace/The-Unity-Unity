@@ -957,7 +957,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1423588706}
-  - component: {fileID: 1423588705}
   m_Layer: 0
   m_Name: UI_labels
   m_TagString: Untagged
@@ -965,21 +964,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1423588705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1423588704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 634590346f018a7458083c87a271d449, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player_lives: {fileID: 1998241957}
-  player_name: {fileID: 1313467752}
-  player_scores: {fileID: 486847924}
-  timer: {fileID: 898896844}
 --- !u!4 &1423588706
 Transform:
   m_ObjectHideFlags: 0
