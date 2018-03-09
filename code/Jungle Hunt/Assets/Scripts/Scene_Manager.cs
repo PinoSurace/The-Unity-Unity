@@ -12,6 +12,7 @@ public class Scene_Manager : MonoBehaviour {
     private int goingTo;
     private bool midLoad = false;
     private bool sceneAnim = true;
+    private bool endgame = false;
     private int scoreBefore = 0;
 
     // Carried Data objects, use these for game's global functions.
@@ -23,6 +24,7 @@ public class Scene_Manager : MonoBehaviour {
     private GameObject scores_player;
     private GameObject scores_points;
     private GameObject scores_time;
+    private GameObject scores_lives;
 
     // How many scenes to offset until levels start:
     private static int levels_at = 2;
@@ -45,7 +47,9 @@ public class Scene_Manager : MonoBehaviour {
         scores_player = scores.transform.Find("PlayerName").gameObject;
         scores_points = scores.transform.Find("PlayerScore").gameObject;
         scores_time = scores.transform.Find("TimerValue").gameObject;
+        scores_lives = scores.transform.Find("Lives").gameObject;
         scores.SetActive(false);
+        DataContainer_Character.EVGameOver += RestartGame;
     }
 
     // Generate level order.
@@ -109,7 +113,7 @@ public class Scene_Manager : MonoBehaviour {
 
     private void InitiateUI()
     {
-        scores.GetComponent<UI_Script>().Activate(scores_player, scores_points, scores_time, chardata);
+        scores.GetComponent<UI_Script>().Activate(scores_player, scores_points, scores_time, scores_lives, chardata);
         scores.GetComponent<UI_Script>().TimerOn(100);
     }
 
@@ -207,13 +211,27 @@ public class Scene_Manager : MonoBehaviour {
     {
         scores.GetComponent<UI_Script>().TimerOff();
         scores.GetComponent<UI_Script>().ScoreDrop(scoreBefore);
+        chardata.GetComponent<DataContainer_Character>().ChangeLives(-1);
         StartCoroutine("DramaticTiming");
+    }
+
+    void RestartGame()
+    {
+        endgame = true;
     }
 
     IEnumerator DramaticTiming()
     {
         yield return new WaitForSeconds(1.20f);
-        ChangeScene(CurrentIndex);
+        if (endgame)
+        {
+            ChangeScene(0);
+        }
+        else
+        {
+            ChangeScene(CurrentIndex);
+        }
+        
     }
 
     // A event handler to give for unity, used once a level has loaded.
