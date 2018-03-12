@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 		State_Swinging,
 		State_Swimming,
 		State_Bubble,
-		State_Walking,
+		State_Running,
 		State_Crouching
 	}
 
@@ -43,16 +43,22 @@ public class Player : MonoBehaviour
 		switch (CurrentState) 
 		{
             
-            case State.State_Idle:
-			if (Input.GetButtonDown("Jump"))
+			case State.State_Idle:
+				if (Input.GetButtonDown ("Jump")) 
 				{
 					CurrentState = State.State_Jumping;
 					//An impulse is used to move the player
 					rb.AddForce (new Vector2 (XAxis, YAxis), ForceMode2D.Impulse);
 					//The jump animation is triggered
 					animator.SetTrigger ("PlayerJump");
-					this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2 (0.03f, 0.03f);
-				}					
+					this.gameObject.GetComponent<BoxCollider2D> ().size = new Vector2 (0.03f, 0.03f);
+				}		
+				//Function for testing only, will be removed later. Changes the player from idle to running
+				if (Input.GetKeyDown ("x"))
+				{
+					CurrentState = State.State_Running;
+					animator.SetTrigger ("PlayerRun");
+				}
 				break;
 
 			case State.State_Dead:
@@ -88,7 +94,29 @@ public class Player : MonoBehaviour
 					
 				}
 				break;
+			case State.State_Crouching:
+				//when the duck button is no longer pressed, the player starts running again
+				if (Input.GetButtonUp ("Duck"))
+				{
+					CurrentState = State.State_Running;
+					animator.SetTrigger("PlayerRun");
+				}
+					
+				break;
+					
+			case State.State_Running:
+				//Player can accelerate and deccelerate while "moving"
+				float accelerate = Input.GetAxis ("Horizontal");
+				Vector2 acceleration = new Vector2 (accelerate, 0);
+				rb.AddForce (acceleration * speed);
+				//Pressing and holding the duck button makes player crouch
+				if (Input.GetButtonDown( "Duck"))
+				{
+					CurrentState = State.State_Crouching;
+					animator.SetTrigger ("PlayerDuck");
+				}
 				
+				break;
 		}
 
 	}
