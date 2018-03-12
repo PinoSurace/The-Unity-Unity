@@ -102,6 +102,7 @@ public class Player : MonoBehaviour
 			animator.SetTrigger ("PlayerDead");
 			CurrentState = State.State_Dead;
 			rb.gravityScale = 1;
+			Destroy (gameObject.GetComponent (typeof(Collider2D)));
 		}
 	}
 
