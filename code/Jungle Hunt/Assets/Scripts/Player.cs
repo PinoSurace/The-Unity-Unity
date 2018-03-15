@@ -100,6 +100,7 @@ public class Player : MonoBehaviour
 				{
 					CurrentState = State.State_Running;
 					animator.SetTrigger("PlayerRun");
+					this.gameObject.GetComponent<BoxCollider2D> ().size = new Vector2 (0.18f, 0.18f);
 				}
 					
 				break;
@@ -114,7 +115,16 @@ public class Player : MonoBehaviour
 				{
 					CurrentState = State.State_Crouching;
 					animator.SetTrigger ("PlayerDuck");
+					this.gameObject.GetComponent<BoxCollider2D> ().size = new Vector2 (0.06f, 0.06f);
 				}
+				else if (Input.GetButtonDown ("Jump")) 
+				{
+					CurrentState = State.State_Jumping;
+					//An impulse is used to move the player
+					rb.AddForce (new Vector2 (XAxis, YAxis), ForceMode2D.Impulse);
+					//The jump animation is triggered
+					animator.SetTrigger ("PlayerJump");					
+				}	
 				
 				break;
 		}
