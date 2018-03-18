@@ -674,6 +674,8 @@ MonoBehaviour:
     type: 2}
   crocodilePrefab: {fileID: 4109298376563256, guid: 748c63fde99525b448918958416b7d8d,
     type: 2}
+  levelEndPrefab: {fileID: 4841741629922926, guid: 81b381a723b9c6445a3b8947f03d6005,
+    type: 2}
   skyBackgroundPrefab: {fileID: 4546807647143726, guid: c50a6e5914f5b6b47acf779871aac536,
     type: 2}
   riverBackgroundPrefab: {fileID: 4073088771488578, guid: b88499b0bec347a449cea63127df218a,
