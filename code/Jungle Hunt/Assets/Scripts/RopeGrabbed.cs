@@ -22,10 +22,4 @@ public class RopeGrabbed : MonoBehaviour {
             chardata.GetComponent<DataContainer_Character>().ChangePoints(score_change);
         }
     }
-
-    public void CorrelateCameraToThisObject()
-    {
-        Vector3 target = this.transform.position;
-        GameObject.Find("Main Camera").GetComponent<CameraControls>().FollowPlayer(animtime);
-    }
 }

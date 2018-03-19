@@ -28,14 +28,12 @@ public class GrabRope : MonoBehaviour {
 
 				//Set the rope as grabbed
 				grabscript.grabbed = true;
-				grabscript.CorrelateCameraToThisObject ();
 				//Change the player state to swinging
 				this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Swinging;
 				this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerSwing");
 
 			} 
-		} 
-
+		}
 
 		//If the trigger is the animation collider
 		else if (other.gameObject.name == "DivingAnimationCollider")
