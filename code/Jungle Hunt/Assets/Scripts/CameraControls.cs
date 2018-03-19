@@ -3,76 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraControls : MonoBehaviour {
-
-    private Vector3 startposition;
-    private Vector3 moveposition;
-    private Vector3 targetposition;
-    private Vector3 offset = new Vector3(-5.0f, 0, 0);
-    private float movetime;
-    private bool called = false;
-    private bool followplayer = false;
+    private Vector3 cameraTargetPosition;
 	
-	// Debug Controls allow you to offset with numpad.
-	void FixedUpdate ()
+	void FixedUpdate()
     {
+        Vector3 playerOffset = new Vector3(-5.0f, 0, 0);
+
+        // This defines how quickly the camera responds to player movement
+        const float cameraSpeed = 1.0f;
+
+        Vector3 playerPosition = GameObject.Find("Tarzan").transform.position;
+        Vector3 cameraCurrentPosition = this.transform.position;
+
+        // Only change the target position if it's moving the camera forwards from where it was before
+        if (playerPosition.x + playerOffset.x < cameraTargetPosition.x)
+        {
+            cameraTargetPosition = playerPosition + playerOffset;
+        }
         
-        if (called)
-        {
-            
-            startposition = this.transform.position;
-            float divider = movetime;
-            if (followplayer == true)
-            {
-                targetposition = GameObject.Find("Tarzan").transform.position + offset;
-            }
-            float x_diff = ((targetposition.x - startposition.x) * Time.deltaTime) / divider;
-            // y or z - does not need to change:
-            float y_diff = 0;
-            float z_diff = 0;
-            if (x_diff < 0)
-            {
-                moveposition = new Vector3(x_diff, y_diff, z_diff);
-                this.transform.position += moveposition;
-            }
-            if (this.transform.position.x - targetposition.x < 1.0f && followplayer == false)
-            {
-                called = false;
-            }
-        }
-		if (Input.GetKey(KeyCode.Keypad4))
-        {
-            this.transform.position += new Vector3(-1, 0, 0);
-        }
-        else if (Input.GetKey(KeyCode.Keypad6))
-        {
-            this.transform.position += new Vector3(1, 0, 0);
-        }
-        else if (Input.GetKey(KeyCode.Keypad2))
-        {
-            this.transform.position += new Vector3(0, -1, 0);
-        }
-        else if (Input.GetKey(KeyCode.Keypad8))
-        {
-            this.transform.position += new Vector3(0, 1, 0);
-        }
-    }
-
-    public void GotoTarget(Vector3 toPosition, float time)
-    {
-        targetposition = toPosition + offset;
-        movetime = time;
-        called = true;
-    }
-
-    public void FollowPlayer(float time)
-    {
-        movetime = time;
-        called = true;
-        followplayer = true;
-    }
-
-    private void GetCommands()
-    {
+        // Only change camera x coordinate
+        float dx = (cameraTargetPosition.x - cameraCurrentPosition.x) * Time.deltaTime * cameraSpeed;
         
+        // Move the camera towards its target position
+        this.transform.position += new Vector3(dx, 0.0f, 0.0f);
     }
 }
