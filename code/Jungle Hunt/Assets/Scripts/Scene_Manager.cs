@@ -25,6 +25,7 @@ public class Scene_Manager : MonoBehaviour {
     private GameObject scores_points;
     private GameObject scores_time;
     private GameObject scores_lives;
+    private GameObject sound_system;
 
     // How many scenes to offset until levels start:
     private static int levels_at = 2;
@@ -48,6 +49,7 @@ public class Scene_Manager : MonoBehaviour {
         scores_points = scores.transform.Find("PlayerScore").gameObject;
         scores_time = scores.transform.Find("TimerValue").gameObject;
         scores_lives = scores.transform.Find("Lives").gameObject;
+        sound_system = GameObject.Find("SoundSystem");
         scores.SetActive(false);
         DataContainer_Character.EVGameOver += RestartGame;
     }
@@ -192,6 +194,7 @@ public class Scene_Manager : MonoBehaviour {
             {
                 scores.SetActive(true);
             }
+            sound_system.GetComponent<Sound_System>().ChangeBG(goingTo - 1);
             InitiateUI();
             scores_points.GetComponent<Text>().text = "0 pts.";
         }
