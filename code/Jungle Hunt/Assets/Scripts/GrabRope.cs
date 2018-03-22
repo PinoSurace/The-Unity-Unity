@@ -58,6 +58,11 @@ public class GrabRope : MonoBehaviour {
 			this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Running;
 			this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerRun");
 		}
+		else if (other.gameObject.name == "Land")
+		{
+			this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Idle;
+			this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerIdle");
+		}
 
 	}
 }
