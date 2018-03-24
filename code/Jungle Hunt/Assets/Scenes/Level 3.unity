@@ -304,6 +304,16 @@ Prefab:
       propertyPath: YAxis
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114623714862058432, guid: 46efc53914a90f44cbfd64a9759571ac,
+        type: 2}
+      propertyPath: ColliderSize
+      value: 0.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 114623714862058432, guid: 46efc53914a90f44cbfd64a9759571ac,
+        type: 2}
+      propertyPath: velocity
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
   m_IsPrefabParent: 0

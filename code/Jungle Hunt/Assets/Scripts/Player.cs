@@ -13,10 +13,14 @@ public class Player : MonoBehaviour
     //Values for the force used to move the player
     public int YAxis;   //How high the player will jump.
     public int XAxis;   //How far the player will jump. Value should be negative in first level
+	public float ColliderSize;
 
     public Rigidbody2D rb;
     private Animator animator;
 	public float speed;
+
+	//Placeholder to differentiate levels 3 and 4. If the current level can be extracted from scene manager, replace this with that
+	public int level;
 
 	//Different States of the Player
 	public enum State
@@ -51,16 +55,15 @@ public class Player : MonoBehaviour
 					rb.AddForce (new Vector2 (XAxis, YAxis), ForceMode2D.Impulse);
 					//The jump animation is triggered
 					animator.SetTrigger ("PlayerJump");
-					this.gameObject.GetComponent<BoxCollider2D> ().size = new Vector2 (0.03f, 0.03f);
+					this.gameObject.GetComponent<BoxCollider2D> ().size = new Vector2 (ColliderSize, ColliderSize);
 				}		
 				//Function for testing only, will be removed later. Changes the player from idle to running
-				if (Input.GetKeyDown ("x"))
-				{
-					CurrentState = State.State_Running;
-					animator.SetTrigger ("PlayerRun");
-				}
+				if(Input.GetButtonDown ("Horizontal"))
+					{
+						CurrentState = State.State_Running;
+						animator.SetTrigger("PlayerRun");
+					}
 				break;
-
 			case State.State_Dead:
                 // Initiating an event with 0 subscribers is not allowed.
                 if (EVDeath != null)
@@ -125,6 +128,11 @@ public class Player : MonoBehaviour
 					//The jump animation is triggered
 					animator.SetTrigger ("PlayerJump");					
 				}	
+				else if (Input.GetButton ("Horizontal") == false && level == 4)
+				{
+					CurrentState = State.State_Idle;
+					animator.SetTrigger("PlayerStop");
+				}
 				
 				break;
 		}
