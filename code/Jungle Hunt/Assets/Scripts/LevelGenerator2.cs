@@ -63,7 +63,6 @@ public class LevelGenerator2 : MonoBehaviour {
         GenerateBackground();
         SpawnCrocodiles();
         SpawnLevelEnd();
-        GameObject.Find("Tarzan").GetComponent<Player>().OutOfBubble();
     }
     
     void Update()

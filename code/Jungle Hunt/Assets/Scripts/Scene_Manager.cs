@@ -123,6 +123,7 @@ public class Scene_Manager : MonoBehaviour {
     // Call to advance to the next level.
     public void NextLevel()
     {
+        sound_system.GetComponent<Sound_System>().FadeOut();
         // if no more levels, generate more...
         if (levelgenerationorder.Count == 0)
         {
@@ -154,6 +155,7 @@ public class Scene_Manager : MonoBehaviour {
 
             if (sceneAnim == true)
             {
+                sound_system.GetComponent<Sound_System>().PlaySFX(1);
                 if (EVSceneChange != null)
                 {
                     EVSceneChange();
