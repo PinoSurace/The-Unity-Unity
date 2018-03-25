@@ -77,10 +77,10 @@ public class LevelGenerator3 : MonoBehaviour {
         groundCollider.GetComponent<Transform>().position = new Vector3(0, -4.5f);
 
         float groundImageWidth = groundPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
-        float groundImageHeight = groundPrefab.GetComponent<SpriteRenderer>().bounds.size.y;
+        //float groundImageHeight = groundPrefab.GetComponent<SpriteRenderer>().bounds.size.y;
 
         float levelTotalLength = runningSpeed * (levelDuration + firstSpawnTimeOffset + lastSpawnTimeOffset);
-        
+
         for (float groundX = 0.0f, groundY = 0.0f;
             groundX > -levelTotalLength;
             groundX -= groundImageWidth * Mathf.Cos(-5.0f / 360.0f * 2.0f * Mathf.PI),
