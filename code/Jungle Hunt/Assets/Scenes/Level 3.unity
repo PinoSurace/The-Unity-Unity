@@ -148,6 +148,7 @@ MonoBehaviour:
     type: 2}
   groundPrefab: {fileID: 4794510908026984, guid: 8d65c9f527ef3234e925f8eb4a14870f,
     type: 2}
+  slopeAngleDegrees: -10
 --- !u!4 &362692414
 Transform:
   m_ObjectHideFlags: 0
@@ -292,7 +293,7 @@ Prefab:
     - target: {fileID: 114623714862058432, guid: 46efc53914a90f44cbfd64a9759571ac,
         type: 2}
       propertyPath: speed
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114623714862058432, guid: 46efc53914a90f44cbfd64a9759571ac,
         type: 2}
@@ -302,7 +303,7 @@ Prefab:
     - target: {fileID: 114623714862058432, guid: 46efc53914a90f44cbfd64a9759571ac,
         type: 2}
       propertyPath: YAxis
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 114623714862058432, guid: 46efc53914a90f44cbfd64a9759571ac,
         type: 2}
@@ -313,6 +314,11 @@ Prefab:
         type: 2}
       propertyPath: velocity
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 50193205437242860, guid: 46efc53914a90f44cbfd64a9759571ac,
+        type: 2}
+      propertyPath: m_LinearDrag
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
