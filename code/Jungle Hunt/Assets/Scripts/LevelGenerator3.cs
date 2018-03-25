@@ -11,6 +11,8 @@ public class LevelGenerator3 : MonoBehaviour {
     public Transform backgroundPrefab;
     public Transform groundPrefab;
 
+    public float slopeAngleDegrees = -10.0f;
+
     private const float boulderSpawnIntervalMin = 3.0f; // As a function of difficulty?
     private const float boulderSpawnIntervalMax = 5.0f; // As a function of difficulty?
     private float nextBoulderSpawnTime = 0.0f;
@@ -70,28 +72,43 @@ public class LevelGenerator3 : MonoBehaviour {
      */
     private void SpawnGround()
     {
-        var gameObject = new GameObject("GroundCollider");
-        var groundCollider = gameObject.AddComponent<BoxCollider2D>();
+        float slopeAngleRadians = slopeAngleDegrees / 360.0f * 2.0f * Mathf.PI;
+        const float groundYOffset = -4.5f;
+
+        var groundColliderGameObject = new GameObject("GroundCollider");
+        var groundCollider = groundColliderGameObject.AddComponent<BoxCollider2D>();
         groundCollider.size = new Vector2(40, 4);
-        groundCollider.GetComponent<Transform>().Rotate(0, 0, -5);
-        groundCollider.GetComponent<Transform>().position = new Vector3(0, -4.5f);
+        groundCollider.GetComponent<Transform>().Rotate(0, 0, slopeAngleDegrees);
+        groundCollider.GetComponent<Transform>().position = new Vector3(0, groundYOffset);
 
         float groundImageWidth = groundPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
         //float groundImageHeight = groundPrefab.GetComponent<SpriteRenderer>().bounds.size.y;
 
         float levelTotalLength = runningSpeed * (levelDuration + firstSpawnTimeOffset + lastSpawnTimeOffset);
+        Vector3 nextLevelColliderPosition = new Vector3(0, 0, 0);
 
-        for (float groundX = 0.0f, groundY = 0.0f;
+        for (float groundX = 0.0f, groundY = groundYOffset;
             groundX > -levelTotalLength;
-            groundX -= groundImageWidth * Mathf.Cos(-5.0f / 360.0f * 2.0f * Mathf.PI),
-            groundY -= groundImageWidth * Mathf.Sin(-5.0f / 360.0f * 2.0f * Mathf.PI))
+            groundX -= groundImageWidth * Mathf.Cos(slopeAngleRadians),
+            groundY -= groundImageWidth * Mathf.Sin(slopeAngleRadians))
         {
             var ground = Instantiate(groundPrefab,
-                                     new Vector3(groundX, groundY - 4.5f, 99.0f),
+                                     new Vector3(groundX, groundY, 0.0f),
                                      Quaternion.identity);
-            ground.GetComponent<Transform>().Rotate(0, 0, -5);
-            ground.GetComponent<Rigidbody2D>().velocity = new Vector2(runningSpeed * Mathf.Cos(-5.0f / 360.0f * 2.0f * Mathf.PI),
-                                                                      runningSpeed * Mathf.Sin(-5.0f / 360.0f * 2.0f * Mathf.PI));
+            ground.GetComponent<Transform>().Rotate(0, 0, slopeAngleDegrees);
+            ground.GetComponent<Rigidbody2D>().velocity = new Vector2(runningSpeed * Mathf.Cos(slopeAngleRadians),
+                                                                      runningSpeed * Mathf.Sin(slopeAngleRadians));
+            nextLevelColliderPosition = new Vector3(groundX, groundY, 0.0f);
         }
+
+        var nextLevelGameObject = new GameObject("NextLevelCollider");
+        var nextLevelCollider = nextLevelGameObject.AddComponent<BoxCollider2D>();
+        var nextLevelRigidbody = nextLevelGameObject.AddComponent<Rigidbody2D>();
+        nextLevelCollider.isTrigger = true;
+        nextLevelCollider.size = new Vector2(4, 20);
+        nextLevelCollider.GetComponent<Transform>().position = nextLevelColliderPosition;
+        nextLevelRigidbody.isKinematic = true;
+        nextLevelRigidbody.velocity = new Vector2(runningSpeed * Mathf.Cos(slopeAngleRadians),
+                                                  runningSpeed * Mathf.Sin(slopeAngleRadians));
     }
 }
