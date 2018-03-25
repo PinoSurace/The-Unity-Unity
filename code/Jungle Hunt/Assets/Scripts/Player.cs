@@ -11,8 +11,8 @@ public class Player : MonoBehaviour
     public static event bcCharcterDeath EVDeath;
 
     //Values for the force used to move the player
-    public int YAxis;   //How high the player will jump.
-    public int XAxis;   //How far the player will jump. Value should be negative in first level
+    public float YAxis;   //How high the player will jump.
+    public float XAxis;   //How far the player will jump. Value should be negative in first level
 	public float ColliderSize;
 
     public Rigidbody2D rb;
@@ -174,7 +174,25 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-		CurrentState = State.State_Idle;
+		// If we can access Scene Manager (started from menu) change according to level.
+        try
+        {
+            int level = GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().CurrentIndex - 1;
+            if (level == 2)
+            {
+                OutOfBubble();
+            }
+            else
+            {
+                CurrentState = State.State_Idle;
+            }
+        }
+        catch
+        {
+            // If errored, default to idle.
+            CurrentState = State.State_Idle;
+        }
+
     }
 
     //Pressing the space key makes the player jump.
