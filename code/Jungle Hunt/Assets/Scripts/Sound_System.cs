@@ -46,7 +46,7 @@ public class Sound_System : MonoBehaviour {
     public void ChangeBG(int trackid)
     {
         f_in = true;
-        if (trackid > tracks.Count)
+        if (trackid < 0 || trackid >= tracks.Count)
         {
             Debug.Log(string.Format("TRACK INDEX OVERFLOW, Trying to Access unexisting clip #{0,2}", trackid));
         }
@@ -69,7 +69,7 @@ public class Sound_System : MonoBehaviour {
         {
             sfxAS.Play();
         }
-        else if (sfxid > sounds.Count)
+        else if (sfxid < 0 || sfxid >= sounds.Count)
         {
             Debug.Log(string.Format("SOUND INDEX OVERFLOW, Trying to Access unexisting clip #{0,2}", sfxid));
         }
