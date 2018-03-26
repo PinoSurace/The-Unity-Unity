@@ -32,19 +32,45 @@ public class GrabRope : MonoBehaviour {
 				this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Swinging;
 				this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerSwing");
 
-			} 
-		}
+			}
 
-		//If the trigger is the animation collider
-		else if (other.gameObject.name == "DivingAnimationCollider")
+            else if (other.gameObject.name == "CrocodileScore")
+            {
+                int CROCMAXPTS = 475;
+                int CROCDIFF = 50;
+                float dist_to_reduce = 0.50f;
+                Vector3 crocpos = other.transform.root.position;
+                float crocdist = Mathf.Abs(this.transform.position.y - crocpos.y);
+                GameObject chardata = GameObject.Find("CharacterData");
+                if (chardata != null)
+                {
+                    int pointreward = CROCMAXPTS;
+                    while (crocdist >= dist_to_reduce)
+                    {
+                        pointreward -= CROCDIFF;
+                        crocdist -= dist_to_reduce;
+                    }
+                    if (pointreward > 0)
+                    {
+                        chardata.GetComponent<DataContainer_Character>().ChangePoints(pointreward);
+                    }
+                }
+                Destroy(other.GetComponent<BoxCollider2D>());
+
+            }
+        }
+
+        //If the trigger is the animation collider
+        else if (other.gameObject.name == "DivingAnimationCollider")
 		{
 			
 			Destroy (this.gameObject.GetComponent (typeof(DistanceJoint2D)));
 			this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_None;
 			this.gameObject.GetComponent<Animator> ().Play ("PlayerFall");
 		}
-		//Trigger for level change
-		else if (other.gameObject.name == "NextLevelCollider") 
+
+        //Trigger for level change
+        else if (other.gameObject.name == "NextLevelCollider") 
 		{
            GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().NextLevel();
            Debug.Log ("End");
