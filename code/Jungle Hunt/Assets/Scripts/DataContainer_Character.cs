@@ -30,7 +30,8 @@ public class DataContainer_Character : MonoBehaviour {
     new Color(0.90f, 0.75f, 0.70f), new Color(0.30f, 0.35f, 0.95f), new Color(0.30f, 0.70f, 0.70f), new Color(0.40f, 0.45f, 0.20f)};
     private List<Color> textcolors = new List<Color> { new Color(0.90f, 0.20f, 0.20f), new Color(0.90f, 0.90f, 0.90f), new Color(0.80f, 0.80f, 0.00f), new Color(0.50f, 0.25f, 0.20f),
     new Color(0.20f, 0.85f, 0.85f), new Color(0.25f, 0.25f, 0.75f), new Color(0.60f, 0.60f, 0.10f), new Color(0.10f, 0.10f, 0.10f)};
-    private List<int> scoresawarder = new List<int> { };
+    public List<int> scoresawarder = new List<int> { };
+    public List<int> actualscores = new List<int> { };
 
 
     // Keep any changes through transitions.
@@ -72,6 +73,7 @@ public class DataContainer_Character : MonoBehaviour {
             int scoretogive = (MAXSCORE - (index * SCOREDETRIMENT));
 
             scoresawarder.Add(index);
+            actualscores.Add(scoretogive);
             
             int alive = GameObject.FindGameObjectsWithTag("ScoreInstance").Length;
 

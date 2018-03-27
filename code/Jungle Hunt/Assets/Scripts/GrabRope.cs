@@ -9,6 +9,11 @@ public class GrabRope : MonoBehaviour {
 	float dist = 0f;
 	void OnTriggerEnter2D (Collider2D other)
 	{
+        // Check that player is not in state_none.
+        if (this.GetComponent<Player>().CurrentState == Player.State.State_Inv)
+        {
+            return;
+        }
 		//Checking if the objecdt has parent object (Parts o rope are children of the rope)
 		if (other.gameObject.transform.parent != null) {
 
@@ -71,6 +76,7 @@ public class GrabRope : MonoBehaviour {
         else if (other.gameObject.name == "NextLevelCollider") 
 		{
            GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().NextLevel();
+           this.gameObject.GetComponent<Player>().CurrentState = Player.State.State_Inv;
            Debug.Log ("End");
 		}
 	}
