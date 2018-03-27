@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class BarScript : MonoBehaviour
 {
-    public Slider slider;  
+    public Slider slider;
+    Player player;
     
     // Use this for initialization
     void Start()
     {
+        player = GameObject.Find("Tarzan").GetComponent<Player>();
         slider.value = 100;
         StartCoroutine(HandleBar());
         
@@ -17,15 +19,14 @@ public class BarScript : MonoBehaviour
 
     IEnumerator HandleBar()
     {
-        while (true)
+        while (player.CurrentState != Player.State.State_Inv)
         {
-            yield return new WaitForSecondsRealtime(0.1f);
             slider.value -= 1;
+            yield return new WaitForSecondsRealtime(0.14f);
             
             //no more air. dead 
             if (slider.value == 0)
             {                
-                Player player = GameObject.Find("Tarzan").GetComponent<Player>();
                 player.DeadlyHazard();
                 break;
             }

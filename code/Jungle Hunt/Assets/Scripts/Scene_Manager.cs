@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class Scene_Manager : MonoBehaviour {
 
     public int CurrentIndex;
+    public bool scoreboardUp = false;
+
     public delegate void bcSceneChange();
     public static event bcSceneChange EVSceneChange;
-    private int goingTo;
-    private bool midLoad = false;
+    public int goingTo;
+    public bool midLoad = false;
     private bool sceneAnim = true;
     private bool endgame = false;
     private int scoreBefore = 0;
@@ -121,9 +123,10 @@ public class Scene_Manager : MonoBehaviour {
 
     // Next level from order.
     // Call to advance to the next level.
-    public void NextLevel()
+    public void NextLevel(bool scoreboard = true)
     {
         sound_system.GetComponent<Sound_System>().FadeOut();
+        scoreboardUp = scoreboard;
         // if no more levels, generate more...
         if (levelgenerationorder.Count == 0)
         {
@@ -131,6 +134,7 @@ public class Scene_Manager : MonoBehaviour {
         }
         int to = levelgenerationorder[0] - 1;
         levelgenerationorder.RemoveAt(0);
+
         // offset of scenes at the start
         ChangeScene(levels_at + to);
     }
@@ -172,23 +176,16 @@ public class Scene_Manager : MonoBehaviour {
         }
     }
 
-    // A public function to call when finished loading, should probably be protected.
-    public void FinishedLoad()
+    public void StartLoad()
     {
-        // Change to accomodate any modifications in loadorder.
-        // Should match index of "Start menu"
-        if (CurrentIndex == 0)
+        SceneManager.LoadSceneAsync(goingTo);
+        if (goingTo == 1)
         {
             if (sm_but.activeSelf == true)
             {
                 sm_but.SetActive(false);
                 sm_inp.SetActive(false);
             }
-        }
-        if (goingTo == 0)
-        {
-            Destroy(overlay);
-            Destroy(chardata);
         }
         if (goingTo > 1)
         {
@@ -208,8 +205,24 @@ public class Scene_Manager : MonoBehaviour {
             }
             scores.GetComponent<UI_Script>().TimerOff();
         }
-        SceneManager.LoadScene(goingTo);
+    }
 
+    // A public function to call when finished loading, should probably be protected.
+    public void FinishedLoad()
+    {
+        // Change to accomodate any modifications in loadorder.
+        // Should match index of "Start menu"
+        chardata.GetComponent<DataContainer_Character>().scoresawarder.Clear();
+        chardata.GetComponent<DataContainer_Character>().actualscores.Clear();
+
+        if (goingTo == 0)
+        {
+            Destroy(overlay);
+            Destroy(chardata);
+        }
+
+        midLoad = false;
+        scoreboardUp = false;
     }
 
     void RestartLevel()
@@ -243,8 +256,7 @@ public class Scene_Manager : MonoBehaviour {
     void LvlLoad(Scene scene, LoadSceneMode sceneMode)
     {
         GameObject.Find("Transition").GetComponent<Animator>().SetTrigger("Raise");
-        CurrentIndex = goingTo;
-        midLoad = false;
+        CurrentIndex = scene.buildIndex;
         if (goingTo > 1)
         {
             Player.EVDeath += RestartLevel;

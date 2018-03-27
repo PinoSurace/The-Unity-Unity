@@ -15,7 +15,7 @@ public class Next_Scene : MonoBehaviour {
     public void StartGame()
     {
         GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().GenerateLevelOrder(false);
-        GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().NextLevel();
+        GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().NextLevel(false);
     }
 
 }

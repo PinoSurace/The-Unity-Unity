@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
         State_Jumping,
         State_Dead,
         State_None,
+        State_Inv,
         State_Attacking,
         State_Swinging,
         State_Swimming,
