@@ -144,11 +144,10 @@ MonoBehaviour:
     type: 2}
   bigBoulderPrefab: {fileID: 4937936754890040, guid: 74b140d9325dde54fb686a901aba3d6f,
     type: 2}
-  backgroundPrefab: {fileID: 4131566017303024, guid: d6ea643381324b14cae40594858d276f,
+  backgroundPrefab: {fileID: 4622208605147824, guid: d6ea643381324b14cae40594858d276f,
     type: 2}
   groundPrefab: {fileID: 4794510908026984, guid: 8d65c9f527ef3234e925f8eb4a14870f,
     type: 2}
-  slopeAngleDegrees: -10
 --- !u!4 &362692414
 Transform:
   m_ObjectHideFlags: 0
@@ -203,7 +202,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.80784315, g: 0.90588236, b: 0.9764706, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -252,11 +251,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4429370957524334, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 11.307621
+      value: 8.44
       objectReference: {fileID: 0}
     - target: {fileID: 4429370957524334, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.6596117
+      value: -2.88
       objectReference: {fileID: 0}
     - target: {fileID: 4429370957524334, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
       propertyPath: m_LocalPosition.z
