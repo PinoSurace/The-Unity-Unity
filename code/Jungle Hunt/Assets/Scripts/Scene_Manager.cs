@@ -35,9 +35,13 @@ public class Scene_Manager : MonoBehaviour {
     // Level generation order.
     private List<int> levelgenerationorder = new List<int> ();
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
+        if (GameObject.FindGameObjectsWithTag("Container").Length != 2)
+        {
+            Destroy(this.gameObject);
+        }
         DontDestroyOnLoad(this);
         CurrentIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.sceneLoaded += LvlLoad;
@@ -51,7 +55,7 @@ public class Scene_Manager : MonoBehaviour {
         scores_points = scores.transform.Find("PlayerScore").gameObject;
         scores_time = scores.transform.Find("TimerValue").gameObject;
         scores_lives = scores.transform.Find("Lives").gameObject;
-        sound_system = GameObject.Find("SoundSystem");
+        sound_system = overlay.transform.Find("SoundSystem").gameObject;
         scores.SetActive(false);
         DataContainer_Character.EVGameOver += RestartGame;
     }
@@ -217,12 +221,13 @@ public class Scene_Manager : MonoBehaviour {
 
         if (goingTo == 0)
         {
-            Destroy(overlay);
-            Destroy(chardata);
+            sm_but.SetActive(true);
+            sm_inp.SetActive(true);
         }
 
         midLoad = false;
         scoreboardUp = false;
+
     }
 
     void RestartLevel()

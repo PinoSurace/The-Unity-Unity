@@ -33,10 +33,13 @@ public class DataContainer_Character : MonoBehaviour {
     public List<int> scoresawarder = new List<int> { };
     public List<int> actualscores = new List<int> { };
 
-
     // Keep any changes through transitions.
     void Start ()
     {
+        if (GameObject.FindGameObjectsWithTag("Container").Length != 2)
+        {
+            Destroy(this.gameObject);
+        }
         DontDestroyOnLoad(this);
 	}
 
