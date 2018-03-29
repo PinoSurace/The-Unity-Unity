@@ -91,7 +91,7 @@ public class DataContainer_Character : MonoBehaviour {
 
             ScoreIndicator_Effect scoreToShow = Instantiate(scoreprefab, Vector3.zero, Quaternion.Euler(0, 0, 0)).GetComponent<ScoreIndicator_Effect>();
             scoreToShow.gameObject.transform.SetParent(canvas.transform, false);
-            scoreToShow.gameObject.GetComponent<RectTransform>().Translate(-280f, 100f - (runner * 15f), 0);
+            scoreToShow.gameObject.GetComponent<RectTransform>().Translate(280f, 100f - (runner * 15f), 0);
             scoreToShow.flairtext = scorenames[index];
             scoreToShow.pointtext = scoretogive;
             ChangePoints(scoretogive);
