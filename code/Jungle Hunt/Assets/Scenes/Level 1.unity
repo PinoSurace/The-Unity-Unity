@@ -668,38 +668,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114671126380170560, guid: 46efc53914a90f44cbfd64a9759571ac,
+    - target: {fileID: 114623714862058432, guid: 46efc53914a90f44cbfd64a9759571ac,
         type: 2}
       propertyPath: XAxis
-      value: -6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114671126380170560, guid: 46efc53914a90f44cbfd64a9759571ac,
-        type: 2}
-      propertyPath: YAxis
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 4585029698170536, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4585029698170536, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114623714862058432, guid: 46efc53914a90f44cbfd64a9759571ac,
-        type: 2}
-      propertyPath: ColliderSize
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 114623714862058432, guid: 46efc53914a90f44cbfd64a9759571ac,
-        type: 2}
-      propertyPath: YAxis
-      value: 4
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 50734111161154128, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
-    - {fileID: 114671126380170560, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
-    - {fileID: 114977524612875294, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1140412973

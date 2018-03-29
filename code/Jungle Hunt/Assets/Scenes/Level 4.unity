@@ -209,7 +209,7 @@ Prefab:
     - target: {fileID: 114623714862058432, guid: 46efc53914a90f44cbfd64a9759571ac,
         type: 2}
       propertyPath: XAxis
-      value: -3
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
