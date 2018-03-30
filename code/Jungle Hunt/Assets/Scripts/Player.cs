@@ -63,6 +63,7 @@ public class Player : MonoBehaviour
                     animator.SetTrigger("PlayerRun");
                 }
                 break;
+
             case State.State_Dead:
                 // Initiating an event with 0 subscribers is not allowed.
                 if (EVDeath != null)
@@ -71,25 +72,27 @@ public class Player : MonoBehaviour
                     EVDeath = null;
                 }
                 break;
+
             case State.State_Swimming:
                 float moveHorizontal = Input.GetAxis("Horizontal");
                 float moveVertical = Input.GetAxis("Vertical");
                 Vector2 movement = new Vector2(moveHorizontal, moveVertical);
                 rb.AddForce(movement * speed);
                 break;
+
             case State.State_Swinging:
                 if (Input.GetButtonDown("Jump"))
                 {
                     CurrentState = State.State_Jumping;
                     Destroy(gameObject.GetComponent (typeof(DistanceJoint2D)));
                     //An impulse is used to move the player
-
                     rb.velocity = Vector2.zero;
                     rb.AddForce(new Vector2(XAxis * 1.2f, YAxis * 0.8f), ForceMode2D.Impulse);
                     //The jump animation is triggered
                     animator.SetTrigger ("PlayerJump");
                 }
                 break;
+
             case State.State_Crouching:
                 //when the duck button is no longer pressed, the player starts running again
                 if (Input.GetButtonUp("Duck"))
@@ -99,11 +102,13 @@ public class Player : MonoBehaviour
                     this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.18f, 0.18f);
                 }
                 break;
+
             case State.State_Running:
                 // Player can accelerate and deccelerate while "moving"
                 float accelerate = Input.GetAxis("Horizontal");
                 Vector2 acceleration = new Vector2(accelerate, 0);
                 rb.AddForce(acceleration * speed);
+
                 // Pressing and holding the duck button makes player crouch
                 if (Input.GetButtonDown("Duck"))
                 {
@@ -180,7 +185,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Pressing the space key makes the player jump.
+   
     private void Update()
     {
         //Check pressed buttons

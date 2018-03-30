@@ -69,6 +69,9 @@ public class GrabRope : MonoBehaviour {
 			
 			Destroy (this.gameObject.GetComponent (typeof(DistanceJoint2D)));
 			this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_None;
+			this.gameObject.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+			this.gameObject.GetComponent<Rigidbody2D> ().AddForce(new Vector2(this.gameObject.GetComponent<Player> ().XAxis/2
+				, 0), ForceMode2D.Impulse);
 			this.gameObject.GetComponent<Animator> ().Play ("PlayerFall");
 		}
 
