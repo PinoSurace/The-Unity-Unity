@@ -64,7 +64,8 @@ public class GrabRope : MonoBehaviour {
         }
 
         //If the trigger is the animation collider
-        else if (other.gameObject.name == "DivingAnimationCollider")
+		else if (other.gameObject.name == "DivingAnimationCollider" && this.gameObject.GetComponent<Player> 
+			().CurrentState == Player.State.State_Swinging)
 		{
 			
 			Destroy (this.gameObject.GetComponent (typeof(DistanceJoint2D)));
