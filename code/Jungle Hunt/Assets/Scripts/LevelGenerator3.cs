@@ -11,7 +11,7 @@ public class LevelGenerator3 : MonoBehaviour {
     public Transform backgroundPrefab;
     public Transform groundPrefab;
 
-    private const float slopeAngleDegrees = -10.0f;
+    private const float slopeAngleDegrees = 10.0f;
     private float slopeAngleRadians = slopeAngleDegrees / 360.0f * 2.0f * Mathf.PI;
     private const float groundOffsetY = -4.5f;
 
@@ -55,7 +55,7 @@ public class LevelGenerator3 : MonoBehaviour {
     private void SpawnBoulders()
     {
         float boulderSpawnOffset = Random.Range(-boulderSpawnVariance, boulderSpawnVariance);
-        Vector2 boulderSpawnPosition = new Vector2(-11.0f + boulderSpawnOffset, 0.5f);
+        Vector2 boulderSpawnPosition = new Vector2(11.0f + boulderSpawnOffset, 0.5f);
 
         // Probability that the spawned boulder is small
         const float probabilitySmall = 0.5f;
@@ -86,21 +86,22 @@ public class LevelGenerator3 : MonoBehaviour {
         var groundCollider = groundColliderGameObject.AddComponent<BoxCollider2D>();
         groundCollider.size = new Vector2(40, 4);
         groundCollider.GetComponent<Transform>().Rotate(0, 0, slopeAngleDegrees);
-        groundCollider.GetComponent<Transform>().position = new Vector3(0, groundOffsetY);
+        // Put the player a bit (0.1f) inside the ground graphics, so it looks a bit better
+        groundCollider.GetComponent<Transform>().position = new Vector3(0, groundOffsetY - 0.1f);
 
         float groundImageWidth = groundPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
 
         for (float groundX = 0.0f, groundY = groundOffsetY;
-            groundX > -levelTotalLength;
-            groundX -= groundImageWidth * Mathf.Cos(slopeAngleRadians),
-            groundY -= groundImageWidth * Mathf.Sin(slopeAngleRadians))
+            groundX < levelTotalLength;
+            groundX += groundImageWidth * Mathf.Cos(slopeAngleRadians),
+            groundY += groundImageWidth * Mathf.Sin(slopeAngleRadians))
         {
             var ground = Instantiate(groundPrefab,
-                                     new Vector3(groundX, groundY, 0.0f),
+                                     new Vector3(groundX, groundY, -5.0f),
                                      Quaternion.identity);
             ground.GetComponent<Transform>().Rotate(0, 0, slopeAngleDegrees);
-            ground.GetComponent<Rigidbody2D>().velocity = new Vector2(runningSpeed * Mathf.Cos(slopeAngleRadians),
-                                                                      runningSpeed * Mathf.Sin(slopeAngleRadians));
+            ground.GetComponent<Rigidbody2D>().velocity = new Vector2(-runningSpeed * Mathf.Cos(slopeAngleRadians),
+                                                                      -runningSpeed * Mathf.Sin(slopeAngleRadians));
             nextLevelColliderPosition = new Vector3(groundX, groundY, 0.0f);
         }
     }
@@ -113,13 +114,13 @@ public class LevelGenerator3 : MonoBehaviour {
         float backgroundImageWidth = backgroundPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
 
         for (float backgroundX = 0.0f;
-             backgroundX > -levelTotalLength;
-             backgroundX -= backgroundImageWidth)
+             backgroundX < levelTotalLength;
+             backgroundX += backgroundImageWidth)
         {
             var background = Instantiate(backgroundPrefab, new Vector3(backgroundX, -groundOffsetY, 100), Quaternion.identity);
             var backgroundRigidbody = background.GetComponent<Rigidbody2D>();
-            backgroundRigidbody.velocity = new Vector2(runningSpeed * Mathf.Cos(slopeAngleRadians) * 0.2f,
-                                                       runningSpeed * Mathf.Sin(slopeAngleRadians) * 0.2f);
+            backgroundRigidbody.velocity = new Vector2(-runningSpeed * Mathf.Cos(slopeAngleRadians) * 0.2f,
+                                                       -runningSpeed * Mathf.Sin(slopeAngleRadians) * 0.2f);
         }
     }
 
@@ -137,7 +138,7 @@ public class LevelGenerator3 : MonoBehaviour {
 
         var nextLevelRigidbody = nextLevelGameObject.AddComponent<Rigidbody2D>();
         nextLevelRigidbody.isKinematic = true;
-        nextLevelRigidbody.velocity = new Vector2(runningSpeed * Mathf.Cos(slopeAngleRadians),
-                                                  runningSpeed * Mathf.Sin(slopeAngleRadians));
+        nextLevelRigidbody.velocity = new Vector2(-runningSpeed * Mathf.Cos(slopeAngleRadians),
+                                                  -runningSpeed * Mathf.Sin(slopeAngleRadians));
     }
 }
