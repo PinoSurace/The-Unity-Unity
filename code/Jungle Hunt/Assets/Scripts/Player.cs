@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public float speed;
 
     // Placeholder to differentiate levels 3 and 4. If the current level can be extracted from scene manager, replace this with that
-    public int level;
+	public int level;
 
     // Different States of the Player
     public enum State
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
                 }
 
                 // Function for testing only, will be removed later. Changes the player from idle to running
-                if (Input.GetButtonDown("Horizontal"))
+				if (Input.GetButtonDown("Horizontal") == true && level == 4)
                 {
                     CurrentState = State.State_Running;
                     animator.SetTrigger("PlayerRun");

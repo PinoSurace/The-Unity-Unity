@@ -671,7 +671,12 @@ Prefab:
     - target: {fileID: 114623714862058432, guid: 46efc53914a90f44cbfd64a9759571ac,
         type: 2}
       propertyPath: XAxis
-      value: 6
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 212384584670957462, guid: 46efc53914a90f44cbfd64a9759571ac,
+        type: 2}
+      propertyPath: m_FlipX
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
