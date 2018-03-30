@@ -122,11 +122,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4429370957524334, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 15.833652
+      value: -3.12
       objectReference: {fileID: 0}
     - target: {fileID: 4429370957524334, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.1329422
+      value: -2.77
       objectReference: {fileID: 0}
     - target: {fileID: 4429370957524334, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
       propertyPath: m_LocalPosition.z
@@ -511,6 +511,68 @@ MonoBehaviour:
   head_sprite: {fileID: 1476221806}
   body_sprite: {fileID: 1099738540}
   r: {fileID: 0}
+--- !u!1 &732082003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 732082006}
+  - component: {fileID: 732082005}
+  - component: {fileID: 732082004}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &732082004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 732082003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &732082005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 732082003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5
+--- !u!4 &732082006
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 732082003}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &758610565
 GameObject:
   m_ObjectHideFlags: 0
@@ -1085,8 +1147,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1344540328}
   - component: {fileID: 1344540327}
+  - component: {fileID: 1344540329}
   m_Layer: 0
-  m_Name: cauldron
+  m_Name: SavedSceneCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1149,6 +1212,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1344540329
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1344540326}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4, y: 3.95}
+    newSize: {x: 4, y: 3.95}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4, y: 3.95}
+  m_EdgeRadius: 0
 --- !u!1 &1476221805
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,7 +1320,6 @@ GameObject:
   - component: {fileID: 1523835729}
   - component: {fileID: 1523835728}
   - component: {fileID: 1523835730}
-  - component: {fileID: 1523835727}
   m_Layer: 0
   m_Name: princess
   m_TagString: Untagged
@@ -1240,21 +1327,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!70 &1523835727
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1523835726}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.4, y: 0.69}
-  m_Direction: 0
 --- !u!212 &1523835728
 SpriteRenderer:
   m_ObjectHideFlags: 0
