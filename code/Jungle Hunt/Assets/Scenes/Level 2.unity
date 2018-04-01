@@ -226,7 +226,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &267422408
 GameObject:
@@ -438,6 +438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 661073740}
+  player: {fileID: 1844215537}
 --- !u!114 &661073740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,7 +636,7 @@ RectTransform:
   m_Children:
   - {fileID: 661073738}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -691,7 +692,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1263304761
 BoxCollider2D:
@@ -801,7 +802,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4429370957524334, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114623714862058432, guid: 46efc53914a90f44cbfd64a9759571ac,
         type: 2}
@@ -812,6 +813,12 @@ Prefab:
     - {fileID: 114977524612875294, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1844215537 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114623714862058432, guid: 46efc53914a90f44cbfd64a9759571ac,
+    type: 2}
+  m_PrefabInternal: {fileID: 1294739552}
+  m_Script: {fileID: 11500000, guid: b8068df792e87e2489827145ff9b316e, type: 3}
 --- !u!1 &2044435042
 GameObject:
   m_ObjectHideFlags: 0
