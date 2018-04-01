@@ -6,12 +6,11 @@ using UnityEngine.UI;
 public class BarScript : MonoBehaviour
 {
     public Slider slider;
-    Player player;
+    public Player player;
     
     // Use this for initialization
     void Start()
     {
-        player = GameObject.Find("Tarzan").GetComponent<Player>();
         slider.value = 100;
         StartCoroutine(HandleBar());
         

@@ -24,6 +24,15 @@ public class Cannibal_Script : MonoBehaviour
 
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.name == "Tarzan")
+        {
+            Player player = other.gameObject.GetComponent<Player>();
+            player.DeadlyHazard();
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
