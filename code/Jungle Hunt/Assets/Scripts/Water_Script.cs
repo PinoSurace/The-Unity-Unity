@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Water_Script : MonoBehaviour {
-    public Slider slider;
-    private int regenrate = 4;
+public class Water_Script : MonoBehaviour
+{
+    private Slider slider;
+    private int regenrate = 2;
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        if (slider == null)
+        {
+            slider = GameObject.Find("WaterBarSlider").GetComponent<Slider>();
+        }
         //Debug.Log("collision name = " + other.gameObject.name);
         if (other.gameObject.name == "Tarzan")
         {
