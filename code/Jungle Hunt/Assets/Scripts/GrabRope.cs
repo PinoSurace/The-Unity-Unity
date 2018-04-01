@@ -81,9 +81,23 @@ public class GrabRope : MonoBehaviour {
 		{
            GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().NextLevel();
            this.gameObject.GetComponent<Player>().CurrentState = Player.State.State_Inv;
-           Debug.Log ("End");
 		}
-	}
+
+        //Trigger for level 4 end
+        else if (other.gameObject.name == "SavedSceneCollider")
+        {
+            Scene_Manager manager = GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>();
+            if (manager.inStory == false)
+            {
+                manager.NextLevel();
+            }
+            else
+            {
+                manager.ChangeScene(6);
+            }
+            this.gameObject.GetComponent<Player>().CurrentState = Player.State.State_Inv;
+        }
+    }
 
 	void OnCollisionEnter2D (Collision2D other)
 	{

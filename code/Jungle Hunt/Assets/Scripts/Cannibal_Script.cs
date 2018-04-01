@@ -22,7 +22,6 @@ public class Cannibal_Script : MonoBehaviour
         maxDist =5 ;
         minDist = -5;
 
-
     }
 
     // Update is called once per frame

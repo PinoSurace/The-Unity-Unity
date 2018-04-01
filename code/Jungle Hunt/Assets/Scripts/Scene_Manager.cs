@@ -8,6 +8,7 @@ public class Scene_Manager : MonoBehaviour {
 
     public int CurrentIndex;
     public bool scoreboardUp = false;
+    public bool inStory = true;
 
     public delegate void bcSceneChange();
     public static event bcSceneChange EVSceneChange;
@@ -67,6 +68,7 @@ public class Scene_Manager : MonoBehaviour {
         levelgenerationorder.Clear();
         if (random == false)
         {
+            inStory = true;
             levelgenerationorder.Add(1);
             levelgenerationorder.Add(2);
             levelgenerationorder.Add(3);
@@ -74,10 +76,11 @@ public class Scene_Manager : MonoBehaviour {
         }
         else
         {
-            levelgenerationorder.Add(Random.Range(1, 4));
-            levelgenerationorder.Add(Random.Range(1, 4));
-            levelgenerationorder.Add(Random.Range(1, 4));
-            levelgenerationorder.Add(Random.Range(1, 4));
+            inStory = false;
+            levelgenerationorder.Add(Random.Range(1, 5));
+            levelgenerationorder.Add(Random.Range(1, 5));
+            levelgenerationorder.Add(Random.Range(1, 5));
+            levelgenerationorder.Add(Random.Range(1, 5));
         }
     }
 
@@ -97,7 +100,7 @@ public class Scene_Manager : MonoBehaviour {
         else if (Input.GetKeyDown("t"))
         {
             CurrentIndex = SceneManager.GetActiveScene().buildIndex;
-            ChangeScene(CurrentIndex + 1);
+            NextLevel();
         }
         else if (Input.GetKeyDown("e"))
         {
@@ -191,7 +194,7 @@ public class Scene_Manager : MonoBehaviour {
                 sm_inp.SetActive(false);
             }
         }
-        if (goingTo > 1)
+        if (goingTo > 1 && goingTo < 6)
         {
             if (scores.activeSelf == false)
             {
@@ -214,15 +217,20 @@ public class Scene_Manager : MonoBehaviour {
     // A public function to call when finished loading, should probably be protected.
     public void FinishedLoad()
     {
-        // Change to accomodate any modifications in loadorder.
-        // Should match index of "Start menu"
-        chardata.GetComponent<DataContainer_Character>().scoresawarder.Clear();
-        chardata.GetComponent<DataContainer_Character>().actualscores.Clear();
-
         if (goingTo == 0)
         {
             sm_but.SetActive(true);
             sm_inp.SetActive(true);
+        }
+
+        if (goingTo == 6)
+        {
+            StartCoroutine("FinalSceneTimer");
+        }
+        else
+        {
+            chardata.GetComponent<DataContainer_Character>().scoresawarder.Clear();
+            chardata.GetComponent<DataContainer_Character>().actualscores.Clear();
         }
 
         midLoad = false;
@@ -254,7 +262,12 @@ public class Scene_Manager : MonoBehaviour {
         {
             ChangeScene(CurrentIndex);
         }
-        
+    }
+
+    IEnumerator FinalSceneTimer()
+    {
+        yield return new WaitForSeconds(6.00f);
+        NextLevel(true);
     }
 
     // A event handler to give for unity, used once a level has loaded.
