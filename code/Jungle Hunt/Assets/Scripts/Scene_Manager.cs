@@ -29,6 +29,8 @@ public class Scene_Manager : MonoBehaviour {
     private GameObject scores_time;
     private GameObject scores_lives;
     private GameObject sound_system;
+    private GameObject oxygenhud;
+    private GameObject oxygenbar;
 
     // How many scenes to offset until levels start:
     private static int levels_at = 2;
@@ -57,7 +59,10 @@ public class Scene_Manager : MonoBehaviour {
         scores_time = scores.transform.Find("TimerValue").gameObject;
         scores_lives = scores.transform.Find("Lives").gameObject;
         sound_system = overlay.transform.Find("SoundSystem").gameObject;
+        oxygenhud = overlay.transform.Find("Level2Oxygen").gameObject;
+        oxygenbar = oxygenhud.transform.Find("WaterBarSlider").gameObject;
         scores.SetActive(false);
+        oxygenhud.SetActive(false);
         DataContainer_Character.EVGameOver += RestartGame;
     }
 
@@ -194,6 +199,13 @@ public class Scene_Manager : MonoBehaviour {
                 sm_inp.SetActive(false);
             }
         }
+        if (goingTo != 3)
+        {
+            if (oxygenhud.activeSelf == true)
+            {
+                oxygenhud.SetActive(false);
+            }
+        }
         if (goingTo > 1 && goingTo < 6)
         {
             if (scores.activeSelf == false)
@@ -212,6 +224,7 @@ public class Scene_Manager : MonoBehaviour {
             }
             scores.GetComponent<UI_Script>().TimerOff();
         }
+        oxygenbar.GetComponent<BarScript>().EndLevel2();
     }
 
     // A public function to call when finished loading, should probably be protected.
@@ -222,7 +235,11 @@ public class Scene_Manager : MonoBehaviour {
             sm_but.SetActive(true);
             sm_inp.SetActive(true);
         }
-
+        if (goingTo == 3)
+        {
+            oxygenhud.SetActive(true);
+            oxygenbar.GetComponent<BarScript>().BeginLevel2();
+        }
         if (goingTo == 6)
         {
             StartCoroutine("FinalSceneTimer");
