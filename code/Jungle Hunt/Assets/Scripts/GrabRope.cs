@@ -9,6 +9,11 @@ public class GrabRope : MonoBehaviour {
 	float dist = 0f;
 	void OnTriggerEnter2D (Collider2D other)
 	{
+        // Check that player is not in state_none.
+        if (this.GetComponent<Player>().CurrentState == Player.State.State_Inv)
+        {
+            return;
+        }
 		//Checking if the objecdt has parent object (Parts o rope are children of the rope)
 		if (other.gameObject.transform.parent != null) {
 
@@ -32,24 +37,67 @@ public class GrabRope : MonoBehaviour {
 				this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Swinging;
 				this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerSwing");
 
-			} 
-		}
+			}
 
-		//If the trigger is the animation collider
-		else if (other.gameObject.name == "DivingAnimationCollider")
+            else if (other.gameObject.name == "CrocodileScore")
+            {
+                float dist_to_reduce = 0.50f;
+                Vector3 crocpos = other.transform.root.position;
+                float crocdist = Mathf.Abs(this.transform.position.y - crocpos.y);
+                GameObject chardata = GameObject.Find("CharacterData");
+                int scoretype = 7;
+                if (chardata != null)
+                {
+                    while (crocdist >= dist_to_reduce)
+                    {
+                        crocdist -= dist_to_reduce;
+                        scoretype -= 1;
+                    }
+                    if (scoretype >= 0)
+                    {
+                        chardata.GetComponent<DataContainer_Character>().AwardPoints(scoretype);
+                    }
+                }
+                Destroy(other.GetComponent<BoxCollider2D>());
+
+            }
+        }
+
+        //If the trigger is the animation collider
+		else if (other.gameObject.name == "DivingAnimationCollider" && this.gameObject.GetComponent<Player> 
+			().CurrentState == Player.State.State_Swinging)
 		{
 			
 			Destroy (this.gameObject.GetComponent (typeof(DistanceJoint2D)));
 			this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_None;
+			this.gameObject.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+			this.gameObject.GetComponent<Rigidbody2D> ().AddForce(new Vector2(this.gameObject.GetComponent<Player> ().XAxis/2
+				, 0), ForceMode2D.Impulse);
 			this.gameObject.GetComponent<Animator> ().Play ("PlayerFall");
 		}
-		//Trigger for level change
-		else if (other.gameObject.name == "NextLevelCollider") 
+
+        //Trigger for level change
+        else if (other.gameObject.name == "NextLevelCollider") 
 		{
            GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().NextLevel();
-           Debug.Log ("End");
+           this.gameObject.GetComponent<Player>().CurrentState = Player.State.State_Inv;
 		}
-	}
+
+        //Trigger for level 4 end
+        else if (other.gameObject.name == "SavedSceneCollider")
+        {
+            Scene_Manager manager = GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>();
+            if (manager.inStory == false)
+            {
+                manager.NextLevel();
+            }
+            else
+            {
+                manager.ChangeScene(6);
+            }
+            this.gameObject.GetComponent<Player>().CurrentState = Player.State.State_Inv;
+        }
+    }
 
 	void OnCollisionEnter2D (Collision2D other)
 	{

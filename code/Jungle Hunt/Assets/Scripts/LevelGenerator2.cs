@@ -19,10 +19,10 @@ public class LevelGenerator2 : MonoBehaviour {
 
     private float levelDuration;
     private float levelStartTime;
+    private const float firstSpawnTimeOffset = 3.0f;
+    private const float lastSpawnTimeOffset = 5.0f;
 
-    private float firstSpawnTimeOffset;
-    private float lastSpawnTimeOffset;
-    private float swimmingSpeed;
+    private const float swimmingSpeed = 2.0f;
 
     private float bubbleSpawnIntervalMin;
     private float bubbleSpawnIntervalMax;
@@ -46,10 +46,6 @@ public class LevelGenerator2 : MonoBehaviour {
 
         levelDuration = 60.0f;
 
-        firstSpawnTimeOffset = 3.0f;
-        lastSpawnTimeOffset = 5.0f;
-        swimmingSpeed = 2.0f;
-
         bubbleSpawnIntervalMin = 1.0f;
         bubbleSpawnIntervalMax = 7.0f / difficulty;
         nextBubbleSpawnTime = 0.0f;
@@ -63,7 +59,6 @@ public class LevelGenerator2 : MonoBehaviour {
         GenerateBackground();
         SpawnCrocodiles();
         SpawnLevelEnd();
-        GameObject.Find("Tarzan").GetComponent<Player>().OutOfBubble();
     }
     
     void Update()
@@ -80,13 +75,13 @@ public class LevelGenerator2 : MonoBehaviour {
      */
     private void SpawnBubble()
     {
-        const float bubbleSpawnXMin = -10.0f;
-        const float bubbleSpawnXMax = 1.0f;
+        const float bubbleSpawnXMin = -1.0f;
+        const float bubbleSpawnXMax = 10.0f;
         float bubbleSpawnX = Random.Range(bubbleSpawnXMin, bubbleSpawnXMax);
 
         var bubble = Instantiate(bubblePrefab, new Vector3(bubbleSpawnX, -5.0f, 0.0f), Quaternion.identity);
         var bubbleSpeedY = bubble.GetComponent<Rigidbody2D>().velocity.y;
-        bubble.GetComponent<Rigidbody2D>().velocity = new Vector2(swimmingSpeed, bubbleSpeedY);
+        bubble.GetComponent<Rigidbody2D>().velocity = new Vector2(-swimmingSpeed, bubbleSpeedY);
 
         nextBubbleSpawnTime = Time.time + Random.Range(bubbleSpawnIntervalMin, bubbleSpawnIntervalMax);
     }
@@ -105,16 +100,16 @@ public class LevelGenerator2 : MonoBehaviour {
         // at the right time before the level ends.
         float levelTotalLength = crocodileSpeed  * (levelDuration + firstSpawnTimeOffset);
 
-        for (float crocodileSpawnX = -crocodileSpeed * firstSpawnTimeOffset - Random.Range(crocodileSpawnIntervalMin, crocodileSpawnIntervalMax);
-             crocodileSpawnX > -levelTotalLength + crocodileSpeed * (crocodileSpawnIntervalMax + lastSpawnTimeOffset);
-             crocodileSpawnX -= crocodileSpeed * Random.Range(crocodileSpawnIntervalMin, crocodileSpawnIntervalMax))
+        for (float crocodileSpawnX = crocodileSpeed * firstSpawnTimeOffset + Random.Range(crocodileSpawnIntervalMin, crocodileSpawnIntervalMax);
+             crocodileSpawnX < levelTotalLength - crocodileSpeed * (crocodileSpawnIntervalMax + lastSpawnTimeOffset);
+             crocodileSpawnX += crocodileSpeed * Random.Range(crocodileSpawnIntervalMin, crocodileSpawnIntervalMax))
         {
             const float crocodileSpawnYMin = -3.0f;
             const float crocodileSpawnYMax = 1.5f;
             float crocodileSpawnY = Random.Range(crocodileSpawnYMin, crocodileSpawnYMax);
 
             var crocodile = Instantiate(crocodilePrefab, new Vector3(crocodileSpawnX, crocodileSpawnY, 0.0f), Quaternion.identity);
-            crocodile.GetComponent<Rigidbody2D>().velocity = new Vector2(crocodileSpeed, 0.0f);
+            crocodile.GetComponent<Rigidbody2D>().velocity = new Vector2(-crocodileSpeed, 0.0f);
         }
     }
 
@@ -125,9 +120,9 @@ public class LevelGenerator2 : MonoBehaviour {
     {
         float levelTotalLength = swimmingSpeed * (levelDuration + firstSpawnTimeOffset);
 
-        var levelEnd = Instantiate(levelEndPrefab, new Vector3(-levelTotalLength, -2.0f, 0.0f), Quaternion.identity);
+        var levelEnd = Instantiate(levelEndPrefab, new Vector3(levelTotalLength, -2.0f, 0.0f), Quaternion.identity);
         levelEnd.gameObject.name = "NextLevelCollider";
-        levelEnd.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(swimmingSpeed, 0.0f);
+        levelEnd.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(-swimmingSpeed, 0.0f);
     }
 
     /**
@@ -146,20 +141,18 @@ public class LevelGenerator2 : MonoBehaviour {
                                   : 2*riverBackgroundImageWidth);
 
         for (float skyBackgroundX = 0.0f, riverBackgroundX = 0.0f;
-            (skyBackgroundX > -backgroundTotalLength) && (riverBackgroundX > -backgroundTotalLength);
-            skyBackgroundX -= skyBackgroundImageWidth, riverBackgroundX -= riverBackgroundImageWidth)
+            (skyBackgroundX < backgroundTotalLength) && (riverBackgroundX < backgroundTotalLength);
+            skyBackgroundX += skyBackgroundImageWidth, riverBackgroundX += riverBackgroundImageWidth)
         {
             var skyBackground = Instantiate(skyBackgroundPrefab,
                                             new Vector3(skyBackgroundX, 0.0f, 100.0f),
                                             Quaternion.identity);
-            skyBackground.GetComponent<Rigidbody2D>().velocity = new Vector2(swimmingSpeed, 0.0f);
+            skyBackground.GetComponent<Rigidbody2D>().velocity = new Vector2(-swimmingSpeed, 0.0f);
 
             var riverBackground = Instantiate(riverBackgroundPrefab,
                                               new Vector3(riverBackgroundX, -2.0f, 99.0f),
                                               Quaternion.identity);
-            riverBackground.GetComponent<Rigidbody2D>().velocity = new Vector2(swimmingSpeed, 0.0f);
+            riverBackground.GetComponent<Rigidbody2D>().velocity = new Vector2(-swimmingSpeed, 0.0f);
         }
     }
-
-    
 }

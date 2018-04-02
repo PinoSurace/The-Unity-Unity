@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class CameraControls : MonoBehaviour {
     private Vector3 cameraTargetPosition;
-	
-	void FixedUpdate()
+
+    void FixedUpdate()
     {
-        Vector3 playerOffset = new Vector3(-5.0f, 0, 0);
+        Vector3 playerOffset = new Vector3(5.0f, 0, 0);
 
         // This defines how quickly the camera responds to player movement
         const float cameraSpeed = 1.0f;
@@ -16,7 +16,7 @@ public class CameraControls : MonoBehaviour {
         Vector3 cameraCurrentPosition = this.transform.position;
 
         // Only change the target position if it's moving the camera forwards from where it was before
-        if (playerPosition.x + playerOffset.x < cameraTargetPosition.x)
+        if (playerPosition.x + playerOffset.x > cameraTargetPosition.x)
         {
             cameraTargetPosition = playerPosition + playerOffset;
         }

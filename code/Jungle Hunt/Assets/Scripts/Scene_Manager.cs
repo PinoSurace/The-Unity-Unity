@@ -7,10 +7,13 @@ using UnityEngine.UI;
 public class Scene_Manager : MonoBehaviour {
 
     public int CurrentIndex;
+    public bool scoreboardUp = false;
+    public bool inStory = true;
+
     public delegate void bcSceneChange();
     public static event bcSceneChange EVSceneChange;
-    private int goingTo;
-    private bool midLoad = false;
+    public int goingTo;
+    public bool midLoad = false;
     private bool sceneAnim = true;
     private bool endgame = false;
     private int scoreBefore = 0;
@@ -26,6 +29,8 @@ public class Scene_Manager : MonoBehaviour {
     private GameObject scores_time;
     private GameObject scores_lives;
     private GameObject sound_system;
+    private GameObject oxygenhud;
+    private GameObject oxygenbar;
 
     // How many scenes to offset until levels start:
     private static int levels_at = 2;
@@ -33,9 +38,13 @@ public class Scene_Manager : MonoBehaviour {
     // Level generation order.
     private List<int> levelgenerationorder = new List<int> ();
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
+        if (GameObject.FindGameObjectsWithTag("Container").Length != 2)
+        {
+            Destroy(this.gameObject);
+        }
         DontDestroyOnLoad(this);
         CurrentIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.sceneLoaded += LvlLoad;
@@ -49,8 +58,11 @@ public class Scene_Manager : MonoBehaviour {
         scores_points = scores.transform.Find("PlayerScore").gameObject;
         scores_time = scores.transform.Find("TimerValue").gameObject;
         scores_lives = scores.transform.Find("Lives").gameObject;
-        sound_system = GameObject.Find("SoundSystem");
+        sound_system = overlay.transform.Find("SoundSystem").gameObject;
+        oxygenhud = overlay.transform.Find("Level2Oxygen").gameObject;
+        oxygenbar = oxygenhud.transform.Find("WaterBarSlider").gameObject;
         scores.SetActive(false);
+        oxygenhud.SetActive(false);
         DataContainer_Character.EVGameOver += RestartGame;
     }
 
@@ -61,6 +73,7 @@ public class Scene_Manager : MonoBehaviour {
         levelgenerationorder.Clear();
         if (random == false)
         {
+            inStory = true;
             levelgenerationorder.Add(1);
             levelgenerationorder.Add(2);
             levelgenerationorder.Add(3);
@@ -68,10 +81,11 @@ public class Scene_Manager : MonoBehaviour {
         }
         else
         {
-            levelgenerationorder.Add(Random.Range(1, 4));
-            levelgenerationorder.Add(Random.Range(1, 4));
-            levelgenerationorder.Add(Random.Range(1, 4));
-            levelgenerationorder.Add(Random.Range(1, 4));
+            inStory = false;
+            levelgenerationorder.Add(Random.Range(1, 5));
+            levelgenerationorder.Add(Random.Range(1, 5));
+            levelgenerationorder.Add(Random.Range(1, 5));
+            levelgenerationorder.Add(Random.Range(1, 5));
         }
     }
 
@@ -91,7 +105,7 @@ public class Scene_Manager : MonoBehaviour {
         else if (Input.GetKeyDown("t"))
         {
             CurrentIndex = SceneManager.GetActiveScene().buildIndex;
-            ChangeScene(CurrentIndex + 1);
+            NextLevel();
         }
         else if (Input.GetKeyDown("e"))
         {
@@ -121,8 +135,10 @@ public class Scene_Manager : MonoBehaviour {
 
     // Next level from order.
     // Call to advance to the next level.
-    public void NextLevel()
+    public void NextLevel(bool scoreboard = true)
     {
+        sound_system.GetComponent<Sound_System>().FadeOut();
+        scoreboardUp = scoreboard;
         // if no more levels, generate more...
         if (levelgenerationorder.Count == 0)
         {
@@ -130,6 +146,7 @@ public class Scene_Manager : MonoBehaviour {
         }
         int to = levelgenerationorder[0] - 1;
         levelgenerationorder.RemoveAt(0);
+
         // offset of scenes at the start
         ChangeScene(levels_at + to);
     }
@@ -154,6 +171,7 @@ public class Scene_Manager : MonoBehaviour {
 
             if (sceneAnim == true)
             {
+                sound_system.GetComponent<Sound_System>().PlaySFX(1);
                 if (EVSceneChange != null)
                 {
                     EVSceneChange();
@@ -170,12 +188,10 @@ public class Scene_Manager : MonoBehaviour {
         }
     }
 
-    // A public function to call when finished loading, should probably be protected.
-    public void FinishedLoad()
+    public void StartLoad()
     {
-        // Change to accomodate any modifications in loadorder.
-        // Should match index of "Start menu"
-        if (CurrentIndex == 0)
+        SceneManager.LoadSceneAsync(goingTo);
+        if (goingTo == 1)
         {
             if (sm_but.activeSelf == true)
             {
@@ -183,12 +199,14 @@ public class Scene_Manager : MonoBehaviour {
                 sm_inp.SetActive(false);
             }
         }
-        if (goingTo == 0)
+        if (goingTo != 3)
         {
-            Destroy(overlay);
-            Destroy(chardata);
+            if (oxygenhud.activeSelf == true)
+            {
+                oxygenhud.SetActive(false);
+            }
         }
-        if (goingTo > 1)
+        if (goingTo > 1 && goingTo < 6)
         {
             if (scores.activeSelf == false)
             {
@@ -206,7 +224,34 @@ public class Scene_Manager : MonoBehaviour {
             }
             scores.GetComponent<UI_Script>().TimerOff();
         }
-        SceneManager.LoadScene(goingTo);
+        oxygenbar.GetComponent<BarScript>().EndLevel2();
+    }
+
+    // A public function to call when finished loading, should probably be protected.
+    public void FinishedLoad()
+    {
+        if (goingTo == 0)
+        {
+            sm_but.SetActive(true);
+            sm_inp.SetActive(true);
+        }
+        if (goingTo == 3)
+        {
+            oxygenhud.SetActive(true);
+            oxygenbar.GetComponent<BarScript>().BeginLevel2();
+        }
+        if (goingTo == 6)
+        {
+            StartCoroutine("FinalSceneTimer");
+        }
+        else
+        {
+            chardata.GetComponent<DataContainer_Character>().scoresawarder.Clear();
+            chardata.GetComponent<DataContainer_Character>().actualscores.Clear();
+        }
+
+        midLoad = false;
+        scoreboardUp = false;
 
     }
 
@@ -234,15 +279,19 @@ public class Scene_Manager : MonoBehaviour {
         {
             ChangeScene(CurrentIndex);
         }
-        
+    }
+
+    IEnumerator FinalSceneTimer()
+    {
+        yield return new WaitForSeconds(6.00f);
+        NextLevel(true);
     }
 
     // A event handler to give for unity, used once a level has loaded.
     void LvlLoad(Scene scene, LoadSceneMode sceneMode)
     {
         GameObject.Find("Transition").GetComponent<Animator>().SetTrigger("Raise");
-        CurrentIndex = goingTo;
-        midLoad = false;
+        CurrentIndex = scene.buildIndex;
         if (goingTo > 1)
         {
             Player.EVDeath += RestartLevel;
