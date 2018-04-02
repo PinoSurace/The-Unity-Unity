@@ -5,9 +5,6 @@ using UnityEngine;
 public class RopeGrabbed : MonoBehaviour {
 
     public bool grabbed = false;
-
-    private int score_min = 25;
-    private int score_var = 75;
     
     public void IncreaseScore(string objname)
     {

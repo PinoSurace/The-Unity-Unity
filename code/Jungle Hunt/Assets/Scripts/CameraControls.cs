@@ -20,10 +20,10 @@ public class CameraControls : MonoBehaviour {
         {
             cameraTargetPosition = playerPosition + playerOffset;
         }
-        
+
         // Only change camera x coordinate
         float dx = (cameraTargetPosition.x - cameraCurrentPosition.x) * Time.deltaTime * cameraSpeed;
-        
+
         // Move the camera towards its target position
         this.transform.position += new Vector3(dx, 0.0f, 0.0f);
     }
