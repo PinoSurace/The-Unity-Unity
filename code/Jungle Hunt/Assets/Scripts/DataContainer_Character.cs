@@ -43,6 +43,24 @@ public class DataContainer_Character : MonoBehaviour {
         DontDestroyOnLoad(this);
 	}
 
+    public string GetRankName(int rank)
+    {
+        string retval = scorenames[rank];
+        return retval;
+    }
+
+    public Color GetRankColor1(int rank)
+    {
+        Color retval = scorecolors[rank];
+        return retval;
+    }
+
+    public Color GetRankColor2(int rank)
+    {
+        Color retval = textcolors[rank];
+        return retval;
+    }
+
     public void SetPlayerName(string value)
     {
         PlayerName = value;

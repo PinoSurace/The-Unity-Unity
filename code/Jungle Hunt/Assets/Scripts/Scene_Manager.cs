@@ -140,6 +140,7 @@ public class Scene_Manager : MonoBehaviour {
     {
         sound_system.GetComponent<Sound_System>().FadeOut();
         scoreboardUp = scoreboard;
+        scores.GetComponent<UI_Script>().TimerOff();
         // if no more levels, generate more...
         if (levelgenerationorder.Count == 0)
         {
