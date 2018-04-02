@@ -78,7 +78,8 @@ public class SceneChangeComponent_Image : MonoBehaviour {
         yield return new WaitForSeconds(1);
         DisableAll();
         GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().StartLoad();
-        yield return new WaitForSeconds(1.20f);
+        while (GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().inLoad == true)
+        yield return new WaitForSeconds(0.05f);
         GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().FinishedLoad();
         
     }

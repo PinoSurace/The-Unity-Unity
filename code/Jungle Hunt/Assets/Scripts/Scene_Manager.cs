@@ -14,6 +14,7 @@ public class Scene_Manager : MonoBehaviour {
     public static event bcSceneChange EVSceneChange;
     public int goingTo;
     public bool midLoad = false;
+    public bool inLoad = false;
     private bool sceneAnim = true;
     private bool endgame = false;
     private int scoreBefore = 0;
@@ -190,7 +191,7 @@ public class Scene_Manager : MonoBehaviour {
 
     public void StartLoad()
     {
-        SceneManager.LoadSceneAsync(goingTo);
+        StartCoroutine(LoadASync());
         if (goingTo == 1)
         {
             if (sm_but.activeSelf == true)
@@ -279,6 +280,21 @@ public class Scene_Manager : MonoBehaviour {
         {
             ChangeScene(CurrentIndex);
         }
+    }
+
+    IEnumerator LoadASync()
+    {
+        // The Application loads the Scene in the background at the same time as the current Scene.
+        // This is particularly good for creating loading screens. You could also load the Scene by build //number.
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(goingTo);
+        inLoad = true;
+        yield return new WaitForSeconds(1.00f);
+        //Wait until the last operation fully loads to return anything
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        inLoad = false;
     }
 
     IEnumerator FinalSceneTimer()
