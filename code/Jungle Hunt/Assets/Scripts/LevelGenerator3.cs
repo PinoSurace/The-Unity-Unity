@@ -25,7 +25,7 @@ public class LevelGenerator3 : MonoBehaviour {
     private float levelStartTime = 0.0f;
     private const float levelDuration = 60.0f; // As a function of difficulty?
     private const float firstSpawnTimeOffset = 3.0f;
-    private const float lastSpawnTimeOffset = 5.0f;
+    private const float lastSpawnTimeOffset = 7.0f;
     private float levelTotalLength = runningSpeed * (levelDuration + firstSpawnTimeOffset + lastSpawnTimeOffset);
 
     private Vector3 nextLevelColliderPosition = new Vector3(0, 0, 0);
