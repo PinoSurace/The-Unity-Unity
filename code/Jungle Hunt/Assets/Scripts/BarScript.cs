@@ -24,7 +24,6 @@ public class BarScript : MonoBehaviour
         warning = false;
         bg.GetComponent<Image>().color = Color.white;
         fill.color = Color.blue;
-        player = GameObject.Find("Tarzan").GetComponent<Player>();
         running = true;
         slider.value = 100;
         StartCoroutine(HandleBar());
@@ -38,6 +37,13 @@ public class BarScript : MonoBehaviour
 
     IEnumerator HandleBar()
     {
+        
+        while (player == null)
+        {
+            player = GameObject.Find("Tarzan").GetComponentInChildren<Player>();
+            Debug.Log(player);
+            yield return new WaitForSeconds(0.01f);
+        }
         while (running)
         {
             if (player.CurrentState == Player.State.State_Inv)

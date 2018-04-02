@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
         State_Crouching
     }
 
-    public State CurrentState;
+    public State CurrentState = State.State_None;
 
     // Function for Changing States. Every switch statement is a different state.
     private void ChangeState()
