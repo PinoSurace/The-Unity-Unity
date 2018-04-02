@@ -29,7 +29,8 @@ public class UI_Script : MonoBehaviour {
     private bool halt = false;
     private bool clock = false;
     private bool clock_on = false;
-    private int timecounter;
+    public int timecounter;
+    public int timemax;
 
     // Use this for initialization
     void Start ()
@@ -60,6 +61,7 @@ public class UI_Script : MonoBehaviour {
 
     public void TimerOn(int initialtime)
     {
+        timemax = initialtime;
         timecounter = initialtime;
         clock = true;
         SetTimerText();

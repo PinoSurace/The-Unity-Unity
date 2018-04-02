@@ -41,13 +41,14 @@ public class GrabRope : MonoBehaviour {
 
             else if (other.gameObject.name == "CrocodileScore")
             {
-                float dist_to_reduce = 0.50f;
+                float dist_to_reduce = 0.45f;
                 Vector3 crocpos = other.transform.root.position;
                 float crocdist = Mathf.Abs(this.transform.position.y - crocpos.y);
                 GameObject chardata = GameObject.Find("CharacterData");
                 int scoretype = 7;
                 if (chardata != null)
                 {
+                    crocdist -= dist_to_reduce;
                     while (crocdist >= dist_to_reduce)
                     {
                         crocdist -= dist_to_reduce;
@@ -56,6 +57,10 @@ public class GrabRope : MonoBehaviour {
                     if (scoretype >= 0)
                     {
                         chardata.GetComponent<DataContainer_Character>().AwardPoints(scoretype);
+                    }
+                    else
+                    {
+                        chardata.GetComponent<DataContainer_Character>().AwardPoints(0);
                     }
                 }
                 Destroy(other.GetComponent<BoxCollider2D>());
