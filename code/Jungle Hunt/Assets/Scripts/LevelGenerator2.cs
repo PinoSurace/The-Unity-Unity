@@ -105,8 +105,19 @@ public class LevelGenerator2 : MonoBehaviour {
              crocodileSpawnX += crocodileSpeed * Random.Range(crocodileSpawnIntervalMin, crocodileSpawnIntervalMax))
         {
             const float crocodileSpawnYMin = -3.0f;
-            const float crocodileSpawnYMax = 1.5f;
-            float crocodileSpawnY = Random.Range(crocodileSpawnYMin, crocodileSpawnYMax);
+            const float crocodileSpawnYMax = 1.2f;
+
+            float crocodileSpawnY = 0.0f;
+            if (Random.Range(0.0f, 1.0f) <= 0.3f)
+            {
+                // 30% chance that the crocodile will spawn at the surface to prevent the player
+                // from staying there all the time regenerating oxygen
+                crocodileSpawnY = crocodileSpawnYMax;
+            }
+            else
+            {
+                crocodileSpawnY = Random.Range(crocodileSpawnYMin, crocodileSpawnYMax - 0.75f);
+            }
 
             var crocodile = Instantiate(crocodilePrefab, new Vector3(crocodileSpawnX, crocodileSpawnY, 0.0f), Quaternion.identity);
             crocodile.GetComponent<Rigidbody2D>().velocity = new Vector2(-crocodileSpeed, 0.0f);
