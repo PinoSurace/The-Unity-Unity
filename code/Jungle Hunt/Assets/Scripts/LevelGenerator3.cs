@@ -65,13 +65,21 @@ public class LevelGenerator3 : MonoBehaviour {
 
         bool boulderIsSmall = (Random.Range(0.0f, 1.0f) <= probabilitySmall ? true : false);
 
+        Transform boulder;
+
         if (boulderIsSmall)
         {
-            Instantiate(smallBoulderPrefab, boulderSpawnPosition, Quaternion.identity);
+            boulder = Instantiate(smallBoulderPrefab, boulderSpawnPosition, Quaternion.identity);
         }
         else
         {
-            Instantiate(bigBoulderPrefab, boulderSpawnPosition, Quaternion.identity);
+            boulder = Instantiate(bigBoulderPrefab, boulderSpawnPosition, Quaternion.identity);
+        }
+
+        foreach (var levelSideCollider in GetComponents<Collider2D>())
+        {
+            // Ignore boulder collision with the level left and right side colliders
+            Physics2D.IgnoreCollision(boulder.GetComponent<Collider2D>(), levelSideCollider);
         }
 
         nextBoulderSpawnTime = Time.time + Random.Range(boulderSpawnIntervalMin, boulderSpawnIntervalMax);
