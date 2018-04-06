@@ -92,6 +92,16 @@ public class Player : MonoBehaviour
                     //The jump animation is triggered
                     animator.SetTrigger ("PlayerJump");
                 }
+                if(rb.velocity.x < -1)
+                {
+                    Debug.Log(rb.velocity.x);
+                    animator.SetFloat("Direction", -1.0f);
+                }
+                else if (rb.velocity.x > 1)
+                {
+                    Debug.Log(rb.velocity.x);
+                    animator.SetFloat("Direction", 1.0f);
+                }
                 break;
 
             case State.State_Crouching:
@@ -173,6 +183,11 @@ public class Player : MonoBehaviour
             if (level == 2)
             {
                 OutOfBubble();
+            }
+            else if(level == 5)
+            {
+                animator.SetTrigger("PlayerCelebrate");
+                CurrentState = State.State_None;
             }
             else
             {
