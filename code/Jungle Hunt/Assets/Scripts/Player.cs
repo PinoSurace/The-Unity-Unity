@@ -68,7 +68,9 @@ public class Player : MonoBehaviour
                 // Initiating an event with 0 subscribers is not allowed.
                 if (EVDeath != null)
                 {
+
                     GameObject.Find("SoundSystem").GetComponent<Sound_System>().PlaySFX(0);
+
                     EVDeath();
                     EVDeath = null;
                 }
