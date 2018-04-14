@@ -21,7 +21,7 @@ public class ResultScreen : MonoBehaviour
         string right_names = "";
         for (int a = 0; a < data.scores.Count; a++)
         {
-            if (a <= (DataContainer_Character.SAVESLOTS / 2))
+            if (a < (DataContainer_Character.SAVESLOTS / 2))
             {
                 left_scores = string.Concat(left_scores, string.Format("{0}\n", data.scores[a]));
                 left_names = string.Concat(left_names, string.Format("{0} :\n", data.nicknames[a]));

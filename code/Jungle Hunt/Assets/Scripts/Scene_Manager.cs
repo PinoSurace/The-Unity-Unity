@@ -68,7 +68,10 @@ public class Scene_Manager : MonoBehaviour {
         transition = overlay.transform.Find("Transition").transform.Find("Screen Top").GetComponent<SceneChangeComponent_Image>();
         scores.SetActive(false);
         oxygenhud.SetActive(false);
-        DataContainer_Character.EVGameOver += RestartGame;
+        if (GameObject.FindGameObjectsWithTag("Container").Length == 2)
+        {
+            DataContainer_Character.EVGameOver += RestartGame;
+        }
     }
 
     // Generate level order.
@@ -293,7 +296,6 @@ public class Scene_Manager : MonoBehaviour {
 
     void RestartGame()
     {
-        chardata.GetComponent<DataContainer_Character>().SaveResult();
         endgame = true;
     }
 
@@ -335,7 +337,7 @@ public class Scene_Manager : MonoBehaviour {
     {
         GameObject.Find("Transition").GetComponent<Animator>().SetTrigger("Raise");
         CurrentIndex = scene.buildIndex;
-        if (goingTo > 1)
+        if (goingTo > 1 && goingTo < 6)
         {
             Player.EVDeath += RestartLevel;
         }

@@ -142,6 +142,7 @@ public class DataContainer_Character : MonoBehaviour {
             // Subscribe for game over events.
             if (EVGameOver != null)
             {
+                SaveResult();
                 EVGameOver();
             }
         }
@@ -179,7 +180,7 @@ public class DataContainer_Character : MonoBehaviour {
             newScores.Add(scores[i]);
             newNicks.Add(nicknames[i]);
         }
-        if (scores.Count == 0)
+        if (!isHighScore)
         {
             newScores.Add(points);
             newNicks.Add(PlayerName);
