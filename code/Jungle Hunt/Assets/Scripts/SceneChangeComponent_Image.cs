@@ -17,6 +17,7 @@ public class SceneChangeComponent_Image : MonoBehaviour {
     private GameObject SB_Btn;
 
     public UI_Script SB_Time;
+    public bool skip = false;
 
     private static int TIMEBONUS = 2500;
     // Use this for initialization
@@ -92,14 +93,16 @@ public class SceneChangeComponent_Image : MonoBehaviour {
         // This handles the showcase of scores:
 
         DataContainer_Character datac = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>();
-
+        skip = false;
         yield return new WaitForSeconds(0.60f);
 
         // Show the Passed Message.
         SB_Top.SetActive(true);
         List<int> ranks = datac.scoresawarder;
-
-        yield return new WaitForSeconds(0.60f);
+        if (!skip)
+        {
+            yield return new WaitForSeconds(0.60f);
+        }
 
         // Show Scores;
         SB_Info_Score1.SetActive(true);
@@ -112,10 +115,16 @@ public class SceneChangeComponent_Image : MonoBehaviour {
             pts += scores[scores.Count - 1];
             scores.RemoveAt(scores.Count - 1);
             SB_Res_Score1.GetComponent<Text>().text = string.Format("{0, 5}", pts);
-            yield return new WaitForSeconds(0.04f);
+            if (!skip)
+            {
+                yield return new WaitForSeconds(0.04f);
+            }
         }
 
-        yield return new WaitForSeconds(0.60f);
+        if (!skip)
+        {
+            yield return new WaitForSeconds(0.60f);
+        }
         int remainingtime = SB_Time.timecounter;
         int maxtime = SB_Time.timemax;
         int persecond = (TIMEBONUS / maxtime);
@@ -128,15 +137,24 @@ public class SceneChangeComponent_Image : MonoBehaviour {
             pts += persecond;
             remainingtime--;
             SB_Res_Score2.GetComponent<Text>().text = string.Format("{0, 5}", pts);
-            yield return new WaitForSeconds(0.02f);
+            if (!skip)
+            {
+                yield return new WaitForSeconds(0.02f);
+            }
         }
         datac.ChangePoints(pts);
 
-        yield return new WaitForSeconds(0.60f);
+        if (!skip)
+        {
+            yield return new WaitForSeconds(0.60f);
+        }
         SB_Info_Score3.SetActive(true);
         SB_Res_Score3.SetActive(true);
 
-        yield return new WaitForSeconds(0.60f);
+        if (!skip)
+        {
+            yield return new WaitForSeconds(0.60f);
+        }
         int finalrank = 0;
         for (int i = 0; i < ranks.Count; i++)
         {
@@ -146,29 +164,35 @@ public class SceneChangeComponent_Image : MonoBehaviour {
 
         SB_ResultRank.SetActive(true);
         SB_ResultStar.SetActive(true);
-        int suspenserank = Random.Range(0, 8);
-        int suspensetime = Random.Range(10, 20);
-        for (int i = 0; i < suspensetime; i++)
+        if (!skip)
         {
-            suspenserank += 1;
-            if (suspenserank > 7)
+            int suspenserank = Random.Range(0, 8);
+            int suspensetime = Random.Range(10, 20);
+        
+            for (int i = 0; i < suspensetime; i++)
             {
-                suspenserank = 0;
+                suspenserank += 1;
+                if (suspenserank > 7)
+                {
+                    suspenserank = 0;
+                }
+                SB_ResultRank.GetComponent<Text>().text = datac.GetRankName(suspenserank);
+                SB_ResultRank.GetComponent<Text>().color = datac.GetRankColor2(suspenserank);
+                SB_ResultStar.GetComponent<Image>().color = datac.GetRankColor1(suspenserank);
+                yield return new WaitForSeconds(0.05f);
             }
-            SB_ResultRank.GetComponent<Text>().text = datac.GetRankName(suspenserank);
-            SB_ResultRank.GetComponent<Text>().color = datac.GetRankColor2(suspenserank);
-            SB_ResultStar.GetComponent<Image>().color = datac.GetRankColor1(suspenserank);
-            yield return new WaitForSeconds(0.05f);
         }
         SB_ResultRank.GetComponent<Text>().text = datac.GetRankName(finalrank);
         SB_ResultRank.GetComponent<Text>().color = datac.GetRankColor2(finalrank);
         SB_ResultStar.GetComponent<Image>().color = datac.GetRankColor1(finalrank);
-        
 
-        yield return new WaitForSeconds(0.60f);
+        if (!skip)
+        {
+            yield return new WaitForSeconds(0.60f);
+        }
         SB_Btn.GetComponentInChildren<Text>().text = "Continue!";
         SB_Btn.SetActive(true);
         SB_Btn.GetComponent<Button>().interactable = true;
-
+        skip = false;
     }
 }

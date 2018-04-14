@@ -22,6 +22,7 @@ public class Scene_Manager : MonoBehaviour {
     // Carried Data objects, use these for game's global functions.
     private GameObject sm_but;
     private GameObject sm_inp;
+    private GameObject sm_res;
     private GameObject overlay;
     private GameObject chardata;
     private GameObject scores;
@@ -32,6 +33,7 @@ public class Scene_Manager : MonoBehaviour {
     private GameObject sound_system;
     private GameObject oxygenhud;
     private GameObject oxygenbar;
+    private SceneChangeComponent_Image transition;
 
     // How many scenes to offset until levels start:
     private static int levels_at = 2;
@@ -52,6 +54,7 @@ public class Scene_Manager : MonoBehaviour {
 
         sm_but = GameObject.Find("StartMenu_Button");
         sm_inp = GameObject.Find("StartMenu_InputField");
+        sm_res = GameObject.Find("StartMenu_Results");
         overlay = GameObject.Find("OverlayCanvas");
         chardata = GameObject.Find("CharacterData");
         scores = overlay.transform.Find("ScoreBoard").gameObject;
@@ -62,6 +65,7 @@ public class Scene_Manager : MonoBehaviour {
         sound_system = overlay.transform.Find("SoundSystem").gameObject;
         oxygenhud = overlay.transform.Find("Level2Oxygen").gameObject;
         oxygenbar = oxygenhud.transform.Find("WaterBarSlider").gameObject;
+        transition = overlay.transform.Find("Transition").transform.Find("Screen Top").GetComponent<SceneChangeComponent_Image>();
         scores.SetActive(false);
         oxygenhud.SetActive(false);
         DataContainer_Character.EVGameOver += RestartGame;
@@ -126,6 +130,15 @@ public class Scene_Manager : MonoBehaviour {
                 Debug.Log("Animations toggled, current state: True");
             }
         }
+        if (Input.GetButtonDown("Quit"))
+        {
+            CurrentIndex = SceneManager.GetActiveScene().buildIndex;
+            ChangeScene(0);
+        }
+        else if (Input.GetButtonDown("Submit"))
+        {
+            transition.skip = true;
+        }
     }
 
     private void InitiateUI()
@@ -151,6 +164,7 @@ public class Scene_Manager : MonoBehaviour {
 
         // offset of scenes at the start
         ChangeScene(levels_at + to);
+        endgame = false;
     }
 
     // Scene change event.
@@ -171,18 +185,27 @@ public class Scene_Manager : MonoBehaviour {
             midLoad = true;
             goingTo = toScene;
 
-            if (sceneAnim == true)
+            if (goingTo == 1 && chardata.GetComponent<DataContainer_Character>().GetPlayerName() == "")
             {
-                sound_system.GetComponent<Sound_System>().PlaySFX(1);
-                if (EVSceneChange != null)
-                {
-                    EVSceneChange();
-                }
+                sound_system.GetComponent<Sound_System>().PlaySFX(3);
+                midLoad = false;
             }
             else
             {
-                FinishedLoad();
+                if (sceneAnim == true)
+                {
+                    sound_system.GetComponent<Sound_System>().PlaySFX(1);
+                    if (EVSceneChange != null)
+                    {
+                        EVSceneChange();
+                    }
+                }
+                else
+                {
+                    FinishedLoad();
+                }
             }
+            
         }
         else
         {
@@ -193,12 +216,14 @@ public class Scene_Manager : MonoBehaviour {
     public void StartLoad()
     {
         StartCoroutine(LoadASync());
-        if (goingTo == 1)
+        if (goingTo == 1 || goingTo == 7)
         {
+            chardata.GetComponent<DataContainer_Character>().LoadResult();
             if (sm_but.activeSelf == true)
             {
                 sm_but.SetActive(false);
                 sm_inp.SetActive(false);
+                sm_res.SetActive(false);
             }
         }
         if (goingTo != 3)
@@ -236,6 +261,7 @@ public class Scene_Manager : MonoBehaviour {
         {
             sm_but.SetActive(true);
             sm_inp.SetActive(true);
+            sm_res.SetActive(true);
         }
         if (goingTo == 3)
         {
@@ -267,6 +293,7 @@ public class Scene_Manager : MonoBehaviour {
 
     void RestartGame()
     {
+        chardata.GetComponent<DataContainer_Character>().SaveResult();
         endgame = true;
     }
 
@@ -275,7 +302,7 @@ public class Scene_Manager : MonoBehaviour {
         yield return new WaitForSeconds(1.20f);
         if (endgame)
         {
-            ChangeScene(0);
+            ChangeScene(7);
         }
         else
         {
@@ -286,11 +313,10 @@ public class Scene_Manager : MonoBehaviour {
     IEnumerator LoadASync()
     {
         // The Application loads the Scene in the background at the same time as the current Scene.
-        // This is particularly good for creating loading screens. You could also load the Scene by build //number.
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(goingTo);
         inLoad = true;
         yield return new WaitForSeconds(1.00f);
-        //Wait until the last operation fully loads to return anything
+
         while (!asyncLoad.isDone)
         {
             yield return null;

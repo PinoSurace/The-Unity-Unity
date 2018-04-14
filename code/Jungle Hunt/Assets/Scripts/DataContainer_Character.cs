@@ -8,11 +8,17 @@ public class DataContainer_Character : MonoBehaviour {
     public delegate void bcCharcterGameOver();
     public static event bcCharcterGameOver EVGameOver;
 
+    public List<int> scores;
+    public List<string> nicknames;
+
+    public int plays = 0;
+
     public Transform scoreprefab;
 
     public Canvas canvas;
 
     private int runner = 0;
+    public static int SAVESLOTS = 12;
 
     // Store data.
     private string PlayerName = "";
@@ -154,5 +160,61 @@ public class DataContainer_Character : MonoBehaviour {
     public int GetDifficulty()
     {
         return difficulty;
+    }
+
+    public void SaveResult()
+    {
+        bool isHighScore = false;
+        List<int> newScores = new List<int>();
+        List<string> newNicks = new List<string>();
+        // Recreate Ordered List
+        for (int i = 0; i < scores.Count; i++)
+        {
+            if (scores[i] <= points && !isHighScore)
+            {
+                newScores.Add(points);
+                newNicks.Add(PlayerName);
+                isHighScore = true;
+            }
+            newScores.Add(scores[i]);
+            newNicks.Add(nicknames[i]);
+        }
+        if (scores.Count == 0)
+        {
+            newScores.Add(points);
+            newNicks.Add(PlayerName);
+        }
+        // Check if capacity is exceeded.
+        if (newNicks.Count > SAVESLOTS)
+        {
+            newNicks.RemoveAt(SAVESLOTS);
+            newScores.RemoveAt(SAVESLOTS);
+        }
+        // Save the variables.
+        nicknames = newNicks;
+        scores = newScores;
+        plays += 1;
+        // Create the save file.
+        SaveLoadManager.SaveData(this);
+    }
+
+    public void LoadResult()
+    {
+        scores.Clear();
+        nicknames.Clear();
+        Data save = SaveLoadManager.LoadData();
+        if (save.contains)
+        {
+            for (int a = 0; a < save.scores.Length; a++)
+            {
+                scores.Add(save.scores[a]);
+            }
+
+            for (int b = 0; b < save.nicks.Length; b++)
+            {
+                nicknames.Add(save.nicks[b]);
+            }
+        }
+        plays = save.levelsComplete;
     }
 }
