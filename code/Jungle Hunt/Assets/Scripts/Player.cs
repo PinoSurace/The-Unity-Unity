@@ -131,6 +131,7 @@ public class Player : MonoBehaviour
                 }
                 else if (Input.GetButtonDown("Jump")) 
                 {
+                    rb.velocity = Vector2.zero;
                     CurrentState = State.State_Jumping;
                     //An impulse is used to move the player
                     rb.AddForce(new Vector2(XAxis, YAxis), ForceMode2D.Impulse);
