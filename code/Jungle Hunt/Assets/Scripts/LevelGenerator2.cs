@@ -151,8 +151,8 @@ public class LevelGenerator2 : MonoBehaviour {
                                   ? 2*skyBackgroundImageWidth
                                   : 2*riverBackgroundImageWidth);
 
-        for (float skyBackgroundX = 0.0f, riverBackgroundX = 0.0f;
-            (skyBackgroundX < backgroundTotalLength) && (riverBackgroundX < backgroundTotalLength);
+        for (float skyBackgroundX = 0.0f, riverBackgroundX = -riverBackgroundImageWidth;
+            (skyBackgroundX < backgroundTotalLength) || (riverBackgroundX < backgroundTotalLength);
             skyBackgroundX += skyBackgroundImageWidth, riverBackgroundX += riverBackgroundImageWidth)
         {
             var skyBackground = Instantiate(skyBackgroundPrefab,
