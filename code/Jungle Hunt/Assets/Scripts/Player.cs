@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 
     // Values for the force used to move the player
     public float YAxis;   //How high the player will jump.
-    public float XAxis;   //How far the player will jump. Value should be negative in first level
+    public float XAxis;   //How far the player will jump.
     public float ColliderSize;
 
     public Rigidbody2D rb;
