@@ -84,6 +84,7 @@ public class GrabRope : MonoBehaviour {
         //Trigger for level change
         else if (other.gameObject.name == "NextLevelCollider") 
 		{
+           
            GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().NextLevel();
            this.gameObject.GetComponent<Player>().CurrentState = Player.State.State_Inv;
 		}
@@ -91,6 +92,10 @@ public class GrabRope : MonoBehaviour {
         //Trigger for level 4 end
         else if (other.gameObject.name == "SavedSceneCollider")
         {
+            this.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(this.gameObject.GetComponent<Player>().XAxis / 2
+                , this.gameObject.GetComponent<Player>().YAxis), ForceMode2D.Impulse);
+            this.gameObject.GetComponent<Animator>().Play("PlayerJump");
+            
             Scene_Manager manager = GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>();
             if (manager.inStory == false)
             {
