@@ -1,99 +1,69 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Scene_Manager : MonoBehaviour {
 
-    public int CurrentIndex;
+    // Accessible Fields:
+    public int currentIndex;
     public bool scoreboardUp = false;
     public bool inStory = true;
+    public bool inLoad = false;
 
     public delegate void bcSceneChange();
     public static event bcSceneChange EVSceneChange;
-    public int goingTo;
-    public bool midLoad = false;
-    public bool inLoad = false;
+
+    private int goingTo;
+    private bool midLoad = false;
     private bool sceneAnim = true;
-    private bool endgame = false;
+    private bool endGame = false;
+    private bool endApp = false;
     private int scoreBefore = 0;
 
     // Carried Data objects, use these for game's global functions.
-    private GameObject sm_but;
-    private GameObject sm_inp;
-    private GameObject sm_res;
-    private GameObject overlay;
-    private GameObject chardata;
-    private GameObject scores;
-    private GameObject scores_player;
-    private GameObject scores_points;
-    private GameObject scores_time;
-    private GameObject scores_lives;
-    private GameObject sound_system;
-    private GameObject oxygenhud;
-    private GameObject oxygenbar;
-    private SceneChangeComponent_Image transition;
+    [SerializeField] private EventSystem input;
+    [SerializeField] private GameObject menuButton;
+    [SerializeField] private GameObject menuInput;
+    [SerializeField] private GameObject menuScores;
+    [SerializeField] private GameObject menuQuit;
+    [SerializeField] private GameObject overlay;
+    [SerializeField] private GameObject chardata;
+    [SerializeField] private GameObject scores;
+    [SerializeField] private GameObject scoresPlayer;
+    [SerializeField] private GameObject scoresPoints;
+    [SerializeField] private GameObject scoresTime;
+    [SerializeField] private GameObject scoresLives;
+    [SerializeField] private GameObject soundSystem;
+    [SerializeField] private GameObject oxygenHud;
+    [SerializeField] private GameObject oxygenBar;
+    [SerializeField] private SceneChangeComponent_Image transition;
 
     // How many scenes to offset until levels start:
-    private static int levels_at = 2;
+    private static int levelsStartFrom = 2;
 
     // Level generation order.
-    private List<int> levelgenerationorder = new List<int> ();
+    private List<int> levelGenerationOrder = new List<int> ();
 
-    // Use this for initialization
+
     void Start ()
     {
+        // If a set of Carry objects exists, don't create another.
         if (GameObject.FindGameObjectsWithTag("Container").Length != 2)
         {
             Destroy(this.gameObject);
         }
-        DontDestroyOnLoad(this);
-        CurrentIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.sceneLoaded += LvlLoad;
-
-        sm_but = GameObject.Find("StartMenu_Button");
-        sm_inp = GameObject.Find("StartMenu_InputField");
-        sm_res = GameObject.Find("StartMenu_Results");
-        overlay = GameObject.Find("OverlayCanvas");
-        chardata = GameObject.Find("CharacterData");
-        scores = overlay.transform.Find("ScoreBoard").gameObject;
-        scores_player = scores.transform.Find("PlayerName").gameObject;
-        scores_points = scores.transform.Find("PlayerScore").gameObject;
-        scores_time = scores.transform.Find("TimerValue").gameObject;
-        scores_lives = scores.transform.Find("Lives").gameObject;
-        sound_system = overlay.transform.Find("SoundSystem").gameObject;
-        oxygenhud = overlay.transform.Find("Level2Oxygen").gameObject;
-        oxygenbar = oxygenhud.transform.Find("WaterBarSlider").gameObject;
-        transition = overlay.transform.Find("Transition").transform.Find("Screen Top").GetComponent<SceneChangeComponent_Image>();
-        scores.SetActive(false);
-        oxygenhud.SetActive(false);
-        if (GameObject.FindGameObjectsWithTag("Container").Length == 2)
-        {
-            DataContainer_Character.EVGameOver += RestartGame;
-        }
-    }
-
-    // Generate level order.
-    // This can be used at the end of each 4 level loop to generate a new order.
-    public void GenerateLevelOrder(bool random)
-    {
-        levelgenerationorder.Clear();
-        if (random == false)
-        {
-            inStory = true;
-            levelgenerationorder.Add(1);
-            levelgenerationorder.Add(2);
-            levelgenerationorder.Add(3);
-            levelgenerationorder.Add(4);
-        }
         else
         {
-            inStory = false;
-            levelgenerationorder.Add(Random.Range(1, 5));
-            levelgenerationorder.Add(Random.Range(1, 5));
-            levelgenerationorder.Add(Random.Range(1, 5));
-            levelgenerationorder.Add(Random.Range(1, 5));
+            DontDestroyOnLoad(this);
+            currentIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.sceneLoaded += LvlLoad;
+
+            scores.SetActive(false);
+            oxygenHud.SetActive(false);
+            DataContainer_Character.EVGameOver += RestartGame;
         }
     }
 
@@ -105,22 +75,23 @@ public class Scene_Manager : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyDown("r"))
+        // DEBUG ONLY
+        if (Input.GetKeyDown("r") && currentIndex > 1)
         {
-            CurrentIndex = SceneManager.GetActiveScene().buildIndex;
-            ChangeScene(CurrentIndex);
+            currentIndex = SceneManager.GetActiveScene().buildIndex;
+            ChangeScene(currentIndex);
         }
-        else if (Input.GetKeyDown("t"))
+        else if (Input.GetKeyDown("t") && currentIndex > 1)
         {
-            CurrentIndex = SceneManager.GetActiveScene().buildIndex;
+            currentIndex = SceneManager.GetActiveScene().buildIndex;
             NextLevel();
         }
-        else if (Input.GetKeyDown("e"))
+        else if (Input.GetKeyDown("e") && currentIndex > 1)
         {
-            CurrentIndex = SceneManager.GetActiveScene().buildIndex;
-            ChangeScene(CurrentIndex - 1);
+            currentIndex = SceneManager.GetActiveScene().buildIndex;
+            ChangeScene(currentIndex - 1);
         }
-        else if (Input.GetKeyDown("q"))
+        else if (Input.GetKeyDown("q") && currentIndex > 1)
         {
             if (sceneAnim == true)
             {
@@ -133,41 +104,87 @@ public class Scene_Manager : MonoBehaviour {
                 Debug.Log("Animations toggled, current state: True");
             }
         }
+        // Actual update.
+        // Check if player wants to quit.
         if (Input.GetButtonDown("Quit"))
         {
-            CurrentIndex = SceneManager.GetActiveScene().buildIndex;
-            ChangeScene(0);
+            currentIndex = SceneManager.GetActiveScene().buildIndex;
+            if (currentIndex != 0)
+            {
+                ChangeScene(0);
+            }
+            else
+            {
+                Quit();
+            }
+            
         }
+        // Relay that the player wishes to skip scoreboard sequence.
         else if (Input.GetButtonDown("Submit"))
         {
             transition.skip = true;
         }
     }
 
+    // Starts Up UI when transferring to Stages.
     private void InitiateUI()
     {
-        scores.GetComponent<UI_Script>().Activate(scores_player, scores_points, scores_time, scores_lives, chardata);
+        scores.GetComponent<UI_Script>().Activate(scoresPlayer, scoresPoints, scoresTime, scoresLives, chardata);
         scores.GetComponent<UI_Script>().TimerOn(100);
+    }
+
+    // Generate level order.
+    // This can be used at the end of each 4 level loop to generate a new order.
+    public void GenerateLevelOrder(bool random)
+    {
+        levelGenerationOrder.Clear();
+        if (random == false)
+        {
+            inStory = true;
+            levelGenerationOrder.Add(1);
+            levelGenerationOrder.Add(2);
+            levelGenerationOrder.Add(3);
+            levelGenerationOrder.Add(4);
+        }
+        else
+        {
+            inStory = false;
+            levelGenerationOrder.Add(Random.Range(1, 5));
+            levelGenerationOrder.Add(Random.Range(1, 5));
+            levelGenerationOrder.Add(Random.Range(1, 5));
+            levelGenerationOrder.Add(Random.Range(1, 5));
+            chardata.GetComponent<DataContainer_Character>().DifficultyUp();
+        }
     }
 
     // Next level from order.
     // Call to advance to the next level.
     public void NextLevel(bool scoreboard = true)
     {
-        sound_system.GetComponent<Sound_System>().FadeOut();
         scoreboardUp = scoreboard;
         scores.GetComponent<UI_Script>().TimerOff();
         // if no more levels, generate more...
-        if (levelgenerationorder.Count == 0)
+        if (levelGenerationOrder.Count == 0)
         {
             GenerateLevelOrder(true);
         }
-        int to = levelgenerationorder[0] - 1;
-        levelgenerationorder.RemoveAt(0);
+        int to = levelGenerationOrder[0] - 1;
+        levelGenerationOrder.RemoveAt(0);
+        soundSystem.GetComponent<Sound_System>().FadeOut();
 
         // offset of scenes at the start
-        ChangeScene(levels_at + to);
-        endgame = false;
+        ChangeScene(levelsStartFrom + to);
+        endGame = false;
+    }
+
+    // Quits the program via a transition.
+    public void Quit()
+    {
+        this.transform.Find("Transition").GetComponent<Animator>().SetTrigger("Drop");
+        soundSystem.GetComponent<Sound_System>().PlaySFX(1);
+        endApp = true;
+        soundSystem.GetComponent<Sound_System>().FadeOut();
+        StartCoroutine(DramaticTiming());
     }
 
     // Scene change event.
@@ -188,16 +205,17 @@ public class Scene_Manager : MonoBehaviour {
             midLoad = true;
             goingTo = toScene;
 
+            // Prevent Access if attempting to access new game with a name of "".
             if (goingTo == 1 && chardata.GetComponent<DataContainer_Character>().GetPlayerName() == "")
             {
-                sound_system.GetComponent<Sound_System>().PlaySFX(3);
+                soundSystem.GetComponent<Sound_System>().PlaySFX(3);
                 midLoad = false;
             }
             else
             {
                 if (sceneAnim == true)
                 {
-                    sound_system.GetComponent<Sound_System>().PlaySFX(1);
+                    soundSystem.GetComponent<Sound_System>().PlaySFX(1);
                     if (EVSceneChange != null)
                     {
                         EVSceneChange();
@@ -216,45 +234,58 @@ public class Scene_Manager : MonoBehaviour {
         }
     }
 
+    // Starts Load of given scene, used by transition component.
     public void StartLoad()
     {
         StartCoroutine(LoadASync());
+        // IF Loading To New Game or Scoreboard.
         if (goingTo == 1 || goingTo == 7)
         {
             chardata.GetComponent<DataContainer_Character>().LoadResult();
-            if (sm_but.activeSelf == true)
+            if (menuButton.activeSelf == true)
             {
-                sm_but.SetActive(false);
-                sm_inp.SetActive(false);
-                sm_res.SetActive(false);
+                menuButton.SetActive(false);
+                menuInput.SetActive(false);
+                menuScores.SetActive(false);
+                menuQuit.SetActive(false);
             }
         }
+        // IF NOT Loading to LEVEL 2.
         if (goingTo != 3)
         {
-            if (oxygenhud.activeSelf == true)
+            if (oxygenHud.activeSelf == true)
             {
-                oxygenhud.SetActive(false);
+                oxygenHud.SetActive(false);
             }
         }
+        // IF Loading to a level.
         if (goingTo > 1 && goingTo < 6)
         {
             if (scores.activeSelf == false)
             {
                 scores.SetActive(true);
             }
-            sound_system.GetComponent<Sound_System>().ChangeBG(goingTo - 1);
+            soundSystem.GetComponent<Sound_System>().ChangeBG(goingTo - 1);
             InitiateUI();
-            scores_points.GetComponent<Text>().text = "0 pts.";
+            scoresPoints.GetComponent<Text>().text = "0 pts.";
         }
         else
         {
+            if (goingTo == 7)
+            {
+                soundSystem.GetComponent<Sound_System>().ChangeBG(5);
+            }
+            else
+            {
+                soundSystem.GetComponent<Sound_System>().ChangeBG(0);
+            }
             if (scores.activeInHierarchy == true)
             {
                 scores.SetActive(false);
             }
             scores.GetComponent<UI_Script>().TimerOff();
         }
-        oxygenbar.GetComponent<BarScript>().EndLevel2();
+        oxygenBar.GetComponent<BarScript>().EndLevel2();
     }
 
     // A public function to call when finished loading, should probably be protected.
@@ -262,14 +293,24 @@ public class Scene_Manager : MonoBehaviour {
     {
         if (goingTo == 0)
         {
-            sm_but.SetActive(true);
-            sm_inp.SetActive(true);
-            sm_res.SetActive(true);
+            menuButton.SetActive(true);
+            menuInput.SetActive(true);
+            menuScores.SetActive(true);
+            menuQuit.SetActive(true);
+            input.SetSelectedGameObject(menuInput);
+        }
+        else if (goingTo == 1)
+        {
+            input.SetSelectedGameObject(GameObject.Find("Slider").gameObject);
+        }
+        else if (goingTo == 7)
+        {
+            input.SetSelectedGameObject(GameObject.Find("Button").gameObject);
         }
         if (goingTo == 3)
         {
-            oxygenhud.SetActive(true);
-            oxygenbar.GetComponent<BarScript>().BeginLevel2();
+            oxygenHud.SetActive(true);
+            oxygenBar.GetComponent<BarScript>().BeginLevel2();
         }
         if (goingTo == 6)
         {
@@ -277,8 +318,8 @@ public class Scene_Manager : MonoBehaviour {
         }
         else
         {
-            chardata.GetComponent<DataContainer_Character>().scoresawarder.Clear();
-            chardata.GetComponent<DataContainer_Character>().actualscores.Clear();
+            chardata.GetComponent<DataContainer_Character>().scoresAwarder.Clear();
+            chardata.GetComponent<DataContainer_Character>().actualScores.Clear();
         }
 
         midLoad = false;
@@ -286,6 +327,7 @@ public class Scene_Manager : MonoBehaviour {
 
     }
 
+    // EVENT HANDLER: Called on Player Death.
     void RestartLevel()
     {
         scores.GetComponent<UI_Script>().TimerOff();
@@ -294,24 +336,31 @@ public class Scene_Manager : MonoBehaviour {
         StartCoroutine("DramaticTiming");
     }
 
+    // EVENT HANDLER: Called When Lives reach 0.
     void RestartGame()
     {
-        endgame = true;
+        endGame = true;
     }
 
+    // A transition timer to keep scene on until transition has been given enough time.
     IEnumerator DramaticTiming()
     {
         yield return new WaitForSeconds(1.20f);
-        if (endgame)
+        if (endApp)
+        {
+            Application.Quit();
+        }
+        else if (endGame)
         {
             ChangeScene(7);
         }
         else
         {
-            ChangeScene(CurrentIndex);
+            ChangeScene(currentIndex);
         }
     }
 
+    // Coroutine to Load Asynchronously the level.
     IEnumerator LoadASync()
     {
         // The Application loads the Scene in the background at the same time as the current Scene.
@@ -326,6 +375,7 @@ public class Scene_Manager : MonoBehaviour {
         inLoad = false;
     }
 
+    // Coroutine for final scene, creates a timer.
     IEnumerator FinalSceneTimer()
     {
         yield return new WaitForSeconds(6.00f);
@@ -336,7 +386,7 @@ public class Scene_Manager : MonoBehaviour {
     void LvlLoad(Scene scene, LoadSceneMode sceneMode)
     {
         GameObject.Find("Transition").GetComponent<Animator>().SetTrigger("Raise");
-        CurrentIndex = scene.buildIndex;
+        currentIndex = scene.buildIndex;
         if (goingTo > 1 && goingTo < 6)
         {
             Player.EVDeath += RestartLevel;

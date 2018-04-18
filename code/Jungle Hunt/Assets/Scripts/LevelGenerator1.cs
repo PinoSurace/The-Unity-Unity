@@ -52,12 +52,12 @@ public class LevelGenerator1 : MonoBehaviour {
         }
         catch
         {
-            difficulty = 2;
+            difficulty = 100;
         }
 
-        ropeMinDistance = 4 + difficulty;
-        ropeMaxDistance = 5 + difficulty;
-        numberOfRopes = 5 + 5 * difficulty;
+        ropeMinDistance = 4 + (difficulty / 50);
+        ropeMaxDistance = 5 + (difficulty / 50);
+        numberOfRopes = 5 + (difficulty / 10);
 
         levelEndLength = waterPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
 

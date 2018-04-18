@@ -27,18 +27,25 @@ public class Player : MonoBehaviour
     {
         State_Idle,
         State_Jumping,
-        State_Dead,
-        State_None,
-        State_Inv,
-        State_Attacking,
         State_Swinging,
         State_Swimming,
-        State_Bubble,
+        State_Attacking,
         State_Running,
-        State_Crouching
+        State_Crouching,
+        State_Helpless,
+        State_Inv,
+        State_Dead,
     }
 
-    public State CurrentState = State.State_None;
+    private State currentState = State.State_Helpless;
+    public State CurrentState
+    {
+        get
+        {
+            return currentState;
+        }
+    }
+    private int statePriority = -1;
 
     // Function for Changing States. Every switch statement is a different state.
     private void ChangeState()
@@ -48,7 +55,7 @@ public class Player : MonoBehaviour
             case State.State_Idle:
                 if (Input.GetButtonDown("Jump")) 
                 {
-                    CurrentState = State.State_Jumping;
+                    ManageState(State.State_Jumping);
                     // An impulse is used to move the player
                     rb.AddForce(new Vector2 (XAxis, YAxis), ForceMode2D.Impulse);
                     // The jump animation is triggered
@@ -59,7 +66,7 @@ public class Player : MonoBehaviour
                 // Function for testing only, will be removed later. Changes the player from idle to running
 				if (Input.GetButtonDown("Horizontal") == true && level == 4)
                 {
-                    CurrentState = State.State_Running;
+                    ManageState(State.State_Running);
                     animator.SetTrigger("PlayerRun");
                 }
                 break;
@@ -86,7 +93,7 @@ public class Player : MonoBehaviour
             case State.State_Swinging:
                 if (Input.GetButtonDown("Jump"))
                 {
-                    CurrentState = State.State_Jumping;
+                    ManageState(State.State_Jumping);
                     Destroy(gameObject.GetComponent (typeof(DistanceJoint2D)));
                     //An impulse is used to move the player
                     rb.velocity = Vector2.zero;
@@ -110,7 +117,7 @@ public class Player : MonoBehaviour
                 //when the duck button is no longer pressed, the player starts running again
                 if (Input.GetButtonUp("Duck"))
                 {
-                    CurrentState = State.State_Running;
+                    ManageState(State.State_Running);
                     animator.SetTrigger("PlayerRun");
                     this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.18f, 0.18f);
                 }
@@ -125,14 +132,14 @@ public class Player : MonoBehaviour
                 // Pressing and holding the duck button makes player crouch
                 if (Input.GetButtonDown("Duck"))
                 {
-                    CurrentState = State.State_Crouching;
+                    ManageState(State.State_Crouching);
                     animator.SetTrigger("PlayerDuck");
                     this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.06f, 0.06f);
                 }
                 else if (Input.GetButtonDown("Jump")) 
                 {
                     rb.velocity = Vector2.zero;
-                    CurrentState = State.State_Jumping;
+                    ManageState(State.State_Jumping);
                     //An impulse is used to move the player
                     rb.AddForce(new Vector2(XAxis, YAxis), ForceMode2D.Impulse);
                     //The jump animation is triggered
@@ -140,10 +147,21 @@ public class Player : MonoBehaviour
                 }
                 else if (Input.GetButton("Horizontal") == false && level == 4)
                 {
-                    CurrentState = State.State_Idle;
+                    ManageState(State.State_Idle);
                     animator.SetTrigger("PlayerStop");
                 }
                 break;
+        }
+    }
+
+    // Only allows higher priority state changes to pass in the same frame.
+    public void ManageState(Player.State state)
+    {
+        int priority = (int)state;
+        if (statePriority < priority)
+        {
+            currentState = state;
+            statePriority = priority;
         }
     }
 
@@ -154,7 +172,7 @@ public class Player : MonoBehaviour
         {
             rb.AddForce(new Vector2 (0, YAxis), ForceMode2D.Impulse);
             animator.SetTrigger("PlayerDead");
-            CurrentState = State.State_Dead;
+            ManageState(State.State_Dead);
             rb.gravityScale = 1;
             Destroy (gameObject.GetComponent (typeof(Collider2D)));
         }
@@ -163,14 +181,14 @@ public class Player : MonoBehaviour
     // When The player is in the bubble animation changes
     public void InTheBubble()
     {
-        CurrentState = State.State_Bubble;
+        ManageState(State.State_Helpless);
         animator.SetTrigger("PlayerIdle");
     }
 
     // When The player exits from the bubble animation changes
     public void OutOfBubble()
     {
-        CurrentState = State.State_Swimming;
+        ManageState(State.State_Swimming);
         animator.SetTrigger("PlayerSwim");
     }
 
@@ -182,7 +200,7 @@ public class Player : MonoBehaviour
         // If we can access Scene Manager (started from menu) change according to level.
         try
         {
-            int level = GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().CurrentIndex - 1;
+            int level = GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().currentIndex - 1;
             if (level == 2)
             {
                 OutOfBubble();
@@ -190,17 +208,17 @@ public class Player : MonoBehaviour
             else if(level == 5)
             {
                 animator.SetTrigger("PlayerCelebrate");
-                CurrentState = State.State_None;
+                ManageState(State.State_Helpless);
             }
             else
             {
-                CurrentState = State.State_Idle;
+                ManageState(State.State_Idle);
             }
         }
         catch
         {
             // If errored, default to idle.
-            CurrentState = State.State_Idle;
+            ManageState(State.State_Idle);
         }
     }
 
@@ -209,6 +227,7 @@ public class Player : MonoBehaviour
     {
         //Check pressed buttons
         ChangeState ();
+        statePriority = -1;
 
         if (CurrentState == State.State_Swimming)
         {

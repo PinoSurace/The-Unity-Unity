@@ -5,28 +5,104 @@ using UnityEngine;
 
 public class Sound_System : MonoBehaviour {
 
-    private GameObject sfx;
+    [SerializeField] private GameObject sfxPrefab;
     private GameObject bgm;
     private AudioSource bgmAS;
-    private AudioSource sfxAS;
-    private float startfade;
-    private bool f_out = false;
-    private bool f_in = false;
+    public List<GameObject> sfxList = new List<GameObject>();
+    private float startFade;
+    private bool fadingOut = false;
+    private bool fadingIn = false;
 
     public List<AudioClip> tracks = new List<AudioClip>();
     public List<AudioClip> sounds = new List<AudioClip>();
 
-    private int loadedSFX = -1;
-
     // Use this for initialization
     void Start ()
     {
-        sfx = GameObject.Find("SoundFx").gameObject;
         bgm = GameObject.Find("BG_Music").gameObject;
-        sfxAS = sfx.GetComponent<AudioSource>();
+        
         bgmAS = bgm.GetComponent<AudioSource>();
         InstantiateTrackList();
         ChangeBG(0);
+    }
+
+    public void ChangeBG(int trackid)
+    {
+        StartCoroutine(WaitForFadeOut(trackid));
+    }
+
+    public void FadeOut()
+    {
+        startFade = bgmAS.volume;
+        fadingOut = true;
+    }
+
+    public void PlaySFX(int sfxid)
+    {
+        if (sfxid < 0 || sfxid >= sounds.Count)
+        {
+            Debug.Log(string.Format("SOUND INDEX OVERFLOW, Trying to Access unexisting clip #{0,2}", sfxid));
+        }
+        else
+        {
+            GameObject sfx = Instantiate(sfxPrefab, this.transform);
+            sfx.GetComponent<AudioSource>().clip = sounds[sfxid];
+            sfxList.Add(sfx);
+            sfx.GetComponent<AudioSource>().Play();
+        }
+    }
+
+	// Update is called once per frame
+	void Update ()
+    {
+        if (fadingOut)
+        {
+            if (bgmAS.volume == 0)
+            {
+                fadingOut = false;
+            }
+            else
+            {
+                bgmAS.volume -= (startFade / 80);
+            }
+        }
+        else if (fadingIn)
+        {
+            if (bgmAS.volume >= startFade)
+            {
+                fadingIn = false;
+            }
+            else
+            {
+                bgmAS.volume += (startFade / 40);
+            }
+        }
+        for (int a = 0; a < sfxList.Count; a++)
+        {
+            if (sfxList[a].GetComponent<AudioSource>().isPlaying == false)
+            {
+                Destroy(sfxList[a]);
+                sfxList.RemoveAt(a);
+            }
+        }
+    }
+
+    IEnumerator WaitForFadeOut(int trackid)
+    {
+        while (fadingOut == true)
+        {
+            yield return null;
+        }
+        fadingIn = true;
+        if (trackid < 0 || trackid >= tracks.Count)
+        {
+            Debug.Log(string.Format("TRACK INDEX OVERFLOW, Trying to Access unexisting clip #{0,2}", trackid));
+        }
+        else if (tracks[trackid] != bgmAS.clip)
+        {
+            bgmAS.clip = tracks[trackid];
+            bgmAS.Play();
+        }
     }
 
     private void InstantiateTrackList()
@@ -40,70 +116,6 @@ public class Sound_System : MonoBehaviour {
         foreach (var sound in loadedSFXs)
         {
             sounds.Add(sound);
-        }
-    }
-
-    public void ChangeBG(int trackid)
-    {
-        f_in = true;
-        if (trackid < 0 || trackid >= tracks.Count)
-        {
-            Debug.Log(string.Format("TRACK INDEX OVERFLOW, Trying to Access unexisting clip #{0,2}", trackid));
-        }
-        else if (tracks[trackid] != bgmAS.clip)
-        {
-            bgmAS.clip = tracks[trackid];
-            bgmAS.Play();
-        }
-    }
-
-    public void FadeOut()
-    {
-        startfade = bgmAS.volume;
-        f_out = true;
-    }
-
-    public void PlaySFX(int sfxid)
-    {
-        if (sfxid == loadedSFX)
-        {
-            sfxAS.Play();
-        }
-        else if (sfxid < 0 || sfxid >= sounds.Count)
-        {
-            Debug.Log(string.Format("SOUND INDEX OVERFLOW, Trying to Access unexisting clip #{0,2}", sfxid));
-        }
-        else
-        {
-            sfxAS.clip = sounds[sfxid];
-            sfxAS.Play();
-        }
-    }
-
-	// Update is called once per frame
-	void Update ()
-    {
-        if (f_out)
-        {
-            if (bgmAS.volume == 0)
-            {
-                f_out = false;
-            }
-            else
-            {
-                bgmAS.volume -= (startfade / 80);
-            }
-        }
-        else if (f_in)
-        {
-            if (bgmAS.volume >= startfade)
-            {
-                f_in = false;
-            }
-            else
-            {
-                bgmAS.volume += (startfade / 40);
-            }
         }
     }
 }

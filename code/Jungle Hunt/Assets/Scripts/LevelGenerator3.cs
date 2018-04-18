@@ -11,6 +11,8 @@ public class LevelGenerator3 : MonoBehaviour {
     public Transform backgroundPrefab;
     public Transform groundPrefab;
 
+    private int difficulty;
+
     private const float slopeAngleDegrees = 10.0f;
     private float slopeAngleRadians = slopeAngleDegrees / 360.0f * 2.0f * Mathf.PI;
     private const float groundOffsetY = -4.5f;
@@ -18,22 +20,37 @@ public class LevelGenerator3 : MonoBehaviour {
     private const float runningSpeed = 2.0f;
 
     private const float boulderSpawnVariance = 0.5f; // Not actually variance as in maths, but something like that ...
-    private const float boulderSpawnIntervalMin = 2.0f; // As a function of difficulty?
-    private const float boulderSpawnIntervalMax = 5.0f; // As a function of difficulty?
+    private float boulderSpawnIntervalMin; // As a function of difficulty?
+    private float boulderSpawnIntervalMax; // As a function of difficulty?
     private float nextBoulderSpawnTime = 0.0f;
 
     private float levelStartTime = 0.0f;
-    private const float levelDuration = 60.0f; // As a function of difficulty?
+    private float levelDuration; // As a function of difficulty?
     private const float firstSpawnTimeOffset = 3.0f;
     private const float lastSpawnTimeOffset = 7.0f;
-    private float levelTotalLength = runningSpeed * (levelDuration + firstSpawnTimeOffset + lastSpawnTimeOffset);
+    private float levelTotalLength;
 
     private Vector3 nextLevelColliderPosition = new Vector3(0, 0, 0);
 
     void Start()
     {
+        try
+        {
+            difficulty = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>().GetDifficulty();
+        }
+        catch
+        {
+            difficulty = 250;
+        }
+        boulderSpawnIntervalMin = 3.0f - (difficulty / 150.0f);
+        boulderSpawnIntervalMax = 5.0f - (difficulty / 100.0f);
+
+        levelDuration = 60.0f * (difficulty / 100.0f);
+
         levelStartTime = Time.time;
         nextBoulderSpawnTime = Time.time + firstSpawnTimeOffset + Random.Range(boulderSpawnIntervalMin, boulderSpawnIntervalMax);
+
+        levelTotalLength = runningSpeed * (levelDuration + firstSpawnTimeOffset + lastSpawnTimeOffset);
 
         SpawnBackground();
         SpawnGround();
@@ -54,8 +71,9 @@ public class LevelGenerator3 : MonoBehaviour {
      */
     private void SpawnBoulders()
     {
-        float boulderSpawnOffset = Random.Range(-boulderSpawnVariance, boulderSpawnVariance);
-        Vector2 boulderSpawnPosition = new Vector2(11.0f + boulderSpawnOffset, 0.5f);
+        float boulderSpawnXOffset = Random.Range(-boulderSpawnVariance, boulderSpawnVariance);
+        float boulderSpawnYOffset = Random.Range(0, boulderSpawnVariance);
+        Vector2 boulderSpawnPosition = new Vector2(11.0f + boulderSpawnXOffset, 0.5f + boulderSpawnYOffset);
 
         // Probability that the spawned boulder is small
         const float probabilitySmall = 0.5f;

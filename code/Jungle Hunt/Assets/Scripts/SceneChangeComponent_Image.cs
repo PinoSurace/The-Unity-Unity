@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,7 @@ public class SceneChangeComponent_Image : MonoBehaviour {
     private GameObject SB_ResultStar;
     private GameObject SB_Btn;
 
+    public EventSystem input;
     public UI_Script SB_Time;
     public bool skip = false;
 
@@ -98,7 +100,7 @@ public class SceneChangeComponent_Image : MonoBehaviour {
 
         // Show the Passed Message.
         SB_Top.SetActive(true);
-        List<int> ranks = datac.scoresawarder;
+        List<int> ranks = datac.scoresAwarder;
         if (!skip)
         {
             yield return new WaitForSeconds(0.60f);
@@ -107,7 +109,7 @@ public class SceneChangeComponent_Image : MonoBehaviour {
         // Show Scores;
         SB_Info_Score1.SetActive(true);
         SB_Res_Score1.SetActive(true);
-        List<int> scores = datac.actualscores;
+        List<int> scores = datac.actualScores;
         int pts = 0;
         SB_Res_Score1.GetComponent<Text>().text = string.Format("{0, 5}", pts);
         while (scores.Count > 0)
@@ -177,14 +179,14 @@ public class SceneChangeComponent_Image : MonoBehaviour {
                     suspenserank = 0;
                 }
                 SB_ResultRank.GetComponent<Text>().text = datac.GetRankName(suspenserank);
-                SB_ResultRank.GetComponent<Text>().color = datac.GetRankColor2(suspenserank);
-                SB_ResultStar.GetComponent<Image>().color = datac.GetRankColor1(suspenserank);
+                SB_ResultRank.GetComponent<Text>().color = datac.GetRankColor1(suspenserank);
+                SB_ResultStar.GetComponent<Image>().color = datac.GetRankColor2(suspenserank);
                 yield return new WaitForSeconds(0.05f);
             }
         }
         SB_ResultRank.GetComponent<Text>().text = datac.GetRankName(finalrank);
-        SB_ResultRank.GetComponent<Text>().color = datac.GetRankColor2(finalrank);
-        SB_ResultStar.GetComponent<Image>().color = datac.GetRankColor1(finalrank);
+        SB_ResultRank.GetComponent<Text>().color = datac.GetRankColor1(finalrank);
+        SB_ResultStar.GetComponent<Image>().color = datac.GetRankColor2(finalrank);
 
         if (!skip)
         {
@@ -193,6 +195,7 @@ public class SceneChangeComponent_Image : MonoBehaviour {
         SB_Btn.GetComponentInChildren<Text>().text = "Continue!";
         SB_Btn.SetActive(true);
         SB_Btn.GetComponent<Button>().interactable = true;
+        input.SetSelectedGameObject(SB_Btn);
         skip = false;
     }
 }

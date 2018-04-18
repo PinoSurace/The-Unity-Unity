@@ -34,7 +34,7 @@ public class GrabRope : MonoBehaviour {
 				//Set the rope as grabbed
 				grabscript.grabbed = true;
 				//Change the player state to swinging
-				this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Swinging;
+				this.gameObject.GetComponent<Player> ().ManageState(Player.State.State_Swinging);
 				this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerSwing");
 
 			}
@@ -74,7 +74,7 @@ public class GrabRope : MonoBehaviour {
 		{
 			
 			Destroy (this.gameObject.GetComponent (typeof(DistanceJoint2D)));
-			this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_None;
+			this.gameObject.GetComponent<Player> ().ManageState(Player.State.State_Helpless);
 			this.gameObject.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
 			this.gameObject.GetComponent<Rigidbody2D> ().AddForce(new Vector2(this.gameObject.GetComponent<Player> ().XAxis/2
 				, 0), ForceMode2D.Impulse);
@@ -86,7 +86,7 @@ public class GrabRope : MonoBehaviour {
 		{
            
            GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().NextLevel();
-           this.gameObject.GetComponent<Player>().CurrentState = Player.State.State_Inv;
+           this.gameObject.GetComponent<Player>().ManageState(Player.State.State_Inv);
 		}
 
         //Trigger for level 4 end
@@ -105,7 +105,7 @@ public class GrabRope : MonoBehaviour {
             {
                 manager.ChangeScene(6);
             }
-            this.gameObject.GetComponent<Player>().CurrentState = Player.State.State_Inv;
+            this.gameObject.GetComponent<Player>().ManageState(Player.State.State_Inv);
         }
     }
 
@@ -113,12 +113,12 @@ public class GrabRope : MonoBehaviour {
 	{
 		if (other.gameObject.name == "GroundCollider")
 		{
-			this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Running;
+			this.gameObject.GetComponent<Player> ().ManageState(Player.State.State_Running);
 			this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerRun");
 		}
 		else if (other.gameObject.name == "Land")
 		{
-			this.gameObject.GetComponent<Player> ().CurrentState = Player.State.State_Idle;
+			this.gameObject.GetComponent<Player> ().ManageState(Player.State.State_Idle);
 			this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerIdle");
 		}
 

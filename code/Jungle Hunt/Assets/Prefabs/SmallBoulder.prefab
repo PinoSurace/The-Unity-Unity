@@ -143,4 +143,4 @@ ConstantForce2D:
   m_Enabled: 1
   m_Force: {x: 0, y: 0}
   m_RelativeForce: {x: 0, y: 0}
-  m_Torque: 60
+  m_Torque: 25

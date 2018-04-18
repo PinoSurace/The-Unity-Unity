@@ -39,7 +39,7 @@ public class LevelGenerator2 : MonoBehaviour {
         }
         catch
         {
-            difficulty = 2;
+            difficulty = 100;
         }
 
         levelStartTime = Time.time;
@@ -47,11 +47,11 @@ public class LevelGenerator2 : MonoBehaviour {
         levelDuration = 60.0f;
 
         bubbleSpawnIntervalMin = 1.0f;
-        bubbleSpawnIntervalMax = 7.0f / difficulty;
+        bubbleSpawnIntervalMax = 7.0f / (difficulty / 50.0f);
         nextBubbleSpawnTime = 0.0f;
 
         crocodileSpawnIntervalMin = 1.0f;
-        crocodileSpawnIntervalMax = 5.0f / difficulty;
+        crocodileSpawnIntervalMax = 5.0f / (difficulty / 50.0f);
 
         nextBubbleSpawnTime = levelStartTime + firstSpawnTimeOffset
             + Random.Range(bubbleSpawnIntervalMin, bubbleSpawnIntervalMax);
@@ -93,7 +93,7 @@ public class LevelGenerator2 : MonoBehaviour {
     {
         // This needs to be swimmingSpeed + something, so that it seems the crocodiles are
         // also swimming against you and not being stationary or even swimming backwards
-        float crocodileSpeed = swimmingSpeed + 2.0f + (float)difficulty;
+        float crocodileSpeed = swimmingSpeed + 2.0f + (float)(difficulty / 50.0f);
 
         // This is the level length in terms of where to spawn crocodiles. Some will be spawned
         // further than the level ending, but that's because they will then reach the player position

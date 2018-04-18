@@ -8,36 +8,44 @@ public class DataContainer_Character : MonoBehaviour {
     public delegate void bcCharcterGameOver();
     public static event bcCharcterGameOver EVGameOver;
 
-    public List<int> scores;
-    public List<string> nicknames;
-
-    public int plays = 0;
-
-    public Transform scoreprefab;
-
-    public Canvas canvas;
-
-    private int runner = 0;
+    // SaveData information.
     public static int SAVESLOTS = 12;
 
-    // Store data.
-    private string PlayerName = "";
-    private int points;
-    private int num_of_lives = 5;
-    private int difficulty = 1;
+    public List<int> scores;
+    public List<string> nicknames;
+    public int plays = 0;
 
-    // ScoreSystem
+    // Prefab for score effect.
+    public Transform scorePrefab;
+    // Canvas to draw prefab on.
+    public Canvas canvas;
+
+    // Internal Counters.
+    private int runner = 0; // Used for multiple simultanious score effects.
+
+    // Data to be stored.
+    private string playerName = "";
+    private int points;
+    private int numOfLives = 5;
+
+    // Difficulty stored as an integer, should be considered a percentage. 100 is 100% [normal].
+    private int difficulty = 100;
+    private int DIFFICULTYRAISE = 15;
+
+    // Determines Scores. Score is MAXSCORE - SCOREDETRIMENT*SCORERANKINDEX.
     private int MAXSCORE = 450;
     private int SCOREDETRIMENT = 50;
 
-    // ScoreLists
-    private List<string> scorenames = new List<string>{"Xtraordinary" ,"Saintly", "Superb", "Awesome", "Beautiful", "Cool", "Decent", "Eradic" };
-    private List<Color> scorecolors = new List<Color> { new Color(0.80f, 0.85f, 0.20f), new Color(0.70f, 0.75f, 0.30f), new Color(0.60f, 0.65f, 0.40f), new Color(0.80f, 0.55f, 0.10f),
+    // Score Effect Variables, controls the look of the spawned effects.
+    private List<string> scoreNames = new List<string>{"Xtraordinary" ,"Saintly", "Superb", "Awesome", "Beautiful", "Cool", "Decent", "Eradic" };
+
+    private List<Color> scoreColors = new List<Color> { new Color(0.80f, 0.85f, 0.20f), new Color(0.70f, 0.75f, 0.30f), new Color(0.60f, 0.65f, 0.40f), new Color(0.80f, 0.55f, 0.10f),
     new Color(0.90f, 0.75f, 0.70f), new Color(0.30f, 0.35f, 0.95f), new Color(0.30f, 0.70f, 0.70f), new Color(0.40f, 0.45f, 0.20f)};
-    private List<Color> textcolors = new List<Color> { new Color(0.90f, 0.20f, 0.20f), new Color(0.90f, 0.90f, 0.90f), new Color(0.80f, 0.80f, 0.00f), new Color(0.50f, 0.25f, 0.20f),
+    private List<Color> textColors = new List<Color> { new Color(0.90f, 0.20f, 0.20f), new Color(0.90f, 0.90f, 0.90f), new Color(0.80f, 0.80f, 0.00f), new Color(0.50f, 0.25f, 0.20f),
     new Color(0.20f, 0.85f, 0.85f), new Color(0.25f, 0.25f, 0.75f), new Color(0.60f, 0.60f, 0.10f), new Color(0.10f, 0.10f, 0.10f)};
-    public List<int> scoresawarder = new List<int> { };
-    public List<int> actualscores = new List<int> { };
+
+    public List<int> scoresAwarder = new List<int> { };
+    public List<int> actualScores = new List<int> { };
 
     // Keep any changes through transitions.
     void Start ()
@@ -51,30 +59,30 @@ public class DataContainer_Character : MonoBehaviour {
 
     public string GetRankName(int rank)
     {
-        string retval = scorenames[rank];
+        string retval = scoreNames[rank];
         return retval;
     }
 
     public Color GetRankColor1(int rank)
     {
-        Color retval = scorecolors[rank];
+        Color retval = scoreColors[rank];
         return retval;
     }
 
     public Color GetRankColor2(int rank)
     {
-        Color retval = textcolors[rank];
+        Color retval = textColors[rank];
         return retval;
     }
 
     public void SetPlayerName(string value)
     {
-        PlayerName = value;
+        playerName = value;
     }
 
     public string GetPlayerName()
     {
-        return PlayerName;
+        return playerName;
     }
 
     public void SetPoints(int value)
@@ -99,9 +107,8 @@ public class DataContainer_Character : MonoBehaviour {
             index = 7 - index;
             int scoretogive = (MAXSCORE - (index * SCOREDETRIMENT));
 
-            scoresawarder.Add(index);
-            actualscores.Add(scoretogive);
-            
+            scoresAwarder.Add(index);
+            actualScores.Add(scoretogive);
             int alive = GameObject.FindGameObjectsWithTag("ScoreInstance").Length;
 
             if (alive != 0 && runner < 10)
@@ -113,14 +120,16 @@ public class DataContainer_Character : MonoBehaviour {
                 runner = 0;
             }
 
-            ScoreIndicator_Effect scoreToShow = Instantiate(scoreprefab, Vector3.zero, Quaternion.Euler(0, 0, 0)).GetComponent<ScoreIndicator_Effect>();
+            ScoreIndicator_Effect scoreToShow = Instantiate(scorePrefab, Vector3.zero, Quaternion.Euler(0, 0, 0)).GetComponent<ScoreIndicator_Effect>();
+
             scoreToShow.gameObject.transform.SetParent(canvas.transform, false);
             scoreToShow.gameObject.GetComponent<RectTransform>().Translate(280f, 100f - (runner * 15f), 0);
-            scoreToShow.flairtext = scorenames[index];
+            scoreToShow.flairtext = scoreNames[index];
             scoreToShow.pointtext = scoretogive;
+            scoreToShow.starcolor = textColors[index];
+            scoreToShow.textcolor = scoreColors[index];
+
             ChangePoints(scoretogive);
-            scoreToShow.starcolor = textcolors[index];
-            scoreToShow.textcolor = scorecolors[index];
         }
     }
 
@@ -131,13 +140,13 @@ public class DataContainer_Character : MonoBehaviour {
 
     public void SetLives(int value)
     {
-        num_of_lives = value;
+        numOfLives = value;
     }
 
     public void ChangeLives(int change)
     {
-        num_of_lives += change;
-        if (num_of_lives <= 0)
+        numOfLives += change;
+        if (numOfLives <= 0)
         {
             // Subscribe for game over events.
             if (EVGameOver != null)
@@ -150,7 +159,7 @@ public class DataContainer_Character : MonoBehaviour {
 
     public int GetNumOfLives()
     {
-        return num_of_lives;
+        return numOfLives;
     }
 
     public void SetDifficulty(int value)
@@ -161,6 +170,11 @@ public class DataContainer_Character : MonoBehaviour {
     public int GetDifficulty()
     {
         return difficulty;
+    }
+
+    public void DifficultyUp()
+    {
+        difficulty += DIFFICULTYRAISE;
     }
 
     public void SaveResult()
@@ -174,19 +188,20 @@ public class DataContainer_Character : MonoBehaviour {
             if (scores[i] <= points && !isHighScore)
             {
                 newScores.Add(points);
-                newNicks.Add(PlayerName);
+                newNicks.Add(playerName);
                 isHighScore = true;
             }
             newScores.Add(scores[i]);
             newNicks.Add(nicknames[i]);
         }
+        // If current score not added:
         if (!isHighScore)
         {
             newScores.Add(points);
-            newNicks.Add(PlayerName);
+            newNicks.Add(playerName);
         }
         // Check if capacity is exceeded.
-        if (newNicks.Count > SAVESLOTS)
+        while (newNicks.Count > SAVESLOTS)
         {
             newNicks.RemoveAt(SAVESLOTS);
             newScores.RemoveAt(SAVESLOTS);
@@ -201,9 +216,12 @@ public class DataContainer_Character : MonoBehaviour {
 
     public void LoadResult()
     {
+        // Clear previous data.
         scores.Clear();
         nicknames.Clear();
+
         Data save = SaveLoadManager.LoadData();
+        // If savedata exists, populate scores and names with them.
         if (save.contains)
         {
             for (int a = 0; a < save.scores.Length; a++)
