@@ -214,7 +214,7 @@ Prefab:
     - target: {fileID: 114623714862058432, guid: 46efc53914a90f44cbfd64a9759571ac,
         type: 2}
       propertyPath: YAxis
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 61233549517250862, guid: 46efc53914a90f44cbfd64a9759571ac,
         type: 2}
@@ -235,6 +235,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.x
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 50193205437242860, guid: 46efc53914a90f44cbfd64a9759571ac,
+        type: 2}
+      propertyPath: m_LinearDrag
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46efc53914a90f44cbfd64a9759571ac, type: 2}

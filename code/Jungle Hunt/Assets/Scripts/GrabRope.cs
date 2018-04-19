@@ -111,7 +111,8 @@ public class GrabRope : MonoBehaviour {
 
 	void OnCollisionEnter2D (Collision2D other)
 	{
-		if (other.gameObject.name == "GroundCollider")
+		if (other.gameObject.name == "GroundCollider" && this.gameObject.GetComponent<Player>
+            ().CurrentState != Player.State.State_Crouching)
 		{
 			this.gameObject.GetComponent<Player> ().ManageState(Player.State.State_Running);
 			this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerRun");
