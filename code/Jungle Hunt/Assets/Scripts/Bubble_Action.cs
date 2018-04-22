@@ -18,6 +18,14 @@ public class Bubble_Action : MonoBehaviour {
             player.GetComponent<Rigidbody2D>().velocity = this.gameObject.GetComponent<Rigidbody2D>().velocity;
             player_In = true;
         }
+        else if(collision.gameObject.name == "Princess")
+        {            
+            GameObject princess_r = collision.gameObject;
+            //princess_r.transform.position = this.gameObject.transform.position;
+            this.gameObject.transform.localPosition = princess_r.transform.localPosition;
+
+            princess_r.GetComponent<Rigidbody2D>().velocity = this.gameObject.GetComponent<Rigidbody2D>().velocity;
+        }
         else if(collision.gameObject.name == "WaterLimit")
         {
             Destroy(gameObject);
@@ -31,6 +39,11 @@ public class Bubble_Action : MonoBehaviour {
             player = collision.gameObject.GetComponent<Player>();            
             player.GetComponent<Rigidbody2D>().velocity = this.gameObject.GetComponent<Rigidbody2D>().velocity;            
         }
+        else if (collision.gameObject.name == "Princess")
+        {
+            GameObject princess_r = collision.gameObject;            
+            princess_r.GetComponent<Rigidbody2D>().velocity = this.gameObject.GetComponent<Rigidbody2D>().velocity;
+        }
     }  
    
     
@@ -39,7 +52,7 @@ public class Bubble_Action : MonoBehaviour {
         
         if (collision.gameObject.name == "Tarzan")
         {
-            if (player_In == true)
+            if (player_In == true && player.CurrentState != Player.State.State_Dead)
             {
                 player.OutOfBubble();                
             }
