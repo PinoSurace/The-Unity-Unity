@@ -145,6 +145,8 @@ public class Scene_Manager : MonoBehaviour {
             levelGenerationOrder.Add(2);
             levelGenerationOrder.Add(3);
             levelGenerationOrder.Add(4);
+            levelGenerationOrder.Add(5);
+            levelGenerationOrder.Add(6);
         }
         else
         {
