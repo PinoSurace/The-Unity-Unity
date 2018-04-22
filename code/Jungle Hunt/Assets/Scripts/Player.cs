@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
                     this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(ColliderSize, ColliderSize);
                 }
 
-                // Function for testing only, will be removed later. Changes the player from idle to running
+                //Changes the player from idle to running
 				if (Input.GetButtonDown("Horizontal") == true && level == 4)
                 {
                     ManageState(State.State_Running);
@@ -94,32 +94,33 @@ public class Player : MonoBehaviour
                 if (Input.GetButtonDown("Jump"))
                 {
                     ManageState(State.State_Jumping);
-                    Destroy(gameObject.GetComponent (typeof(DistanceJoint2D)));
+                    Destroy(gameObject.GetComponent(typeof(DistanceJoint2D)));
                     //An impulse is used to move the player
                     rb.velocity = Vector2.zero;
                     rb.AddForce(new Vector2(XAxis * 1.2f, YAxis * 0.8f), ForceMode2D.Impulse);
                     //The jump animation is triggered
-                    animator.SetTrigger ("PlayerJump");
+                    animator.SetTrigger("PlayerJump");
                 }
-                if(rb.velocity.x < -1)
+                //Players velocity is checked and the swinhinh animation changes according to the
+                //direction player is swinging
+                if (rb.velocity.x < -1)
                 {
-                    Debug.Log(rb.velocity.x);
                     animator.SetFloat("Direction", -1.0f);
                 }
                 else if (rb.velocity.x > 1)
                 {
-                    Debug.Log(rb.velocity.x);
                     animator.SetFloat("Direction", 1.0f);
                 }
                 break;
 
             case State.State_Crouching:
-                //when the duck button is no longer pressed, the player starts running again
-                if (Input.GetButtonUp("Duck"))
+                //When the duck button is no longer pressed, the player starts running again
+                if (Input.GetButtonDown("Duck"))
                 {
                     ManageState(State.State_Running);
                     animator.SetTrigger("PlayerRun");
                     this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.18f, 0.18f);
+                    this.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
                 }
                 break;
 
@@ -135,15 +136,17 @@ public class Player : MonoBehaviour
                     ManageState(State.State_Crouching);
                     animator.SetTrigger("PlayerDuck");
                     this.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.06f, 0.06f);
+                    this.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2 (0, -0.06f);
                 }
-                else if (Input.GetButtonDown("Jump")) 
+                //Pressing the jump button makes the player jump
+                else if (Input.GetButtonDown("Jump"))
                 {
                     rb.velocity = Vector2.zero;
                     ManageState(State.State_Jumping);
                     //An impulse is used to move the player
                     rb.AddForce(new Vector2(XAxis, YAxis), ForceMode2D.Impulse);
                     //The jump animation is triggered
-                    animator.SetTrigger ("PlayerJump");
+                    animator.SetTrigger("PlayerJump");
                 }
                 else if (Input.GetButton("Horizontal") == false && level == 4)
                 {
