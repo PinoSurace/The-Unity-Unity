@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrabRope : MonoBehaviour {
+public class PlayerCollisions : MonoBehaviour {
 	//This Script could be added straight to the player script
 
 	//Distance the player keeps from the rope
@@ -14,15 +14,15 @@ public class GrabRope : MonoBehaviour {
         {
             return;
         }
-		//Checking if the objecdt has parent object (Parts o rope are children of the rope)
+		//Checking if the object has parent object (Parts of rope are children of the rope)
 		if (other.gameObject.transform.parent != null) {
 
 			//Checking if the collider is a rope and that the player is not swinging
 			if (other.gameObject.transform.parent.name.StartsWith ("Rope") &&
 			    other.gameObject.transform.parent.gameObject.GetComponent<RopeGrabbed> ().grabbed == false) {
 				RopeGrabbed grabscript = other.gameObject.transform.parent.gameObject.GetComponent<RopeGrabbed> ();
-				//We create a new distance joint between the player and the rope
 
+				//We create a new distance joint between the player and the rope
 				var joint = gameObject.AddComponent <DistanceJoint2D> ();
 				joint.connectedBody = other.GetComponent<Rigidbody2D> ();
 				joint.autoConfigureConnectedAnchor = true;
@@ -68,11 +68,11 @@ public class GrabRope : MonoBehaviour {
             }
         }
 
-        //If the trigger is the animation collider
+        //If the trigger is the animation collider at the end of level 1
 		else if (other.gameObject.name == "DivingAnimationCollider" && this.gameObject.GetComponent<Player> 
 			().CurrentState == Player.State.State_Swinging)
 		{
-			
+			//Joint to rope is destroyed, player state set to helpless and player falls into the water
 			Destroy (this.gameObject.GetComponent (typeof(DistanceJoint2D)));
 			this.gameObject.GetComponent<Player> ().ManageState(Player.State.State_Helpless);
 			this.gameObject.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
@@ -89,7 +89,7 @@ public class GrabRope : MonoBehaviour {
            this.gameObject.GetComponent<Player>().ManageState(Player.State.State_Inv);
 		}
 
-        //Trigger for level 4 end
+        //Trigger for level 4 end where player jumps towards the cage
         else if (other.gameObject.name == "SavedSceneCollider")
         {
             this.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(this.gameObject.GetComponent<Player>().XAxis / 2
@@ -109,15 +109,18 @@ public class GrabRope : MonoBehaviour {
         }
     }
 
+    //Triggers for levels 3 and 4
 	void OnCollisionEnter2D (Collision2D other)
 	{
+        //Trigger in level 3. When the player hits the ground, they continue running
 		if (other.gameObject.name == "GroundCollider" && this.gameObject.GetComponent<Player>
             ().CurrentState != Player.State.State_Crouching)
 		{
 			this.gameObject.GetComponent<Player> ().ManageState(Player.State.State_Running);
 			this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerRun");
 		}
-		else if (other.gameObject.name == "Land")
+        //Trigger in level 4. When the player hits the ground, they return to idle state
+        else if (other.gameObject.name == "Land")
 		{
 			this.gameObject.GetComponent<Player> ().ManageState(Player.State.State_Idle);
 			this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerIdle");
