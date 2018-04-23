@@ -36,8 +36,16 @@ public class PrincessInBubbleScript : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        isDead = true;
-        rb.velocity = Vector2.zero;
-        anim.SetTrigger("Died");
+        if (collision.gameObject.name.StartsWith("Castle"))
+        {
+            GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().NextLevel();
+        }
+        else
+        {
+            isDead = true;
+            rb.velocity = Vector2.zero;
+            anim.SetTrigger("Died");
+        }
+        
     }
 }
