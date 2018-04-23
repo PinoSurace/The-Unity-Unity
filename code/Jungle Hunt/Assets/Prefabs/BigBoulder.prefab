@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 58826019089284622}
   - component: {fileID: 50206047453229550}
   - component: {fileID: 114495702406224826}
-  m_Layer: 0
+  - component: {fileID: 114203039905204132}
+  m_Layer: 8
   m_Name: BigBoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,6 +79,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.6
+--- !u!114 &114203039905204132
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1033162541868264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec37dac035653d143a047ddd50e1d62f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114495702406224826
 MonoBehaviour:
   m_ObjectHideFlags: 1

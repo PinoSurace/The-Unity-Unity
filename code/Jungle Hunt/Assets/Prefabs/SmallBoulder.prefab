@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 50289679728123968}
   - component: {fileID: 247828266800866474}
   - component: {fileID: 114903699228202878}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SmallBoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

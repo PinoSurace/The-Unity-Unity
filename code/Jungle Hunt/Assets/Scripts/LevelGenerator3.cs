@@ -20,14 +20,14 @@ public class LevelGenerator3 : MonoBehaviour {
     private const float runningSpeed = 2.0f;
 
     private const float boulderSpawnVariance = 0.5f; // Not actually variance as in maths, but something like that ...
-    private float boulderSpawnIntervalMin; // As a function of difficulty?
-    private float boulderSpawnIntervalMax; // As a function of difficulty?
+    private float boulderSpawnIntervalMin;
+    private float boulderSpawnIntervalMax;
     private float nextBoulderSpawnTime = 0.0f;
 
     private float levelStartTime = 0.0f;
-    private float levelDuration; // As a function of difficulty?
+    private float levelDuration;
     private const float firstSpawnTimeOffset = 3.0f;
-    private const float lastSpawnTimeOffset = 7.0f;
+    private const float lastSpawnTimeOffset = 10.0f;
     private float levelTotalLength;
 
     private Vector3 nextLevelColliderPosition = new Vector3(0, 0, 0);
