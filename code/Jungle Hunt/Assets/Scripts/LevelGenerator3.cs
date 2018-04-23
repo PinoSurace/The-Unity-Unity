@@ -67,13 +67,12 @@ public class LevelGenerator3 : MonoBehaviour {
     }
 
     /**
-     * @brief Spawns small or big boulders at random time intervals the left side of the screen
+     * @brief Spawns small or big boulders at random time intervals at the right side of the screen
      */
     private void SpawnBoulders()
     {
-        float boulderSpawnXOffset = Random.Range(-boulderSpawnVariance, boulderSpawnVariance);
-        float boulderSpawnYOffset = Random.Range(0, boulderSpawnVariance);
-        Vector2 boulderSpawnPosition = new Vector2(11.0f + boulderSpawnXOffset, 0.5f + boulderSpawnYOffset);
+        float boulderSpawnOffset = Random.Range(-boulderSpawnVariance, boulderSpawnVariance);
+        Vector2 boulderSpawnPosition = new Vector2(11.0f + boulderSpawnOffset * Mathf.Cos(slopeAngleRadians), 0.75f + boulderSpawnOffset * Mathf.Sin(slopeAngleRadians));
 
         // Probability that the spawned boulder is small
         const float probabilitySmall = 0.5f;
