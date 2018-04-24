@@ -9,7 +9,8 @@ public class PlayerTests {
     
 
     [Test]
-	public void ManageStateTests() {
+	public void ManageStateTests()
+    {
         // Use the Assert class to test conditions.
         
         Player player = new Player();

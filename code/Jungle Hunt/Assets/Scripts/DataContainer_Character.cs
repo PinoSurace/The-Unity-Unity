@@ -140,14 +140,22 @@ public class DataContainer_Character : MonoBehaviour {
 
     public void SetLives(int value)
     {
-        numOfLives = value;
+        if (value >= 0)
+        {
+            numOfLives = value;
+        }
+        
     }
 
     public void ChangeLives(int change)
     {
+
         numOfLives += change;
+        
         if (numOfLives <= 0)
         {
+            numOfLives = 0;
+
             // Subscribe for game over events.
             if (EVGameOver != null)
             {
@@ -164,7 +172,11 @@ public class DataContainer_Character : MonoBehaviour {
 
     public void SetDifficulty(int value)
     {
-        difficulty = value;
+        if(value > 0)
+        {
+            difficulty = value;
+        }
+        
     }
 
     public int GetDifficulty()
