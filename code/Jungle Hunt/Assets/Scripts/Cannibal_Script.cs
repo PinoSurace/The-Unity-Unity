@@ -16,7 +16,6 @@ public class Cannibal_Script : MonoBehaviour
     void Start()
     {
         
-        r = GetComponent<Rigidbody2D>();
         speed = 1.0f; 
         direction = -1;
         maxDist =5 ;

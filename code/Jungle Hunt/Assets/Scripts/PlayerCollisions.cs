@@ -66,6 +66,72 @@ public class PlayerCollisions : MonoBehaviour {
                 Destroy(other.GetComponent<BoxCollider2D>());
 
             }
+
+            else if (other.gameObject.name == "ScoreSystem")
+            {
+                int riskbonus = 0;
+                float riskfactor = this.transform.position.x + 10;
+                while (riskfactor >= 3.50f && riskbonus < 3)
+                {
+                    riskbonus++;
+                    riskfactor -= 3.50f;
+                }
+                float dist_to_reduce = 0.20f;
+                Vector3 boulderpos = other.transform.root.position;
+                float dodgedist = Mathf.Abs(this.transform.position.y - boulderpos.y);
+
+                GameObject chardata = GameObject.Find("CharacterData");
+
+                int scoretype = 4;
+                if (chardata != null)
+                {
+                    dodgedist -= (dist_to_reduce * 1.5f);
+                    while (dodgedist >= dist_to_reduce)
+                    {
+                        dodgedist -= dist_to_reduce;
+                        scoretype -= 1;
+                    }
+                    Debug.Log(string.Format("Risk: {0} , Skill: {1}", riskbonus, scoretype));
+                    if (scoretype >= 0)
+                    {
+                        chardata.GetComponent<DataContainer_Character>().AwardPoints(scoretype + riskbonus);
+                    }
+                    else
+                    {
+                        chardata.GetComponent<DataContainer_Character>().AwardPoints(0 + riskbonus);
+                    }
+                }
+                Destroy(other.GetComponent<BoxCollider2D>());
+
+            }
+
+            else if (other.gameObject.name == "Head_Score")
+            {
+                float dist_to_reduce = 0.18f;
+                Vector3 headpos = other.transform.root.position;
+                float headdist = Mathf.Abs(this.transform.position.y - headpos.y);
+                GameObject chardata = GameObject.Find("CharacterData");
+                int scoretype = 7;
+                if (chardata != null)
+                {
+                    headdist -= (dist_to_reduce * 2.0f);
+                    while (headdist >= dist_to_reduce)
+                    {
+                        headdist -= dist_to_reduce;
+                        scoretype -= 1;
+                    }
+                    if (scoretype >= 0)
+                    {
+                        chardata.GetComponent<DataContainer_Character>().AwardPoints(scoretype);
+                    }
+                    else
+                    {
+                        chardata.GetComponent<DataContainer_Character>().AwardPoints(0);
+                    }
+                }
+                Destroy(other.GetComponent<BoxCollider2D>());
+
+            }
         }
 
         //If the trigger is the animation collider at the end of level 1
