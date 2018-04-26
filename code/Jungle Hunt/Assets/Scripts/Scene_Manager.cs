@@ -145,6 +145,7 @@ public class Scene_Manager : MonoBehaviour {
             levelGenerationOrder.Add(2);
             levelGenerationOrder.Add(3);
             levelGenerationOrder.Add(4);
+            levelGenerationOrder.Add(7);
         }
         else
         {
@@ -259,7 +260,7 @@ public class Scene_Manager : MonoBehaviour {
             }
         }
         // IF Loading to a level.
-        if (goingTo > 1 && goingTo < 6)
+        if (goingTo > 1 && goingTo < 6 || goingTo == 8)
         {
             if (scores.activeSelf == false)
             {
