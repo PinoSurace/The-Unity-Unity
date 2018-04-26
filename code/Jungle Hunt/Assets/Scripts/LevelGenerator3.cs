@@ -11,6 +11,8 @@ public class LevelGenerator3 : MonoBehaviour {
     public Transform backgroundPrefab;
     public Transform groundPrefab;
 
+    public Transform levelEndPrefab;
+
     private int difficulty;
 
     private const float slopeAngleDegrees = 10.0f;
@@ -154,14 +156,13 @@ public class LevelGenerator3 : MonoBehaviour {
      */
     private void SpawnNextLevelCollider()
     {
-        var nextLevelGameObject = new GameObject("NextLevelCollider");
+        var levelEnd = Instantiate(levelEndPrefab, nextLevelColliderPosition, Quaternion.identity);
+        levelEnd.name = "NextLevelCollider";
 
-        var nextLevelCollider = nextLevelGameObject.AddComponent<BoxCollider2D>();
+        var nextLevelCollider = levelEnd.gameObject.AddComponent<BoxCollider2D>();
         nextLevelCollider.isTrigger = true;
-        nextLevelCollider.size = new Vector2(4, 20);
-        nextLevelCollider.GetComponent<Transform>().position = nextLevelColliderPosition;
 
-        var nextLevelRigidbody = nextLevelGameObject.AddComponent<Rigidbody2D>();
+        var nextLevelRigidbody = levelEnd.gameObject.AddComponent<Rigidbody2D>();
         nextLevelRigidbody.isKinematic = true;
         nextLevelRigidbody.velocity = new Vector2(-runningSpeed * Mathf.Cos(slopeAngleRadians),
                                                   -runningSpeed * Mathf.Sin(slopeAngleRadians));
