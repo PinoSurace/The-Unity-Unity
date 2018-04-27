@@ -75,7 +75,7 @@ public class Scene_Manager : MonoBehaviour {
 
     private void Update()
     {
-        // DEBUG ONLY
+#if UNITY_EDITOR
         if (Input.GetKeyDown("r") && currentIndex > 1)
         {
             currentIndex = SceneManager.GetActiveScene().buildIndex;
@@ -104,6 +104,7 @@ public class Scene_Manager : MonoBehaviour {
                 Debug.Log("Animations toggled, current state: True");
             }
         }
+#endif
         // Actual update.
         // Check if player wants to quit.
         if (Input.GetButtonDown("Quit"))
@@ -170,10 +171,11 @@ public class Scene_Manager : MonoBehaviour {
             levelGenerationOrder.Add(4);
             chardata.GetComponent<DataContainer_Character>().SetDifficulty(100);
         }
-        else if (playername == "MONICA")
+        else if (playername == "MONIKA")
         {
             levelGenerationOrder.Add(Random.Range(1, 4));
             chardata.GetComponent<DataContainer_Character>().SetDifficulty(10000);
+            chardata.GetComponent<DataContainer_Character>().SetLives(0);
         }
         else if (random == false)
         {
@@ -199,20 +201,27 @@ public class Scene_Manager : MonoBehaviour {
     // Call to advance to the next level.
     public void NextLevel(bool scoreboard = true)
     {
-        scoreboardUp = scoreboard;
-        scores.GetComponent<UI_Script>().TimerOff();
-        // if no more levels, generate more...
-        if (levelGenerationOrder.Count == 0)
+        if (midLoad == false)
         {
-            GenerateLevelOrder(true);
-        }
-        int to = levelGenerationOrder[0] - 1;
-        levelGenerationOrder.RemoveAt(0);
-        soundSystem.GetComponent<Sound_System>().FadeOut();
+            scoreboardUp = scoreboard;
+            scores.GetComponent<UI_Script>().TimerOff();
+            // if no more levels, generate more...
+            if (levelGenerationOrder.Count == 0)
+            {
+                GenerateLevelOrder(true);
+            }
+            int to = levelGenerationOrder[0] - 1;
+            levelGenerationOrder.RemoveAt(0);
+            soundSystem.GetComponent<Sound_System>().FadeOut();
 
-        // offset of scenes at the start
-        ChangeScene(levelsStartFrom + to);
-        endGame = false;
+            // offset of scenes at the start
+            ChangeScene(levelsStartFrom + to);
+            endGame = false;
+        }
+        else
+        {
+            StartCoroutine(RepeatNextLevelCall(scoreboard));
+        }
     }
 
     // Quits the program via a transition.
@@ -230,15 +239,7 @@ public class Scene_Manager : MonoBehaviour {
     // Also used internally for stage scenes.
     public void ChangeScene(int toScene)
     {
-        if (toScene >= (SceneManager.sceneCountInBuildSettings))
-        {
-            Debug.Log("Invalid Call, Trying to access unexisting build indexes.");
-        }
-        else if (toScene < 0)
-        {
-            Debug.Log("Invalid Call, Trying to access unexisting build indexes.");
-        }
-        else if (midLoad == false)
+        if (midLoad == false)
         {
             midLoad = true;
             goingTo = toScene;
@@ -265,10 +266,6 @@ public class Scene_Manager : MonoBehaviour {
                 }
             }
             
-        }
-        else
-        {
-            Debug.Log("Invalid Call, Loading in Progress");
         }
     }
 
@@ -423,7 +420,7 @@ public class Scene_Manager : MonoBehaviour {
     // Coroutine for final scene, creates a timer.
     IEnumerator FinalSceneTimer()
     {
-        yield return new WaitForSeconds(1.50f);
+        yield return new WaitForSeconds(0.50f);
         if (chardata.GetComponent<DataContainer_Character>().GetPoints() > 25000)
         {
             levelGenerationOrder.Add(7);
@@ -432,8 +429,14 @@ public class Scene_Manager : MonoBehaviour {
         {
             GameObject.Find("bubble").SetActive(false);
         }
-        yield return new WaitForSeconds(4.00f);
+        yield return new WaitForSeconds(5.00f);
         NextLevel(true);
+    }
+
+    IEnumerator RepeatNextLevelCall(bool scoreb)
+    {
+        yield return new WaitForSeconds(0.50f);
+        NextLevel(scoreb);
     }
 
     // A event handler to give for unity, used once a level has loaded.

@@ -91,7 +91,6 @@ public class PlayerCollisions : MonoBehaviour {
                         dodgedist -= dist_to_reduce;
                         scoretype -= 1;
                     }
-                    Debug.Log(string.Format("Risk: {0} , Skill: {1}", riskbonus, scoretype));
                     if (scoretype >= 0)
                     {
                         chardata.GetComponent<DataContainer_Character>().AwardPoints(scoretype + riskbonus);

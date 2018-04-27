@@ -152,6 +152,35 @@ public class SceneChangeComponent_Image : MonoBehaviour {
         }
         SB_Info_Score3.SetActive(true);
         SB_Res_Score3.SetActive(true);
+        if (!skip)
+        {
+            int focus = 1;
+            int dir = 1;
+            yield return new WaitForSeconds(0.20f);
+            if (!skip)
+            {
+                while (focus > 0)
+                {
+                    if (dir == 1)
+                    {
+                        focus++;
+                    }
+                    else
+                    {
+                        focus--;
+                    }
+                    SB_Res_Score3.GetComponent<Text>().fontSize = 16 + focus;
+                    yield return new WaitForSeconds(0.01f);
+                    if (focus > 6)
+                    {
+                        dir = 0;
+                        SB_Res_Score3.GetComponent<Text>().text = string.Format("{0, 5}", datac.GetPoints());
+                    }
+                }
+                
+            }
+        }
+        SB_Res_Score3.GetComponent<Text>().text = string.Format("{0, 5}", datac.GetPoints());
 
         if (!skip)
         {

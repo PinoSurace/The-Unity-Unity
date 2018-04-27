@@ -180,7 +180,7 @@ public class DataContainer_Character : MonoBehaviour {
         if (!cheat)
         {
             MAXSCORE = 250 + (difficulty * 2);
-            SCOREDETRIMENT = (MAXSCORE - 50 / 8);
+            SCOREDETRIMENT = (difficulty / 2);
         }
         else
         {
@@ -201,7 +201,7 @@ public class DataContainer_Character : MonoBehaviour {
         if (!cheat)
         {
             MAXSCORE = 250 + (difficulty * 2);
-            SCOREDETRIMENT = (MAXSCORE - 50 / 8);
+            SCOREDETRIMENT = (difficulty / 2);
         }
         
     }

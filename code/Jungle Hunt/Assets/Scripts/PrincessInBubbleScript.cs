@@ -72,6 +72,7 @@ public class PrincessInBubbleScript : MonoBehaviour {
         {
             GameObject.Find("OverlayCanvas").GetComponent<Scene_Manager>().NextLevel();
             player.ManageState(Player.State.State_Inv);
+            Destroy(this.GetComponent<Collider2D>());
         }
         else
         {
