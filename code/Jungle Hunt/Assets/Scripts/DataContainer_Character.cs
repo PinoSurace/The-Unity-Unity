@@ -14,6 +14,7 @@ public class DataContainer_Character : MonoBehaviour {
     public List<int> scores;
     public List<string> nicknames;
     public int plays = 0;
+    public bool cheat;
 
     // Prefab for score effect.
     public Transform scorePrefab;
@@ -176,7 +177,17 @@ public class DataContainer_Character : MonoBehaviour {
         {
             difficulty = value;
         }
-        
+        if (!cheat)
+        {
+            MAXSCORE = 250 + (difficulty * 2);
+            SCOREDETRIMENT = (MAXSCORE - 50 / 8);
+        }
+        else
+        {
+            MAXSCORE = 100;
+            SCOREDETRIMENT = 10;
+        }
+
     }
 
     public int GetDifficulty()
@@ -187,6 +198,12 @@ public class DataContainer_Character : MonoBehaviour {
     public void DifficultyUp()
     {
         difficulty += DIFFICULTYRAISE;
+        if (!cheat)
+        {
+            MAXSCORE = 250 + (difficulty * 2);
+            SCOREDETRIMENT = (MAXSCORE - 50 / 8);
+        }
+        
     }
 
     public void SaveResult()

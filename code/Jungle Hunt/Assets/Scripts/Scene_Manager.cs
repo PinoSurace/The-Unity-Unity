@@ -137,15 +137,52 @@ public class Scene_Manager : MonoBehaviour {
     // This can be used at the end of each 4 level loop to generate a new order.
     public void GenerateLevelOrder(bool random)
     {
+        string playername = chardata.GetComponent<DataContainer_Character>().GetPlayerName();
+        chardata.GetComponent<DataContainer_Character>().cheat = true;
         levelGenerationOrder.Clear();
-        if (random == false)
+        if (playername == "LoveStory" && random == false)
         {
+            levelGenerationOrder.Add(7);
+            chardata.GetComponent<DataContainer_Character>().SetDifficulty(100);
+        }
+        else if (playername == "Flappy")
+        {
+            levelGenerationOrder.Add(7);
+            chardata.GetComponent<DataContainer_Character>().SetDifficulty(100);
+        }
+        else if (playername == "resiina")
+        {
+            levelGenerationOrder.Add(1);
+            chardata.GetComponent<DataContainer_Character>().SetDifficulty(100);
+        }
+        else if (playername == "Cromack")
+        {
+            levelGenerationOrder.Add(2);
+            chardata.GetComponent<DataContainer_Character>().SetDifficulty(100);
+        }
+        else if (playername == "FearJudge")
+        {
+            levelGenerationOrder.Add(3);
+            chardata.GetComponent<DataContainer_Character>().SetDifficulty(100);
+        }
+        else if (playername == "Pino")
+        {
+            levelGenerationOrder.Add(4);
+            chardata.GetComponent<DataContainer_Character>().SetDifficulty(100);
+        }
+        else if (playername == "MONICA")
+        {
+            levelGenerationOrder.Add(Random.Range(1, 4));
+            chardata.GetComponent<DataContainer_Character>().SetDifficulty(10000);
+        }
+        else if (random == false)
+        {
+            chardata.GetComponent<DataContainer_Character>().cheat = false;
             inStory = true;
             levelGenerationOrder.Add(1);
             levelGenerationOrder.Add(2);
             levelGenerationOrder.Add(3);
             levelGenerationOrder.Add(4);
-            levelGenerationOrder.Add(7);
         }
         else
         {
@@ -266,7 +303,14 @@ public class Scene_Manager : MonoBehaviour {
             {
                 scores.SetActive(true);
             }
-            soundSystem.GetComponent<Sound_System>().ChangeBG(goingTo - 1);
+            if (goingTo == 8)
+            {
+                soundSystem.GetComponent<Sound_System>().ChangeBG(goingTo - 2);
+            }
+            else
+            {
+                soundSystem.GetComponent<Sound_System>().ChangeBG(goingTo - 1);
+            }
             InitiateUI();
             scoresPoints.GetComponent<Text>().text = "0 pts.";
         }
@@ -379,7 +423,16 @@ public class Scene_Manager : MonoBehaviour {
     // Coroutine for final scene, creates a timer.
     IEnumerator FinalSceneTimer()
     {
-        yield return new WaitForSeconds(6.00f);
+        yield return new WaitForSeconds(1.50f);
+        if (chardata.GetComponent<DataContainer_Character>().GetPoints() > 25000)
+        {
+            levelGenerationOrder.Add(7);
+        }
+        else
+        {
+            GameObject.Find("bubble").SetActive(false);
+        }
+        yield return new WaitForSeconds(4.00f);
         NextLevel(true);
     }
 
@@ -388,7 +441,7 @@ public class Scene_Manager : MonoBehaviour {
     {
         GameObject.Find("Transition").GetComponent<Animator>().SetTrigger("Raise");
         currentIndex = scene.buildIndex;
-        if (goingTo > 1 && goingTo < 6)
+        if (goingTo > 1 && goingTo < 6 || goingTo == 8)
         {
             Player.EVDeath += RestartLevel;
         }
