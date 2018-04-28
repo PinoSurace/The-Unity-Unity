@@ -185,7 +185,7 @@ public class PlayerCollisions : MonoBehaviour {
 			this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerRun");
 		}
         //Trigger in level 4. When the player hits the ground, they return to idle state
-        else if (other.gameObject.name == "LevelGenerator")
+        else if (other.gameObject.name == "LevelGenerator4")
 		{
 			this.gameObject.GetComponent<Player> ().ManageState(Player.State.State_Running);
 			this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerRun");
