@@ -126,10 +126,27 @@ public class Player : MonoBehaviour
 
             case State.State_Running:
                 // Player can accelerate and deccelerate while "moving"
-                float accelerate = Input.GetAxis("Horizontal");
-                Vector2 acceleration = new Vector2(accelerate, 0);
-                rb.AddForce(acceleration * speed);
-
+                if (level == 4)
+                {
+                    float accelerate = Input.GetAxis("Horizontal");
+                    Vector2 acceleration = new Vector2(accelerate, 0);
+                    rb.velocity = (acceleration * (speed * 2 / 3));
+                    if (accelerate < 0)
+                    {
+                        this.GetComponent<SpriteRenderer>().flipX = true;
+                    }
+                    else
+                    {
+                        this.GetComponent<SpriteRenderer>().flipX = false;
+                    }
+                }
+                else
+                {
+                    float accelerate = Input.GetAxis("Horizontal");
+                    Vector2 acceleration = new Vector2(accelerate, 0);
+                    rb.AddForce(acceleration * speed);
+                }
+                
                 // Pressing and holding the duck button makes player crouch
                 if (Input.GetButtonDown("Duck"))
                 {
@@ -139,12 +156,20 @@ public class Player : MonoBehaviour
                     this.gameObject.GetComponent<BoxCollider2D>().offset = new Vector2 (0, -0.06f);
                 }
                 //Pressing the jump button makes the player jump
-                else if (Input.GetButtonDown("Jump"))
+                else if (Input.GetButtonDown("Jump") && level == 3)
                 {
                     rb.velocity = Vector2.zero;
                     ManageState(State.State_Jumping);
                     //An impulse is used to move the player
                     rb.AddForce(new Vector2(XAxis, YAxis), ForceMode2D.Impulse);
+                    //The jump animation is triggered
+                    animator.SetTrigger("PlayerJump");
+                }
+                else if (Input.GetButtonDown("Jump"))
+                {
+                    ManageState(State.State_Jumping);
+                    //An impulse is used to move the player
+                    rb.AddForce(new Vector2(Input.GetAxis("Horizontal") * 1.40f, YAxis), ForceMode2D.Impulse);
                     //The jump animation is triggered
                     animator.SetTrigger("PlayerJump");
                 }

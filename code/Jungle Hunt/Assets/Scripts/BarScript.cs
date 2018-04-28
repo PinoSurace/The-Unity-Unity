@@ -41,7 +41,6 @@ public class BarScript : MonoBehaviour
         while (player == null)
         {
             player = GameObject.Find("Tarzan").GetComponentInChildren<Player>();
-            Debug.Log(player);
             yield return new WaitForSeconds(0.01f);
         }
         while (running)

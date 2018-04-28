@@ -7,21 +7,21 @@ public class Cannibal_Script : MonoBehaviour
     public SpriteRenderer head_sprite;
     public SpriteRenderer body_sprite;
     public Rigidbody2D r;
-    private float speed;    
-    int direction;
-    float maxDist;
-    float minDist;
-    
+
+    [SerializeField] private List<Sprite> head_sprites;
+
+    public float speed = 1.0f;  
+    public int direction = -1;
+    public float maxDist = 5;
+    public float minDist = -5;
+
+    private float anchor;
+
     // Use this for initialization
     void Start()
     {
-        
-        speed = 1.0f; 
-        direction = -1;
-        maxDist =5 ;
-        minDist = -5;
-
-
+        anchor = this.gameObject.transform.position.x;
+        head_sprite.sprite = head_sprites[Random.Range(0, head_sprites.Count)];
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -39,14 +39,14 @@ public class Cannibal_Script : MonoBehaviour
     {
         //r.AddForce(new Vector2(speed * direction, 0.0f));
         r.velocity = new Vector2(speed * direction, 0.0f);
-        if (r.OverlapPoint(new Vector2(maxDist, r.position.y)))
+        if (r.OverlapPoint(new Vector2(anchor + maxDist, r.position.y)))
         {
             //r.transform.eulerAngles = new Vector3(0, 180, 0);
             head_sprite.flipX = !head_sprite.flipX;
             body_sprite.flipX = !body_sprite.flipX;
             direction = -1;    
         }
-        else if (r.OverlapPoint(new Vector2(minDist, r.position.y)))
+        else if (r.OverlapPoint(new Vector2(anchor + minDist, r.position.y)))
         {
             head_sprite.flipX = !head_sprite.flipX;
             body_sprite.flipX = !body_sprite.flipX;

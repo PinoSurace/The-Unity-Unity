@@ -21,7 +21,7 @@ public class Scene_Manager : MonoBehaviour {
     private bool sceneAnim = true;
     private bool endGame = false;
     private bool endApp = false;
-    private bool incall = false;
+    public int incall = 0;
     private int scoreBefore = 0;
 
     // Carried Data objects, use these for game's global functions.
@@ -204,7 +204,11 @@ public class Scene_Manager : MonoBehaviour {
     {
         if (midLoad == false)
         {
-            incall = true;
+            incall--;
+            if (incall < 0)
+            {
+                incall = 0;
+            }
             scoreboardUp = scoreboard;
             scores.GetComponent<UI_Script>().TimerOff();
             // if no more levels, generate more...
@@ -219,10 +223,6 @@ public class Scene_Manager : MonoBehaviour {
             // offset of scenes at the start
             ChangeScene(levelsStartFrom + to);
             endGame = false;
-        }
-        else
-        {
-            StartCoroutine(RepeatNextLevelCall(scoreboard));
         }
     }
 
@@ -433,21 +433,6 @@ public class Scene_Manager : MonoBehaviour {
         }
         yield return new WaitForSeconds(5.00f);
         NextLevel(true);
-    }
-
-    IEnumerator RepeatNextLevelCall(bool scoreb)
-    {
-        if (!incall)
-        {
-            incall = true;
-            while (incall)
-            {
-                yield return new WaitForSeconds(0.50f);
-                NextLevel(scoreb);
-            }
-        }
-        incall = false;
-        
     }
 
     // A event handler to give for unity, used once a level has loaded.

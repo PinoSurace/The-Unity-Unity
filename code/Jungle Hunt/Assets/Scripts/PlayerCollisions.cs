@@ -106,7 +106,7 @@ public class PlayerCollisions : MonoBehaviour {
 
             else if (other.gameObject.name == "Head_Score")
             {
-                float dist_to_reduce = 0.18f;
+                float dist_to_reduce = 0.24f;
                 Vector3 headpos = other.transform.root.position;
                 float headdist = Mathf.Abs(this.transform.position.y - headpos.y);
                 GameObject chardata = GameObject.Find("CharacterData");
@@ -155,7 +155,7 @@ public class PlayerCollisions : MonoBehaviour {
 		}
 
         //Trigger for level 4 end where player jumps towards the cage
-        else if (other.gameObject.name == "SavedSceneCollider")
+        if (other.gameObject.name == "SavedSceneCollider")
         {
             this.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(this.gameObject.GetComponent<Player>().XAxis / 2
                 , this.gameObject.GetComponent<Player>().YAxis), ForceMode2D.Impulse);
@@ -185,10 +185,10 @@ public class PlayerCollisions : MonoBehaviour {
 			this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerRun");
 		}
         //Trigger in level 4. When the player hits the ground, they return to idle state
-        else if (other.gameObject.name == "Land")
+        else if (other.gameObject.name == "LevelGenerator")
 		{
-			this.gameObject.GetComponent<Player> ().ManageState(Player.State.State_Idle);
-			this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerIdle");
+			this.gameObject.GetComponent<Player> ().ManageState(Player.State.State_Running);
+			this.gameObject.GetComponent<Animator> ().SetTrigger ("PlayerRun");
 		}
 
 	}
