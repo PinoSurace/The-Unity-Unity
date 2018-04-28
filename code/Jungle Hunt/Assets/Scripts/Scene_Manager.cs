@@ -21,7 +21,6 @@ public class Scene_Manager : MonoBehaviour {
     private bool sceneAnim = true;
     private bool endGame = false;
     private bool endApp = false;
-    public int incall = 0;
     private int scoreBefore = 0;
 
     // Carried Data objects, use these for game's global functions.
@@ -204,11 +203,6 @@ public class Scene_Manager : MonoBehaviour {
     {
         if (midLoad == false)
         {
-            incall--;
-            if (incall < 0)
-            {
-                incall = 0;
-            }
             scoreboardUp = scoreboard;
             scores.GetComponent<UI_Script>().TimerOff();
             // if no more levels, generate more...
@@ -241,7 +235,7 @@ public class Scene_Manager : MonoBehaviour {
     // Also used internally for stage scenes.
     public void ChangeScene(int toScene)
     {
-        if (midLoad == false)
+        if (midLoad == false && goingTo >= 0 && goingTo <= 8)
         {
             midLoad = true;
             goingTo = toScene;
