@@ -235,7 +235,7 @@ public class Scene_Manager : MonoBehaviour {
     // Also used internally for stage scenes.
     public void ChangeScene(int toScene)
     {
-        if (midLoad == false && goingTo >= 0 && goingTo <= 8)
+        if (midLoad == false && toScene >= 0 && toScene <= 8)
         {
             midLoad = true;
             goingTo = toScene;
@@ -383,7 +383,9 @@ public class Scene_Manager : MonoBehaviour {
     // A transition timer to keep scene on until transition has been given enough time.
     IEnumerator DramaticTiming()
     {
+        midLoad = true;
         yield return new WaitForSeconds(1.20f);
+        midLoad = false;
         if (endApp)
         {
             Application.Quit();

@@ -18,7 +18,8 @@ public class DataContainerScoreTests {
     [TearDown]
     public virtual void End()
     {
-
+        DataContainer_Character container = GameObject.Find("CharacterData").GetComponent<DataContainer_Character>();
+        container.SetPoints(0);
     }
 
     //Starting points should be 0.

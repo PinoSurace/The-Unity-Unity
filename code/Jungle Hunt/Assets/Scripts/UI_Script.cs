@@ -18,6 +18,7 @@ public class UI_Script : MonoBehaviour {
     private Color heartx0;
     private Color heartx1;
     private Color heartx2;
+    private Color heartx3;
 
     private DataContainer_Character data;
 
@@ -38,6 +39,7 @@ public class UI_Script : MonoBehaviour {
         heartx0 = new Color(0.05f, 0.05f, 0.05f, 0.80f);
         heartx1 = new Color(0.95f, 0.00f, 0.00f, 1.00f);
         heartx2 = new Color(0.95f, 0.90f, 0.00f, 1.00f);
+        heartx3 = new Color(0.95f, 0.90f, 0.80f, 1.00f);
     }
 	
     public void Activate(GameObject player, GameObject points, GameObject time, GameObject lives, GameObject dataref)
@@ -53,10 +55,10 @@ public class UI_Script : MonoBehaviour {
             heart4 = lives.transform.Find("LifeMod4").gameObject;
             heart5 = lives.transform.Find("LifeMod5").gameObject;
             data = dataref.GetComponent<DataContainer_Character>();
-            scores_player.GetComponent<Text>().text = data.GetPlayerName();
             // life_count.GetComponent<Text>().text = string.Format("{0, 2}", data.GetNumOfLives());
             active = true;
         }
+        scores_player.GetComponent<Text>().text = data.GetPlayerName();
     }
 
     public void TimerOn(int initialtime)
@@ -125,6 +127,11 @@ public class UI_Script : MonoBehaviour {
                 {
                     off = heartx1;
                     on = heartx2;
+                }
+                else if ((lives / 5) == 2)
+                {
+                    off = heartx2;
+                    on = heartx3;
                 }
                 heart1.GetComponent<Image>().color = off;
                 heart2.GetComponent<Image>().color = off;
