@@ -20,13 +20,13 @@ public class Save_Game_Difficulty : MonoBehaviour {
         {
             case 1:
                 difficulty.text = "Difficulty: Baby";
-                gamedifficulty = 50;
+                gamedifficulty = 40;
                 lives = 10;
                 break;
             case 2:
                 difficulty.text = "Difficulty: Easy";
-                gamedifficulty = 75;
-                lives = 5;
+                gamedifficulty = 70;
+                lives = 8;
                 break;
             case 3:
                 difficulty.text = "Difficulty: Normal";
@@ -35,18 +35,18 @@ public class Save_Game_Difficulty : MonoBehaviour {
                 break;
             case 4:
                 difficulty.text = "Difficulty: Hard";
-                gamedifficulty = 150;
+                gamedifficulty = 130;
                 lives = 5;
                 break;
             case 5:
                 difficulty.text = "Difficulty: Mad";
-                gamedifficulty = 200;
+                gamedifficulty = 160;
                 lives = 3;
                 break;
             case 6:
                 difficulty.text = "Difficulty: Hardcore";
-                gamedifficulty = 300;
-                lives = 1;
+                gamedifficulty = 200;
+                lives = 3;
                 break;
             default:
                 break;
