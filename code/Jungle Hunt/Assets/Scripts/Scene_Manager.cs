@@ -416,15 +416,7 @@ public class Scene_Manager : MonoBehaviour {
     // Coroutine for final scene, creates a timer.
     IEnumerator FinalSceneTimer()
     {
-        yield return new WaitForSeconds(0.50f);
-        if (chardata.GetComponent<DataContainer_Character>().GetPoints() > 25000)
-        {
-            levelGenerationOrder.Add(7);
-        }
-        else
-        {
-            GameObject.Find("bubble").SetActive(false);
-        }
+        levelGenerationOrder.Add(7);
         yield return new WaitForSeconds(5.00f);
         NextLevel(true);
     }
