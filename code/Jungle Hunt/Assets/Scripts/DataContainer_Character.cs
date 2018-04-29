@@ -55,6 +55,7 @@ public class DataContainer_Character : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
+        EVGameOver = null;
         DontDestroyOnLoad(this);
 	}
 
@@ -150,7 +151,6 @@ public class DataContainer_Character : MonoBehaviour {
 
     public void ChangeLives(int change)
     {
-
         numOfLives += change;
         
         if (numOfLives <= 0)
